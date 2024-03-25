@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
+import { AuthService  } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   urlBackend: string;
   loginObj: Login;
 
-  constructor(private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.loginObj = new Login();
     this.urlBackend = 'http://localhost:3000/api';
   }
@@ -32,6 +33,8 @@ export class LoginComponent {
         console.log(data);
         if (data.usuario) {
           alert("Login Success");
+          this.authService.login();
+          console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -43,7 +46,6 @@ export class LoginComponent {
       });
   }
 }
-
 export class Login {
   correo: string;
   contrasena: string;
