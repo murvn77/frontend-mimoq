@@ -1,0 +1,51 @@
+<div class="content">
+    <h1>Crear Proyecto</h1>
+    <form [formGroup]="customerForm" class="row g-3">
+        <div class="col-12">
+          <label for="inputName4" class="form-label">Nombre</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            placeholder="Nombre"
+            id="inputName4"
+          />
+        </div>
+        <div class="col-12">
+          <label for="inputDescription4" class="form-label">Descripción</label>
+          <input
+            type="text"
+            formControlName="description"
+            placeholder="Descripción"
+            id="inputDescription4"
+            class="form-control"
+          />
+        </div>
+        <div class="col-9">
+            <label for="question" class="form-label">¿Este repositorio contiene todos los microservicios a evaluar?</label>
+        </div>
+        <div class="col-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="state"/>
+            <label class="form-check-label" for="gridCheck"> Si </label>
+          </div>
+        </div>
+        <div class="col-7">
+            <label for="inputUrlrepo4" class="form-label">Url repositorio</label>
+            <input
+              type="text"
+              formControlName="repositorio"
+              placeholder="Repositorio"
+              id="inputUrlrepo4"
+              class="form-control"
+            />
+        </div>
+        <div class="col-4">
+            <button class="button-url" type="button" (click)="addUrl()">+</button>
+            <button class="button-url" type="button" (click)="deleteUrl()">-</button>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" [disabled]="!customerForm.valid">Siguiente</button>
+        </div>
+      </form>
+</div>
