@@ -11,20 +11,18 @@ export const routes: Routes = [
     // },
     {
         path: '',
-        component: LayoutComponent,
-        children: [
-            {
-                path: 'login',
-                component: LoginComponent
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent,
-            },
-            {
-                path: '',
-                component: PrincipalComponent,
-            },
-        ]
+        title: 'Home',
+        component: PrincipalComponent
     },
+    {
+        path: 'login',
+        title: 'Login',
+        component: LoginComponent
+    },
+    {
+        path: 'dashboard',
+        title: 'Dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard]
+    }
 ];

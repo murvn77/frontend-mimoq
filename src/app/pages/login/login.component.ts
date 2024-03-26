@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService  } from '../../services/auth/auth.service';
+import { Login } from '../../core/usuario';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,11 @@ import { AuthService  } from '../../services/auth/auth.service';
 })
 
 export class LoginComponent {
-  urlBackend: string;
-  loginObj: Login;
+  urlBackend: string  = 'http://localhost:3000/api';
+  loginObj: Login = {} as Login;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.loginObj = new Login();
-    this.urlBackend = 'http://localhost:3000/api';
+
   }
 
   onLogin() {
@@ -44,13 +44,5 @@ export class LoginComponent {
       .catch(error => {
         console.error('Error:', error);
       });
-  }
-}
-export class Login {
-  correo: string;
-  contrasena: string;
-  constructor() {
-    this.correo = '';
-    this.contrasena = '';
   }
 }

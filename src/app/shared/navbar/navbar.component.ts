@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService  } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit(): void {
+    this.authService.isLoggedInSubject.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn; // Actualiza la propiedad isLoggedIn cuando cambie el estado de inicio de sesión
+    });
+  }
 
   redirectToPrincipal() {
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
     this.authService.logout();
-    this.isLoggedIn = false;
     console.log(`NAVBAR - PRINCIPAL: ${this.authService.isLoggedIn}`);
   }
 
   redirectToLogin() {
-    this.router.navigateByUrl('/login');
+    this.router.navigate(['/login']);
     console.log(`NAVBAR - LOGIN: ${this.authService.isLoggedIn}`);
   }
 }

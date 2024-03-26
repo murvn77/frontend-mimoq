@@ -5,10 +5,10 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const localData = localStorage.getItem('angular17token');
   console.log('LOCAL DATA: ', localData)
-  if (localData != null) {
+  if (localData != 'null') {
     return true;
   } else {
-    router.navigateByUrl('/login')
+    router.navigate(['/'])
     return false;
   }
 };
