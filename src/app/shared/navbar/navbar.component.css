@@ -14,7 +14,8 @@
 }
 
 .logo-container img {
-  width: 5%;
+  width: 20%;
+  height: auto;
 }
 
 .nav-links {
