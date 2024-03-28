@@ -18,15 +18,15 @@
                         <input class="form-control" id="password" [(ngModel)]="loginObj.contrasena" name="contrasena" type="password" placeholder="Ingrese la contraseña *" data-sb-validations="required" />
                         <div class="invalid-feedback" data-sb-feedback="password:required">La contraseña es requerida.</div>
                       </div>
-                    <div class="form-text">
+                    <div class="signup-link ">
                         <a href="#">¿Olvidaste tu contraseña?</a>
                     </div>
-                    <div class="form-group">
+                    <div class="form-conent">
                         <button type="button" class="btn btn-primary btn-xl fw-bold" (click)="onLogin()">Iniciar sesión</button>
                     </div>
                     
-                    <div class="signup-link">
-                        <a class="nav-link" routerLink="register">Registrarse</a>
+                    <div class="register-link">
+                        <a routerLink="register">Registrarse</a>
                     </div>
                 </div>
             </div>  
