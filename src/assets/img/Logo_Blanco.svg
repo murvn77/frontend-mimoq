@@ -1,7 +1,16 @@
-# Servidor FrontEnd - Tésis de grado MiMoQ
-
-![Logo_Blanco](https://github.com/andersonjalvarado/MiMoQ/assets/98665908/f94dd451-95f5-4046-ab38-5488bc19c824)<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg id="Trazado" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1953.14 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fafafa;
+      }
+
+      .cls-2 {
+        fill: #2196f3;
+      }
+    </style>
+  </defs>
   <g>
     <polygon class="cls-1" points="68.36 301.42 67.93 711.56 142.07 711.56 142.07 527.27 235.07 659.27 248.36 659.7 340.5 524.7 340.5 711.56 413.36 711.56 413.36 297.13 240.64 480.34 68.36 301.42"/>
     <polygon class="cls-1" points="483.86 711.56 552.43 711.56 552.86 407 483.86 407 483.86 711.56"/>
@@ -25,9 +34,3 @@
   <polygon class="cls-2" points="1743 337.14 1807.29 414.29 1807.29 629.86 1816.71 639.71 1806 655.62 1790.79 641.86 1790.79 422.16 1730.57 352.57 1743 337.14"/>
   <polygon class="cls-2" points="1838.19 826.19 1785.11 762.07 1799.25 748.89 1850.76 812.11 1838.19 826.19"/>
 </svg>
-
-## Participantes: 
-### [Anderson Alvarado](https://github.com/andersonjalvarado) 
-
-## Comandos antes de ejecutar el cliente
-### npm install

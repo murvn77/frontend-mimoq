@@ -1,24 +1,35 @@
-<div class="parent">
+<section class="page-section" id="contact">
     <div class="container">
-        <div class="login-box">
-            <h2>Login</h2>
-            <form action="#">
-                <div class="input-box">
-                    <input type="email" [(ngModel)]="loginObj.correo" name="correo" required>
-                    <label>Correo</label>
-                </div>
-                <div class="input-box">
-                    <input type="password" [(ngModel)]="loginObj.contrasena" name="contrasena" required>
-                    <label>Contraseña</label>
-                </div>
-                <div class="forgot-pass">
-                    <a href="#">¿Olvidaste tu contraseña?</a>
-                </div>
-                <button type="button" class="btn" (click)="onLogin()">Iniciar sesión</button>
-                <div class="signup-link">
-                    <a href="#">Regístrate</a>
-                </div>
-            </form>
+        <div class="text-center">
+            <h2 class="section-heading">Ingresar a MiMoQ</h2>
         </div>
+        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="#">
+            <div class="row align-items-stretch justify-content-center mb-5">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="section-label" for="email">Correo</label>
+                        <input class="form-control" id="email" [(ngModel)]="loginObj.correo" type="email" placeholder="Ingrese el Email *" name="correo" data-sb-validations="required,email" />
+                        <div class="invalid-feedback" data-sb-feedback="email:required">El email es requerido.</div>
+                        <div class="invalid-feedback" data-sb-feedback="email:email">El Email no es válido.</div>
+                    </div>
+                    <div class="form-group mb-md-0">
+                        <!-- Password input-->
+                        <label class="section-label" for="password">Contraseña</label>
+                        <input class="form-control" id="password" [(ngModel)]="loginObj.contrasena" name="contrasena" type="password" placeholder="Ingrese la contraseña *" data-sb-validations="required" />
+                        <div class="invalid-feedback" data-sb-feedback="password:required">La contraseña es requerida.</div>
+                      </div>
+                    <div class="form-text">
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-xl fw-bold" (click)="onLogin()">Iniciar sesión</button>
+                    </div>
+                    
+                    <div class="signup-link">
+                        <a class="nav-link" routerLink="register">Registrarse</a>
+                    </div>
+                </div>
+            </div>  
+        </form>
     </div>
-</div>
+</section>
