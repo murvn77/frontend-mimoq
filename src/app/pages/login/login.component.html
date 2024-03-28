@@ -18,11 +18,24 @@
                         <input class="form-control" id="password" [(ngModel)]="loginObj.contrasena" name="contrasena" type="password" placeholder="Ingrese la contraseña *" data-sb-validations="required" />
                         <div class="invalid-feedback" data-sb-feedback="password:required">La contraseña es requerida.</div>
                       </div>
-                    <div class="signup-link ">
+                    <div class="signup-link">
                         <a href="#">¿Olvidaste tu contraseña?</a>
                     </div>
-                    <div class="form-conent">
-                        <button type="button" class="btn btn-primary btn-xl fw-bold" (click)="onLogin()">Iniciar sesión</button>
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center mb-3 form-conent">
+                            <div class="fw-bolder text-blue">¡Ingreso exitoso!</div>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <!---->
+                    <!-- This is what your users will see when there is-->
+                    <!-- an error submitting the form-->
+                    <div class="d-none" id="submitErrorMessage">
+                      <div class="text-center text-danger mb-3">Error en el ingreso</div>
+                    </div>
+                    <!-- Submit Button-->
+                    <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit" (click)="onLogin()">Iniciar sesión</button>
                     </div>
                     
                     <div class="register-link">
@@ -32,4 +45,5 @@
             </div>  
         </form>
     </div>
+    <script src="../../../../assets/js/checkout.js"></script>
 </section>

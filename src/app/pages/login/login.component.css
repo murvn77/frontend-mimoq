@@ -9,6 +9,10 @@ section#contact .section-heading {
   font-weight: 700;
 }
 
+.text-blue {
+  color: #0081C6;
+}
+
 section#contact .section-mimoq {
   color: #23232A;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
