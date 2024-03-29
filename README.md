@@ -31,3 +31,5 @@
 
 ## Comandos antes de ejecutar el cliente
 ### npm install
+### npm install ngx-pagination --save
+### npm install sweetalert2

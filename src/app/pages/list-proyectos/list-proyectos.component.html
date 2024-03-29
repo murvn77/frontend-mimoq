@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let proyecto of proyectos">
+                            <tr *ngFor="let proyecto of proyectos | paginate: { itemsPerPage: 10, currentPage: p }">
                                 <td>{{proyecto.nombre}}</td>
                                 <td>{{proyecto.descripcion}}</td>
                                 <td>{{proyecto.url}}</td>
@@ -53,9 +53,11 @@
                                     </a>
                                 </td>
                             </tr>
-                        </tbody>
-                        
+                        </tbody>   
                     </table>
+                    <div class="text-center form-conent">
+                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    </div>
                     <div class="text-center form-conent">
                         <button class="btn btn-primary btn-xl" id="submitButton" type="submit" routerLink="crearProyecto">Crear proyecto</button>
                     </div>
