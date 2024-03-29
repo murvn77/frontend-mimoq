@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand">
+      <a class="navbar-brand" routerLink="">
         <img src="assets/img/Logo_Gris.svg" alt="Logo" style="max-width: 200px;"/>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,16 +16,16 @@
             <a class="nav-link" routerLink="despliegues">Despliegues</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="register">Métricas</a>
+            <a class="nav-link" routerLink="metricas">Métricas</a>
           </li>
           @if(!isLoggedIn) {
-            <div class="login-button">
-              <button class="btn btn-primary btn-xl fw-bold" (click)="redirectToLogin()">Ingresar</button>
+            <div class="login-button form-conent">
+              <button class="btn btn-primary btn-xl" (click)="redirectToLogin()">Ingresar</button>
             </div>
             }
             @else {
-            <div class="login-button">
-              <button class="btn btn-primary btn-xl fw-bold" (click)="redirectToPrincipal()">Salir</button>
+            <div class="login-button form-conent">
+              <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>
             }
         </ul> 

@@ -25,6 +25,16 @@ section#contact .section-label {
   font-weight: 700;
 }
 
+.form-url {
+  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  margin-bottom: 1.5rem;
+  margin-top: 2.5rem;
+}
+
 .form-conent {
   display: flex;
   justify-content: center;

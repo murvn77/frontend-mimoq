@@ -3,7 +3,7 @@
     <div class="text-center">
       <h2 class="section-heading">Crear Proyecto</h2>
   </div>
-    <form [formGroup]="customerForm" id="contactForm" data-sb-form-api-token="API_TOKEN" action="#">
+    <form [formGroup]="customerForm" id="contactForm" class="row g-3 needs-validation" novalidate>
       <div class="row align-items-stretch justify-content-center mb-5">
         <div class="col-md-6">
           <div class="form-group">
@@ -14,10 +14,14 @@
               class="form-control"
               placeholder="Nombre"
               id="inputName4"
+              required
             />
+            <div class="invalid-feedback">
+              Nombre requerido
+            </div>
           </div>
           <div class="form-group">
-            <label for="inputDescription4" class="form-label">Descripción</label>
+            <label for="inputDescription4" class="section-label">Descripción</label>
             <input
               type="text"
               formControlName="description"
@@ -25,35 +29,53 @@
               id="inputDescription4"
               class="form-control"
             />
-          </div>
-          <div class="col-9">
-              <label for="question" class="form-label">¿Este repositorio contiene todos los microservicios a evaluar?</label>
-          </div>
-          <div class="col-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="state"/>
-              <label class="form-check-label" for="gridCheck"> Si </label>
+            <div class="invalid-feedback">
+              Descripción requerida
             </div>
           </div>
-          <div class="col-7">
-              <label for="inputUrlrepo4" class="form-label">Url repositorio</label>
+          <div class="form-group">
+              <label for="question" class="section-label">¿Este repositorio contiene todos los microservicios a evaluar?</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioSi">
+            <label class="form-check-label" for="flexRadioSi">
+              Si
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioNo" checked>
+            <label class="form-check-label" for="flexRadioNo">
+              No
+            </label>
+          </div>
+            
+
+          <div class="form-group form-url">
+              <label for="inputUrlrepo4" class="section-label">Url repositorio</label>
               <input
-                type="text"
+                type="url"
                 formControlName="repositorio"
                 placeholder="Repositorio"
                 id="inputUrlrepo4"
                 class="form-control"
               />
+              <div class="invalid-feedback">
+                Url requerido
+              </div>
           </div>
           <div class="col-4">
-              <button class="button-url" type="button" (click)="addUrl()">+</button>
-              <button class="button-url" type="button" (click)="deleteUrl()">-</button>
+              <div class="btn-group  me-2" role="group">
+                <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
+                <button type="button" class="btn btn-outline-primary" (click)="deleteUrl()">-</button>
+              </div>
           </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary" [disabled]="!customerForm.valid">Siguiente</button>
+          <div class="text-center form-conent">
+            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!customerForm.valid">Siguiente</button>
           </div>
         </div>
       </div>  
     </form>
   </div>
+  <script src="../../../../assets/js/checkout_pages.js"></script>
 </section>
