@@ -6,7 +6,7 @@ header.masthead {
   color: #fff;
   background-repeat: no-repeat;
   background-color: #23232A;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../../../assets/img/OIG4.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.78)), url("../../../assets/img/OIG4.jpg");
   background-position: center center;
   background-size: cover;
 }
@@ -42,4 +42,8 @@ header.masthead {
       line-height: 4.5rem;
       margin-bottom: 2rem;
     }
-  }  
+  } 
+
+  .masthead-heading span {
+    color: #0081C6;
+  }
