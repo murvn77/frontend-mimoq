@@ -33,7 +33,7 @@ export class LoginComponent {
       .then(data => {
         console.log(data);
         if (data.usuario) {
-          Swal.fire('Success', 'Login Success', 'success');
+          Swal.fire('Ingreso', 'Ingreso Exitoso', 'success');
           this.authService.login();
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
@@ -44,7 +44,7 @@ export class LoginComponent {
       })
       .catch(error => {
         console.error('Error:', error);
-        Swal.fire('Error', 'An error occurred while logging in', 'error');
+        Swal.fire('Error', 'Ocurrió un error al ingresar', 'error');
       });
   }
 }

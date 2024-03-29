@@ -182,6 +182,7 @@ section#contact {
   }
 
   .proyecto-list {
+    background-color: white;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
@@ -196,3 +197,12 @@ section#contact {
     text-align: center;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon svg {
+    margin-right: 5px; /* Ajusta el margen según sea necesario */
+}

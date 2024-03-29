@@ -22,12 +22,17 @@ export const routes: Routes = [
     {
         path: 'login',
         title: 'Login',
-        component: LoginComponent
-    },
-    {
-        path: 'register',
-        title: 'Register',
-        component: RegisterComponent
+        children: [
+            {
+                path: '',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                title: 'Register',
+                component: RegisterComponent
+            }
+        ]
     },
     {
         path: 'dashboard',
@@ -38,14 +43,18 @@ export const routes: Routes = [
     {
         path: 'proyectos',
         title: 'Proyectos',
-        component: ListProyectosComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path: 'crearProyecto',
-        title: 'CrearProyectos',
-        component: ProyectosComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                component: ListProyectosComponent
+            },
+            {
+                path: 'crearProyecto',
+                title: 'CrearProyectos',
+                component: ProyectosComponent
+            }
+        ]
     },
     {
         path: 'despliegues',
