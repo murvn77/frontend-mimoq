@@ -1,0 +1,46 @@
+<section class="page-section" id="contact">
+    <div class="text-center">
+        <h2 class="section-heading">Proyectos</h2>
+    </div>
+    <div class="align-items-stretch justify-content-center mb-5">
+        <div class="about-heading-content">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5">
+                    <table class="proyecto-list table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text_table" scope="col">Nombre</th>
+                                <th class="text_table" scope="col">Descripción</th>
+                                <th class="text_table" scope="col">Url</th>
+                                <th class="text_table" scope="col"></th>
+                                <th class="text_table" scope="col">Acciones</th>
+                                <th class="text_table" scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr *ngFor="let proyecto of proyectos">
+                                    <td>{{proyecto.nombre}}</td>
+                                    <td>{{proyecto.descripcion}}</td>
+                                    <td>{{proyecto.url}}</td>
+                                    <td>
+                                        <a class="btn btn-outline-dark" [routerLink]="['/proyecto/view', proyecto.id]">Ver</a>
+                                    </td>
+                                    <td>
+                                    <a class="btn btn-outline-primary" [routerLink]="['/proyecto/update', proyecto.id]">Editar</a>
+                                    </td>
+                                    <td>
+                                    <a class="btn btn-outline-danger"
+                                    
+                                    >Eliminar</a>
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit" routerLink="crearProyecto">Crear proyecto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</section>

@@ -64,12 +64,30 @@
                 Url requerido
               </div>
           </div>
-          <div class="col-4">
+          <div class="col-4 form-url">
               <div class="btn-group  me-2" role="group">
                 <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteUrl()">-</button>
               </div>
           </div>
+
+          <div class="form-group">
+            <label for="question" class="section-label">¿Cada Microservisio tiene Dockerfile?</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioSi">
+          <label class="form-check-label" for="flexRadioSi">
+            Si
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioNo" checked>
+          <label class="form-check-label" for="flexRadioNo">
+            No
+          </label>
+        </div>
+
           <div class="text-center form-conent">
             <button type="submit" class="btn btn-primary btn-xl" [disabled]="!customerForm.valid">Siguiente</button>
           </div>
