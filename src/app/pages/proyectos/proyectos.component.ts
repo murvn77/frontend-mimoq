@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,22 +13,20 @@ export class ProyectosComponent {
   constructor(private router:Router){}
   customerForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required]),
-    documentType: new FormControl('', [Validators.required]),
-    documentNumber: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    state: new FormControl('', [Validators.required]),
-    aliases: new FormControl('', [Validators.required])
+    description: new FormControl('', [Validators.required]),
+    selectedAllMicroservices: new FormControl('', [Validators.required]),
+    urlsRepositorios: new FormArray([]),
   });
 
-  addUrl() {
-    // this.aliases.push(this.formBuilder.control(''));
+  get urlsRepositorios() {
+    return this.customerForm.get('urlsRepositorios') as FormArray;
   }
-  deleteUrl() {
-    // this.aliases.push(this.formBuilder.control(''));
+
+  addUrl() {
+    this.urlsRepositorios.push(new FormControl(''));
+  }
+  deleteUrl(index:number) {
+    this.urlsRepositorios.removeAt(index);
   }
 }
 
