@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { PrincipalComponent } from './pages/principal/principal.component';
+import { ListProyectosComponent } from './pages/list-proyectos/list-proyectos.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { DesplieguesComponent } from './pages/despliegues/despliegues.component';
@@ -20,7 +22,17 @@ export const routes: Routes = [
     {
         path: 'login',
         title: 'Login',
-        component: LoginComponent
+        children: [
+            {
+                path: '',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                title: 'Register',
+                component: RegisterComponent
+            }
+        ]
     },
     {
         path: 'dashboard',
@@ -31,8 +43,18 @@ export const routes: Routes = [
     {
         path: 'proyectos',
         title: 'Proyectos',
-        component: ProyectosComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                component: ListProyectosComponent
+            },
+            {
+                path: 'crearProyecto',
+                title: 'CrearProyectos',
+                component: ProyectosComponent
+            }
+        ]
     },
     {
         path: 'despliegues',

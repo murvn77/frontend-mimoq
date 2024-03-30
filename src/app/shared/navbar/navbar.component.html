@@ -1,25 +1,34 @@
-<!-- navbar.component.html -->
-
-<header class="main-header">
-  <div class="logo-container">
-    <a href="#"> <img src="./assets/images/logo.png" alt="logo" width="5%"></a>
-  </div>
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li><a routerLink="proyectos">Proyectos</a></li>
-      <li><a routerLink="despliegues">Despliegues</a></li>
-      <li><a routerLink="metricas">Métricas</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" routerLink="">
+        <img src="assets/img/Logo_Gris.svg" alt="Logo" style="max-width: 200px;"/>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars ms-1"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="proyectos">Proyectos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="despliegues">Despliegues</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="metricas">Métricas</a>
+          </li>
+          @if(!isLoggedIn) {
+            <div class="login-button form-conent">
+              <button class="btn btn-primary btn-xl" (click)="redirectToLogin()">Ingresar</button>
+            </div>
+            }
+            @else {
+            <div class="login-button form-conent">
+              <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
+            </div>
+            }
+        </ul> 
+      </div>  
+    </div>
   </nav>
-  @if(!isLoggedIn) {
-  <div class="login-button">
-    <button class="btn" (click)="redirectToLogin()">Iniciar sesión</button>
-  </div>
-  }
-  @else {
-  <div class="login-button">
-    <button class="btn" (click)="redirectToPrincipal()">Cerrar sesión</button>
-  </div>
-  }
-
-</header>
