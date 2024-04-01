@@ -206,15 +206,3 @@ section#contact {
 .btn-icon svg {
     margin-right: 5px; /* Ajusta el margen según sea necesario */
 }
-
-.left-aligned {
-  text-align: left;
-}
-
-.icon-link {
-  cursor: pointer;
-}
-
-.row.g-0.border.rounded.overflow-hidden.flex-md-row.mb-4.shadow-sm.h-md-250.position-relative {
-  background-color: white;
-}

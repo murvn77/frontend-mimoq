@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLink} from '@angular/router';
 import { AuthService  } from '../../services/auth/auth.service';
 import { Login } from '../../core/usuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterOutlet],
+  imports: [FormsModule, RouterOutlet, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -32,17 +33,18 @@ export class LoginComponent {
       .then(data => {
         console.log(data);
         if (data.usuario) {
-          alert("Login Success");
+          Swal.fire('Ingreso', 'Ingreso Exitoso', 'success');
           this.authService.login();
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
           this.router.navigateByUrl('/dashboard');
         } else {
-          alert(data.message);
+          Swal.fire('Error', data.message, 'error');
         }
       })
       .catch(error => {
         console.error('Error:', error);
+        Swal.fire('Error', 'Ocurrió un error al ingresar', 'error');
       });
   }
 }
