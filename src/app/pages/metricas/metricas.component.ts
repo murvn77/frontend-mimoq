@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Atributo } from '../../core/model/atributo/atributo';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-metricas',
@@ -16,9 +17,13 @@ export class MetricasComponent {
     new Atributo('Fiabilidad', ['Tolerancia a Fallos', 'Recuperación de Fallos', 'Precisión']),
     new Atributo('Seguridad', ['Confidencialidad', 'Integridad', 'Disponibilidad'])
   ];
+  constructor(private router:Router){}
   currentAtributo: Atributo | null = null;
 
   setCurrentAtributo(atributo: Atributo) {
     this.currentAtributo = atributo;
   }
+  goBack() {
+    this.router.navigate(['/proyectos/crearProyecto']);
+    }
 }
