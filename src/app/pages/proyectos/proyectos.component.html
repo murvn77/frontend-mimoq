@@ -3,7 +3,7 @@
     <div class="text-center">
       <h2 class="section-heading">Crear Proyecto</h2>
     </div>
-    <form [formGroup]="customerForm" id="contactForm" class="row g-3 needs-validation" novalidate>
+    <form [formGroup]="proyectoForm" id="contactForm" class="row g-3 needs-validation" novalidate>
       <div class="row align-items-stretch justify-content-center mb-5">
         <div class="col-md-7">
           <div class="col-md-6">
@@ -37,14 +37,14 @@
               {{option.label}}
             </label>
             }
-            @if(customerForm.get('selectedAllMicroservices')?.invalid &&
-            customerForm.get('selectedAllMicroservices')?.touched){
+            @if(proyectoForm.get('selectedAllMicroservices')?.invalid &&
+            proyectoForm.get('selectedAllMicroservices')?.touched){
             <div class="invalid-feedback">
               Por favor, seleccione una opción
             </div>
             }
           </div>
-          @if(customerForm.get('selectedAllMicroservices')?.value === 'Si'){
+          @if(proyectoForm.get('selectedAllMicroservices')?.value === 'Si'){
           <div class="alert alert-warning" role="alert">
             Recuerde que el repositorio debe tener docker-compose
           </div>
@@ -59,14 +59,14 @@
               {{option.label}}
             </label>
             }
-            @if(customerForm.get('haveDockerfiles')?.invalid && customerForm.get('haveDockerfiles')?.touched){
+            @if(proyectoForm.get('haveDockerfiles')?.invalid && proyectoForm.get('haveDockerfiles')?.touched){
             <div class="invalid-feedback">
               Por favor, seleccione una opción
             </div>
             }
           </div>
           }
-          @else if(customerForm.get('selectedAllMicroservices')?.value === 'No'){
+          @else if(proyectoForm.get('selectedAllMicroservices')?.value === 'No'){
             <div class="alert alert-warning" role="alert">
               Recuerde que cada repositorio debe tener el Dockerfile del microservicio
             </div>
@@ -114,7 +114,7 @@
             }
           </div>
           <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!customerForm.valid">
+            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid">
               <a class="btn btn-primary btn-xl" href="metricas">
                 Siguiente
               </a></button>
@@ -123,8 +123,8 @@
       </div>
     </form>
   </div>
-  <p>RadioButton: {{customerForm.value.selectedAllMicroservices}}</p>
-  <p>Urls: {{customerForm.value.urlsRepositorios}}</p>
-  <p>Valid: {{customerForm.valid}}</p>
+  <p>RadioButton: {{proyectoForm.value.selectedAllMicroservices}}</p>
+  <p>Urls: {{proyectoForm.value.urlsRepositorios}}</p>
+  <p>Valid: {{proyectoForm.valid}}</p>
   <script src="../../../../assets/js/checkout_pages.js"></script>
 </section>

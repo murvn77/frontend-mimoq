@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Usuario } from '../../core/model/usuario/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-
+  constructor(private httpClient:HttpClient) { }
   private httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
     })
   };
   
-  private urlBackend: string  = 'http://localhost:3000/api'
-  constructor(private httpClient:HttpClient) { }
+  private urlBackend: string  = 'http://localhost:3000/api' 
 
   public findAll(): Observable<Usuario[]> {
     return this.httpClient.get<Usuario[]>(this.urlBackend + `/read`);
@@ -25,7 +24,7 @@ export class UsuarioService {
   }
 
   public create(usuario: any): Observable<Usuario>{
-    return this.httpClient.post<Usuario>(this.urlBackend + `/create`, usuario, this.httpOptions);
+    return this.httpClient.post<Usuario>(this.urlBackend + `/usuario`, usuario, this.httpOptions);
   }
 
   public delete(id: number): Observable<Usuario>{

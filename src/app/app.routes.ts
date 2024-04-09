@@ -11,9 +11,6 @@ import { DesplieguesComponent } from './pages/despliegues/despliegues.component'
 import { MetricasComponent } from './pages/metricas/metricas.component';
 
 export const routes: Routes = [
-    // {
-    //     path: '**', redirectTo: '', pathMatch: 'full'
-    // },
     {
         path: '',
         title: 'Home',
@@ -73,5 +70,8 @@ export const routes: Routes = [
         title: 'Info usuario',
         component: UsuarioComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: '**', redirectTo: '', pathMatch: 'full'
     }
 ];
