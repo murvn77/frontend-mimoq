@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Atributo } from '../../core/model/atributo/atributo';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ROUTES_APP } from '../../core/enum/routes.enum';
 
 @Component({
   selector: 'app-metricas',
@@ -24,6 +25,6 @@ export class MetricasComponent {
     this.currentAtributo = atributo;
   }
   goBack() {
-    this.router.navigate(['/proyectos/crearProyecto']);
+    this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);
     }
 }

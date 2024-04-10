@@ -15,7 +15,7 @@ export class ProyectosComponent {
     {label: 'Si', value: 'Si'},
     {label: 'No', value: 'No'}
   ]
-  customerForm = new FormGroup({
+  proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     repositorio: new FormControl('', [Validators.required]),
@@ -26,7 +26,7 @@ export class ProyectosComponent {
   });
   constructor(private router:Router){}
   get urlsRepositorios() {
-    return this.customerForm.get('urlsRepositorios') as FormArray;
+    return this.proyectoForm.get('urlsRepositorios') as FormArray;
   }
 
   addUrl() {

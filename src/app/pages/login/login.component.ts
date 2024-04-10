@@ -4,6 +4,7 @@ import { Router, RouterOutlet, RouterLink} from '@angular/router';
 import { AuthService  } from '../../services/auth/auth.service';
 import { Login } from '../../core/usuario';
 import Swal from 'sweetalert2';
+import { ROUTES_APP } from '../../core/enum/routes.enum';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,9 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {
 
   }
-
+  get ROUTES_APP(){
+    return ROUTES_APP;
+  }
   onLogin() {
     const requestOptions = {
       method: 'POST',
@@ -37,7 +40,7 @@ export class LoginComponent {
           this.authService.login();
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
         } else {
           Swal.fire('Error', data.message, 'error');
         }
