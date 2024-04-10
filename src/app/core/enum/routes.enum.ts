@@ -7,5 +7,6 @@ export enum ROUTES_APP {
     METRICAS = 'metricas',
     PROYECTOS = 'proyectos',
     REGISTRO = 'register',
-    USUARIO = 'usuario'
+    USUARIO = 'usuario',
+    VER_PROYECTO = 'verProyecto'
 }

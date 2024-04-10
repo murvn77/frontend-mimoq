@@ -16,20 +16,20 @@ export class ProyectoService {
   constructor(private httpClient: HttpClient) { }
 
   findAll(): Observable<Proyecto[]> {
-    return this.httpClient.get<Proyecto[]>(this.urlBackend + `/read` ); //of convierte a Observable
+    return this.httpClient.get<Proyecto[]>(this.urlBackend + `/proyecto` ); //of convierte a Observable
   }
   findById(id: number): Observable<Proyecto> {
-    return this.httpClient.get(this.urlBackend + `/read/${id}`);
+    return this.httpClient.get(this.urlBackend + `/proyecto/${id}`);
   }
   public create(proyecto: any): Observable<Proyecto>{
-    return this.httpClient.post<Proyecto>(this.urlBackend + `/create`, proyecto, this.httpOptions);
+    return this.httpClient.post<Proyecto>(this.urlBackend + `/proyecto`, proyecto, this.httpOptions);
   }
 
   public delete(id: number): Observable<Proyecto>{
-    return this.httpClient.delete(this.urlBackend + `/delete/${id}`);
+    return this.httpClient.delete(this.urlBackend + `/proyecto/${id}`);
   }
 
   public update(proyecto: any): Observable<Proyecto>{
-    return this.httpClient.put<Proyecto>(this.urlBackend + `/update`, proyecto, this.httpOptions);
+    return this.httpClient.put<Proyecto>(this.urlBackend + `/proyecto`, proyecto, this.httpOptions);
   }
 }

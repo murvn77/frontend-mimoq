@@ -4,11 +4,12 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { PrincipalComponent } from './pages/principal/principal.component';
-import { ListProyectosComponent } from './pages/list-proyectos/list-proyectos.component';
-import { ProyectosComponent } from './pages/proyectos/proyectos.component';
+import { ListProyectosComponent } from './pages/proyectos/list-proyectos/list-proyectos.component';
+import { ProyectosComponent } from './pages/proyectos/crear-proyecto/proyectos.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { DesplieguesComponent } from './pages/despliegues/despliegues.component';
 import { MetricasComponent } from './pages/metricas/metricas.component';
+import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,11 @@ export const routes: Routes = [
                 path: 'crearProyecto',
                 title: 'CrearProyectos',
                 component: ProyectosComponent
+            },
+            {
+                path: 'verProyecto/:id',
+                title: 'VerProyecto',
+                component: VerProyectoComponent
             }
         ]
     },
