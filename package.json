@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:frontend-mimoq": "node dist/frontend-mimoq/server/server.mjs"
+    "serve:ssr:frontend-mimoq": "node dist/frontend-mimoq/server/server.mjs",
+    "generate": "ng generate"
   },
   "private": true,
   "dependencies": {

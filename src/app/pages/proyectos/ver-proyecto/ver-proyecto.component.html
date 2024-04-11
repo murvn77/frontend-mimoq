@@ -10,21 +10,21 @@
           <div class="contenedor">
             <ul class="ul-list-view">
               <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                   >ID Proyecto:</strong
                 >
                 {{ proyectoActual.id_proyecto }}
               </li>
 
               <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                   >Nombre:</strong
                 >
                 {{ proyectoActual.nombre }}
               </li>
 
               <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                   >Descripción:</strong
                 >
                 {{ proyectoActual.descripcion }}
@@ -33,7 +33,7 @@
               @if(proyectoActual.tipo_repositorio == 'Multiple'){
 
               <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                   >URL Repositorio:
                 </strong>
               </li>
@@ -44,7 +44,7 @@
 
               }@else if(proyectoActual.tipo_repositorio == 'individual'){
 
-              <strong class="d-inline-block mb-2 text-primary-emphasis"
+              <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                 >URL Repositorios:
               </strong>
 
@@ -59,7 +59,7 @@
               } }
 
               <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                   >Microservicios:</strong
                 >
               </li>
@@ -81,7 +81,7 @@
 
           @if(despliegues.length > 0){
             <li>
-              <strong class="d-inline-block mb-2 text-primary-emphasis"
+              <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                 >Despliegues:</strong
               >
             </li>

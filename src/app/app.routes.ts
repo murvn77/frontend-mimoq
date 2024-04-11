@@ -10,6 +10,7 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { DesplieguesComponent } from './pages/despliegues/despliegues.component';
 import { MetricasComponent } from './pages/metricas/metricas.component';
 import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
+import { ExperimentoComponent } from './pages/experimento/experimento.component'
 
 export const routes: Routes = [
     {
@@ -58,6 +59,12 @@ export const routes: Routes = [
                 component: VerProyectoComponent
             }
         ]
+    },
+    {
+        path: 'experimento',
+        title: 'Experimento',
+        component: ExperimentoComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'despliegues',

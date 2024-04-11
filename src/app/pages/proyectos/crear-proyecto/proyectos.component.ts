@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ROUTES_APP } from '../../../core/enum/routes.enum';
 
 @Component({
   selector: 'app-proyectos',
@@ -28,7 +29,9 @@ export class ProyectosComponent {
   get urlsRepositorios() {
     return this.proyectoForm.get('urlsRepositorios') as FormArray;
   }
-
+  get ROUTES_APP(){
+    return ROUTES_APP;
+  }
   addUrl() {
     this.urlsRepositorios.push(new FormControl(''));
   }
