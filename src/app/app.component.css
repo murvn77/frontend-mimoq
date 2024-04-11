@@ -1,0 +1,25 @@
+/* Estilos por defecto para pantallas grandes */
+.responsive-navbar,
+.responsive-content,
+.responsive-footer {
+    width: 80%;
+    margin: auto;
+}
+
+/* Estilos para pantallas medianas */
+@media screen and (max-width: 768px) {
+    .responsive-navbar,
+    .responsive-content,
+    .responsive-footer {
+        width: 90%;
+    }
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 480px) {
+    .responsive-navbar,
+    .responsive-content,
+    .responsive-footer {
+        width: 100%;
+    }
+}
