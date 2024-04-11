@@ -12,7 +12,7 @@ export class Proyecto {
     public despliegues?: Despliegue[] | null;
     public docker_compose?: boolean | null;
     public dockerfile?: boolean | null;
-    public usuario?: Usuario | null;
+    public fk_usuario?: number | null;
 
     constructor(
         nombre?: String | null,
@@ -24,7 +24,7 @@ export class Proyecto {
         despliegues?: Despliegue[] | null,
         docker_compose?: boolean | null,
         dockerfile?: boolean | null,
-        usuario?: Usuario | null) {
+        usuario?: number | null) {
 
         this.nombre = nombre,
         this.descripcion = descripcion,
@@ -34,7 +34,7 @@ export class Proyecto {
         this.nombres_microservicios = nombres_microservicios,
         this.docker_compose = docker_compose,
         this.dockerfile = dockerfile,
-        this.usuario = usuario
+        this.fk_usuario = usuario
         this.despliegues = despliegues;
     }
 }

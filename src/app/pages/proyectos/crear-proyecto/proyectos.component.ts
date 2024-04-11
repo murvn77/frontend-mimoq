@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
+import { ProyectoService } from '../../../services/proyecto/proyecto.service';
+import { Proyecto } from '../../../core/model/proyecto/proyecto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proyectos',
@@ -13,8 +16,8 @@ import { ROUTES_APP } from '../../../core/enum/routes.enum';
 export class ProyectosComponent {
   noTildesPattern = /^[^\u00E1\u00E9\u00ED\u00F3\u00FA\u00C1\u00C9\u00CD\u00D3\u00DA\u00FC]+$/;
   options = [
-    {label: 'Si', value: 'Si'},
-    {label: 'No', value: 'No'}
+    {label: 'Si', value: true},
+    {label: 'No', value: false}
   ]
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -22,10 +25,37 @@ export class ProyectosComponent {
     repositorio: new FormControl('', [Validators.required]),
     selectedAllMicroservices: new FormControl('', [Validators.required]),
     urlsRepositorios: new FormArray([]),
-    haveDockerfiles: new FormControl('', [Validators.required]),
+    haveDockerfiles: new FormControl(false, [Validators.required]),
     // nameAplication: new FormControl('', [Validators.required, Validators.pattern(this.noTildesPattern)])
   });
-  constructor(private router:Router){}
+  constructor(private router:Router,
+    private proyectoService: ProyectoService, 
+  ){}
+  crearProyecto(): void {
+    const nuevoProyecto = this.proyectoForm.value;
+    if (this.proyectoForm.valid) {
+      const data: Proyecto = {
+        nombre: nuevoProyecto.name || '',
+        descripcion: nuevoProyecto.description || '',
+        tipo_repositorio: nuevoProyecto.selectedAllMicroservices || '',
+        url_repositorio: nuevoProyecto.repositorio || '',
+        // docker_compose: nuevoProyecto.selectedAllMicroservices || false,
+        dockerfile: nuevoProyecto.haveDockerfiles || false,
+        fk_usuario: 2 || 0
+      }
+      this.proyectoService.create(data).subscribe({
+        next: (res: any) => {
+          console.log('Usuario creado', res);
+          Swal.fire('Cer', 'Proyecto creado', 'success');
+          this.router.navigateByUrl(ROUTES_APP.LOGIN);
+        }, error: (error: any) => {
+          console.error('Error creando usuario', error);
+          Swal.fire('Error', 'Ocurrió un error al registrar usuario', 'error');
+        }
+      });
+    }
+    // this.proyectoService.create(this.proyecto)
+  }
   get urlsRepositorios() {
     return this.proyectoForm.get('urlsRepositorios') as FormArray;
   }

@@ -25,11 +25,13 @@
                                 @if(proyecto.tipo_repositorio == 'Multiple'){ 
                                      <td>{{proyecto.url_repositorio}}</td>
                                 }@else if(proyecto.tipo_repositorio == 'individual'){
-                                    @for (url of proyecto.urls_repositorios; track $index){
-                                        <ul>
-                                             <li>{{url}}</li>
-                                        </ul>
-                                    }
+                                    <td>
+                                        @for (url of proyecto.urls_repositorios; track $index){
+                                            <ul>
+                                                 <li>{{url}}</li>
+                                            </ul>
+                                        }
+                                    </td>
                                 }
                                 <td>
                                     <a class="btn btn-outline-dark btn-icon" [routerLink]="[ROUTES_APP.VER_PROYECTO, proyecto.id_proyecto]">
