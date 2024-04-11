@@ -9,8 +9,9 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="section-label" for="inputName4">Duración del experimento</label>
-                <input type="number" formControlName="duracion" class="form-control" placeholder="Duracion del experimento" id="inputName4"
+                <input type="number" formControlName="duracion" class="form-control" placeholder="Duracion del experimento" id="inputName4" min = "1"
                   required />
+                
                 <div class="invalid-feedback">
                   Duración requerida
                 </div>
@@ -20,12 +21,26 @@
                 <div class="form-group">
                     <label for="inputDescription4" class="section-label">No. Réplicas</label>
                     <input type="number" formControlName="description" placeholder="Cantidad de réplicas" id="inputDescription4"
-                      class="form-control" />
+                      class="form-control" min = "1" required/>
                     <div class="invalid-feedback">
                       Cantidad de réplicas requeridas
                     </div>
                   </div>
             </div>
+
+            <table class="proyecto-list table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text_table" scope="col">Microservicio</th>
+                        <th class="text_table" scope="col">Opción</th>
+                        <th class="text_table" scope="col">Endpoints</th>
+                        <th class="text_table" scope="col">Carga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>   
+            </table>
 
             <div class="text-center form-conent">
               <button type="submit" class="btn btn-primary btn-xl" [disabled]="!experimentoForm.valid">
@@ -33,6 +48,7 @@
                   Siguiente
                 </a></button>
             </div>
+
           </div>
         </div>
       </form>
