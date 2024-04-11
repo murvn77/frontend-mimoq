@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
+import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ROUTES_APP } from '../../../core/enum/routes.enum';
 
 @Component({
-  selector: 'app-proyectos',
+  selector: 'app-edit-proyecto',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './proyectos.component.html',
-  styleUrl: './proyectos.component.css'
+  templateUrl: './edit-proyecto.component.html',
+  styleUrl: './edit-proyecto.component.css'
 })
-export class ProyectosComponent {
+export class EditProyectoComponent {
   noTildesPattern = /^[^\u00E1\u00E9\u00ED\u00F3\u00FA\u00C1\u00C9\u00CD\u00D3\u00DA\u00FC]+$/;
   options = [
     {label: 'Si', value: 'Si'},
     {label: 'No', value: 'No'}
   ]
+
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -25,6 +26,7 @@ export class ProyectosComponent {
     haveDockerfiles: new FormControl('', [Validators.required]),
     // nameAplication: new FormControl('', [Validators.required, Validators.pattern(this.noTildesPattern)])
   });
+
   constructor(private router:Router){}
   get urlsRepositorios() {
     return this.proyectoForm.get('urlsRepositorios') as FormArray;
@@ -44,35 +46,3 @@ function noTildesValidator(control: FormControl) {
   }
   return null;
 }
-
-// addUrl() {
-//   const formGroup = document.createElement('div');
-//   formGroup.className = 'form-group form-url';
-//   formGroup.innerHTML = `
-//     <label for="inputUrlrepo${document.querySelectorAll('.form-url').length + 1}" class="section-label">Url repositorio</label>
-//     <input
-//       type="url"
-//       formControlName="repositorio"
-//       placeholder="Repositorio"
-//       id="inputUrlrepo${document.querySelectorAll('.form-url').length + 1}"
-//       class="form-control"
-//     />
-//     <div class="invalid-feedback">
-//       Url requerido
-//     </div>
-//   `;
-//   const btnGroup = document.querySelector('.btn-group');
-//   if (btnGroup) {
-//     btnGroup.before(formGroup);
-//   }
-// }
-
-// deleteUrl() {
-//   const formUrls = document.getElementsByClassName('form-url');
-//   if (formUrls.length > 1) {
-//     const lastFormUrl = formUrls[formUrls.length - 1];
-//     if (lastFormUrl) {
-//       lastFormUrl.remove();
-//     }
-//   }
-// }

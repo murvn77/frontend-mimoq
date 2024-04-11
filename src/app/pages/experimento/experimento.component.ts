@@ -11,6 +11,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class ExperimentoComponent {
 
+  p: number = 1;
+  
   experimentoForm = new FormGroup({
     duracion: new FormControl('', [Validators.required]),
     replicas: new FormControl('', [Validators.required]),

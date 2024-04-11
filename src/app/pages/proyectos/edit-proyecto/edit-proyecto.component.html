@@ -1,0 +1,130 @@
+<section class="page-section" id="contact">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading">Editar Proyecto</h2>
+      </div>
+      <form [formGroup]="proyectoForm" id="contactForm" class="row g-3 needs-validation" novalidate>
+        <div class="row align-items-stretch justify-content-center mb-5">
+          <div class="col-md-7">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="section-label" for="inputName4">Nombre</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Nombre" id="inputName4"
+                  required />
+                <div class="invalid-feedback">
+                  Nombre requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputDescription4" class="section-label">Descripción</label>
+              <input type="text" formControlName="description" placeholder="Descripción" id="inputDescription4"
+                class="form-control" />
+              <div class="invalid-feedback">
+                Descripción requerida
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="question" class="section-label">¿Este repositorio contiene todos los microservicios a
+                evaluar?</label>
+            </div>
+  
+            <div class="form-check" style="display: flex; gap: 40px;;">
+              @for(option of options; track option.value){
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" id="flexRadio1" [value]="option.value"
+                  formControlName="selectedAllMicroservices">
+                {{option.label}}
+              </label>
+              }
+              @if(proyectoForm.get('selectedAllMicroservices')?.invalid &&
+              proyectoForm.get('selectedAllMicroservices')?.touched){
+              <div class="invalid-feedback">
+                Por favor, seleccione una opción
+              </div>
+              }
+            </div>
+            @if(proyectoForm.get('selectedAllMicroservices')?.value === 'Si'){
+            <div class="alert alert-warning" role="alert">
+              Recuerde que el repositorio debe tener docker-compose
+            </div>
+            <div class="form-group">
+              <label for="question" class="section-label">¿Cada Microservicio tiene Dockerfile?</label>
+            </div>
+            <div class="form-check" style="display: flex; gap: 40px;;">
+              @for(option of options; track option.value){
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" id="flexRadio2" [value]="option.value"
+                  formControlName="haveDockerfiles">
+                {{option.label}}
+              </label>
+              }
+              @if(proyectoForm.get('haveDockerfiles')?.invalid && proyectoForm.get('haveDockerfiles')?.touched){
+              <div class="invalid-feedback">
+                Por favor, seleccione una opción
+              </div>
+              }
+            </div>
+            }
+            @else if(proyectoForm.get('selectedAllMicroservices')?.value === 'No'){
+              <div class="alert alert-warning" role="alert">
+                Recuerde que cada repositorio debe tener el Dockerfile del microservicio
+              </div>
+            }
+            <div class="form-group row mt-2">
+              <label for="inputUrlrepo4" class="section-label">Url repositorio</label>
+              <div class="col-md-12">
+                <div class="d-flex align-items-center">
+                  <input type="url" formControlName="repositorio" placeholder="Repositorio" id="inputUrlrepo4"
+                    class="form-control me-2" />
+                  <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
+                </div>
+                <div class="invalid-feedback">
+                  Url requerido
+                </div>
+              </div>
+            </div>
+            <div formArrayName="urlsRepositorios">
+              @for (url of urlsRepositorios.controls; track $index) {
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center">
+                    <div class="form-group me-2">
+                    <label class="section-label" for="inputNameAplication">Aplicación</label>
+                      <input
+                        type="text"
+                        [formControlName]="$index"
+                        class="form-control"
+                        placeholder="Nombre"
+                        id="inputNameAplication"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Nombre requerido
+                      </div>
+                    </div>
+                    <input type="url" [formControlName]="$index" placeholder="Repositorio" id="inputUrlrepo{{$index}}"
+                      class="form-control me-2" />
+                    <!-- <div class="btn-group" role="group"> -->
+                    <button type="button" class="btn btn-outline-primary" (click)="deleteUrl($index)">-</button>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+            <div class="text-center form-conent">
+              <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid">
+                <a class="btn btn-primary btn-xl">
+                  Guardar
+                </a></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <p>RadioButton: {{proyectoForm.value.selectedAllMicroservices}}</p>
+    <p>Urls: {{proyectoForm.value.urlsRepositorios}}</p>
+    <p>Valid: {{proyectoForm.valid}}</p>
+    <script src="../../../../assets/js/checkout_pages.js"></script>
+  </section>

@@ -11,6 +11,7 @@ import { DesplieguesComponent } from './pages/despliegues/despliegues.component'
 import { MetricasComponent } from './pages/metricas/metricas.component';
 import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
 import { ExperimentoComponent } from './pages/experimento/experimento.component'
+import {EditProyectoComponent} from './pages/proyectos/edit-proyecto/edit-proyecto.component'
 
 export const routes: Routes = [
     {
@@ -57,6 +58,11 @@ export const routes: Routes = [
                 path: 'verProyecto/:id',
                 title: 'VerProyecto',
                 component: VerProyectoComponent
+            },
+            {
+                path: 'editProyecto/:id',
+                title: 'EditProyecto',
+                component: EditProyectoComponent
             }
         ]
     },
