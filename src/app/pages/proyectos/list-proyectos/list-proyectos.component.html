@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (proyecto of proyectos; track $index) {
+                            @for (proyecto of proyectos | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
                                 <tr>   
                                 <td>{{proyecto.nombre}}</td>
                                 <td>{{proyecto.descripcion}}</td>
