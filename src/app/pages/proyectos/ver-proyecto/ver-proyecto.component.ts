@@ -4,6 +4,7 @@ import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 import { Proyecto } from '../../../core/model/proyecto/proyecto';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Despliegue } from '../../../core/interfaces/despliegue';
 @Component({
   selector: 'app-ver-proyecto',
   standalone: true,
@@ -13,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class VerProyectoComponent implements OnInit {
   proyectoActual : Proyecto = {} as Proyecto;
+  despliegues: Despliegue[] = {} as Despliegue[];
   p: number = 1;
   constructor(private router: Router, 
     private proyectoService: ProyectoService, 
@@ -25,6 +27,8 @@ export class VerProyectoComponent implements OnInit {
     this.proyectoService.findById(id).subscribe({
       next: (proyecto: any) => {
         this.proyectoActual = proyecto;
+        this.despliegues = this.proyectoActual?.despliegues || [];
+        console.log(this.proyectoActual);
       },
       error: (error: any) => {
         console.log(error);

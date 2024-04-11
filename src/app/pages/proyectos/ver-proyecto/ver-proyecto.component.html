@@ -77,15 +77,14 @@
 
                       <li><strong>Dockerfile:</strong> {{ dockerfile }}</li> -->
 
-              <li>
-                <strong class="d-inline-block mb-2 text-primary-emphasis"
-                  >Despliegues:</strong
-                >
-              </li>
-            </ul>
           
 
-          @if(proyectoActual.despliegues != []){
+          @if(despliegues.length > 0){
+            <li>
+              <strong class="d-inline-block mb-2 text-primary-emphasis"
+                >Despliegues:</strong
+              >
+            </li>
 
           <ul>
             <!-- <li>
@@ -126,7 +125,7 @@
               </thead>
 
               <tbody>
-                @for (despliegue of proyectoActual.despliegues | paginate:{itemsPerPage: 10, currentPage: p}; track $index){
+                @for (despliegue of despliegues | paginate:{itemsPerPage: 10, currentPage: p}; track $index){
 
                 <tr>
                   <td>{{ despliegue.id_despliegue }}</td>
@@ -152,8 +151,8 @@
               
           </div>
           </ul>
-
           }
+        </ul>
         </div>
       </div>
     </div>
