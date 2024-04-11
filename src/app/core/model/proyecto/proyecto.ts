@@ -14,7 +14,8 @@ export class Proyecto {
     public dockerfile?: boolean | null;
     public usuario?: Usuario | null;
 
-    constructor(nombre?: String | null,
+    constructor(
+        nombre?: String | null,
         descripcion?: String | null,
         tipo_repositorio?: String | null,
         url_repositorio?: String | null,
@@ -26,14 +27,14 @@ export class Proyecto {
         usuario?: Usuario | null) {
 
         this.nombre = nombre,
-            this.descripcion = descripcion,
-            this.tipo_repositorio = tipo_repositorio,
-            this.url_repositorio = url_repositorio,
-            this.urls_repositorios = urls_repositorios,
-            this.nombres_microservicios = nombres_microservicios,
-            this.docker_compose = docker_compose,
-            this.dockerfile = dockerfile,
-            this.usuario = usuario
-            this.despliegues = despliegues;
+        this.descripcion = descripcion,
+        this.tipo_repositorio = tipo_repositorio,
+        this.url_repositorio = url_repositorio,
+        this.urls_repositorios = urls_repositorios,
+        this.nombres_microservicios = nombres_microservicios,
+        this.docker_compose = docker_compose,
+        this.dockerfile = dockerfile,
+        this.usuario = usuario
+        this.despliegues = despliegues;
     }
 }

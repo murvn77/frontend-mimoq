@@ -1,78 +1,151 @@
 <section class="page-section" id="contact">
-    <div>
-        <h1>Detalles del Proyecto</h1>
-        <ul>
-            <li><strong>ID Proyecto:</strong> {{ proyectoActual.id_proyecto }}</li>
-            <li><strong>Nombre:</strong> {{ proyectoActual.nombre }}</li>
-            <li><strong>Descripción:</strong> {{ proyectoActual.descripcion }}</li>
-            @if(proyectoActual.tipo_repositorio == 'Multiple'){
-            <li><strong>URL Repositorio:</strong>
-                <a href="{{ proyectoActual.url_repositorio }}" target="_blank">{{ proyectoActual.url_repositorio }}</a>
-            </li>
-            }@else if(proyectoActual.tipo_repositorio == 'individual'){
-            <li><strong>URL Repositorios:</strong>
-                @for (url of proyectoActual.urls_repositorios; track $index){
-                <ul>
-                    <li>
-                        <a href="{{ url }}" target="_blank">{{ url }}</a>
-                    </li>
-                </ul>
-                }
-            </li>
-            }
-            <li><strong>Microservicios:</strong>
-                <ul>
-                    @for (microservicio of proyectoActual.nombres_microservicios; track $index) {
-                    <li>{{ microservicio }}</li>
-                    }
-                </ul>
-            </li>
+  <div class="text-center">
+    <h2 class="section-heading">Detalles del Proyecto</h2>
+  </div>
 
-            <!-- <li><strong>Docker Compose:</strong> {{ docker_compose }}</li>
-        <li><strong>Dockerfile:</strong> {{ dockerfile }}</li> -->
-        @if(proyectoActual.despliegues != []){
-            <li><strong>Despliegues:</strong>
-                <ul>
-                    <!-- <li>
-                    <ul>
-                        <li><strong>ID Despliegue:</strong> {{ despliegue.id_despliegue }}</li>
-                        <li><strong>Nombre:</strong> {{ despliegue.nombre }}</li>
-                        <li><strong>Descripción:</strong> {{ despliegue.cant_replicas }}</li>
-                        <li><strong>URL Despliegue:</strong> {{ despliegue.cant_pods }}</li>
-                        <li><strong>Estado:</strong> {{ despliegue.namespace }}</li>
-                        <li><strong>Fecha Creación:</strong> {{ despliegue.label_despliegue_k8s }}</li>
-                    </ul>
-                </li> -->
-                    <table class="proyecto-list table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text_table" scope="col">ID</th>
-                                <th class="text_table" scope="col">Nombre</th>
-                                <th class="text_table" scope="col">Replicas</th>
-                                <th class="text_table" scope="col">Pods</th>
-                                <th class="text_table" scope="col">Namespace</th>
-                                <th class="text_table" scope="col">Label k8s</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (despliegue of proyectoActual.despliegues; track $index){
-                            <tr>
-                                <td>{{ despliegue.id_despliegue }}</td>
-                                <td>{{ despliegue.nombre }}</td>
-                                <td>{{ despliegue.cant_replicas }}</td>
-                                <td>{{ despliegue.cant_pods }}</td>
-                                <td>{{ despliegue.namespace }}</td>
-                                <td>{{ despliegue.label_despliegue_k8s }}</td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                </ul>
+  <div class="align-items-stretch justify-content-center mb-5">
+    <div class="about-heading-content">
+      <div class="col-xl-9 col-lg-10 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <div class="contenedor">
+          
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >ID Proyecto:</strong
+          >
+          {{ proyectoActual.id_proyecto }}
+
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >Nombre:</strong
+          >
+          {{ proyectoActual.nombre }}
+
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >Descripción:</strong
+          >
+          {{ proyectoActual.descripcion }}
+
+          @if(proyectoActual.tipo_repositorio == 'Multiple'){
+
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >URL Repositorio:
+          </strong>
+
+          <a href="{{ proyectoActual.url_repositorio }}" target="_blank">{{
+            proyectoActual.url_repositorio
+          }}</a>
+
+          }@else if(proyectoActual.tipo_repositorio == 'individual'){
+
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >URL Repositorios:
+          </strong>
+
+          @for (url of proyectoActual.urls_repositorios; track $index){
+
+          <ul>
+            <li>
+              <a href="{{ url }}" target="_blank">{{ url }}</a>
             </li>
-        }
-        </ul>
-        <div class="text-center form-conent">
-            <button class="btn btn-primary btn-xl" id="submitButton" type="submit" (click)="goBack()">Atrás</button>
+          </ul>
+
+          } }
+
+          <strong class="d-inline-block mb-2 text-primary-emphasis"
+            >Microservicios:</strong
+          >
+
+          <ul>
+            @for (microservicio of proyectoActual.nombres_microservicios; track
+            $index) {
+
+            <li>{{ microservicio }}</li>
+
+            }
+          </ul>
+
+          <!-- <li><strong>Docker Compose:</strong> {{ docker_compose }}</li>
+          
+                              <li><strong>Dockerfile:</strong> {{ dockerfile }}</li> -->
+                              <strong class="d-inline-block mb-2 text-primary-emphasis"
+                              >Despliegues:</strong
+                            >
+                          </div>
+          @if(proyectoActual.despliegues != []){
+
+          
+          <ul>
+            <!-- <li>
+          
+                                          <ul>
+          
+                                              <li><strong>ID Despliegue:</strong> {{ despliegue.id_despliegue }}</li>
+          
+                                              <li><strong>Nombre:</strong> {{ despliegue.nombre }}</li>
+          
+                                              <li><strong>Descripción:</strong> {{ despliegue.cant_replicas }}</li>
+          
+                                              <li><strong>URL Despliegue:</strong> {{ despliegue.cant_pods }}</li>
+          
+                                              <li><strong>Estado:</strong> {{ despliegue.namespace }}</li>
+          
+                                              <li><strong>Fecha Creación:</strong> {{ despliegue.label_despliegue_k8s }}</li>
+          
+                                          </ul>
+          
+                                      </li> -->
+
+            <table class="proyecto-list table table-striped">
+              <thead>
+                <tr>
+                  <th class="text_table" scope="col">ID</th>
+
+                  <th class="text_table" scope="col">Nombre</th>
+
+                  <th class="text_table" scope="col">Replicas</th>
+
+                  <th class="text_table" scope="col">Pods</th>
+
+                  <th class="text_table" scope="col">Namespace</th>
+
+                  <th class="text_table" scope="col">Label k8s</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (despliegue of proyectoActual.despliegues; track $index){
+
+                <tr>
+                  <td>{{ despliegue.id_despliegue }}</td>
+
+                  <td>{{ despliegue.nombre }}</td>
+
+                  <td>{{ despliegue.cant_replicas }}</td>
+
+                  <td>{{ despliegue.cant_pods }}</td>
+
+                  <td>{{ despliegue.namespace }}</td>
+
+                  <td>{{ despliegue.label_despliegue_k8s }}</td>
+                </tr>
+
+                }
+              </tbody>
+            </table>
+          </ul>
+
+          }
         </div>
+      </div>
     </div>
+    <div class="text-center form-conent">
+      <button
+        class="btn btn-primary btn-xl"
+        id="submitButton"
+        type="submit"
+        (click)="goBack()"
+      >
+        Atrás
+      </button>
+    </div>
+  </div>
 </section>
