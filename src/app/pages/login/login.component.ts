@@ -39,7 +39,7 @@ export class LoginComponent {
           Swal.fire('Ingreso', 'Ingreso Exitoso', 'success');
           this.authService.login();
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
-          localStorage.setItem('angular17token', data.access_token);
+          localStorage.setItem('angular17token', 'ingresar');
           this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
         } else {
           Swal.fire('Error', data.message, 'error');

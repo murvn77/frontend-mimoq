@@ -17,21 +17,21 @@ import Swal from 'sweetalert2';
 //export class ListProyectosComponent implements OnInit{
 export class ListProyectosComponent implements OnInit{
   // lista quemada de proyectos
-  // proyectos: Proyecto[] = [
-  //   new Proyecto('Proyecto 1', 'Descripción del proyecto 1', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 2', 'Descripción del proyecto 2', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 3', 'Descripción del proyecto 3', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 4', 'Descripción del proyecto 4', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 5', 'Descripción del proyecto 5', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 6', 'Descripción del proyecto 6', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 7', 'Descripción del proyecto 7', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 8', 'Descripción del proyecto 8', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 9', 'Descripción del proyecto 9', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 10', 'Descripción del proyecto 10', 'https://www.google.com'),
-  //   new Proyecto('Proyecto 11', 'Descripción del proyecto 11', 'https://www.google.com'),
-  // ];
+  proyectos: Proyecto[] = [
+    new Proyecto('Proyecto 1', 'Descripción del proyecto 1', 'individual','https://www.google.com'),
+    new Proyecto('Proyecto 2', 'Descripción del proyecto 2', 'https://www.google.com'),
+    new Proyecto('Proyecto 3', 'Descripción del proyecto 3', 'https://www.google.com'),
+    new Proyecto('Proyecto 4', 'Descripción del proyecto 4', 'https://www.google.com'),
+    new Proyecto('Proyecto 5', 'Descripción del proyecto 5', 'https://www.google.com'),
+    new Proyecto('Proyecto 6', 'Descripción del proyecto 6', 'https://www.google.com'),
+    new Proyecto('Proyecto 7', 'Descripción del proyecto 7', 'https://www.google.com'),
+    new Proyecto('Proyecto 8', 'Descripción del proyecto 8', 'https://www.google.com'),
+    new Proyecto('Proyecto 9', 'Descripción del proyecto 9', 'https://www.google.com'),
+    new Proyecto('Proyecto 10', 'Descripción del proyecto 10', 'https://www.google.com'),
+    new Proyecto('Proyecto 11', 'Descripción del proyecto 11', 'https://www.google.com'),
+  ];
   p: number = 1;
-  proyectos: Proyecto[] = [];
+  //proyectos: Proyecto[] = [];
 
   constructor(private router: Router, 
     private proyectoService: ProyectoService, 

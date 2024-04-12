@@ -199,10 +199,8 @@ section#contact {
   }
 
   .btn-icon {
-    display: flex;
+    display: block;
     align-items: center;
+    justify-content: center;
 }
 
-.btn-icon svg {
-    margin-right: 5px; /* Ajusta el margen según sea necesario */
-}

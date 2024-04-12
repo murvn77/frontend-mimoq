@@ -77,7 +77,9 @@
               <div class="d-flex align-items-center">
                 <input type="url" formControlName="repositorio" placeholder="Repositorio" id="inputUrlrepo4"
                   class="form-control me-2" />
-                <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
+                  @if(proyectoForm.get('selectedAllMicroservices')?.value === 'No'){
+                    <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
+                  }
               </div>
               <div class="invalid-feedback">
                 Url requerido
@@ -114,8 +116,8 @@
             }
           </div>
           <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid">
-              <a class="btn btn-primary btn-xl" href="metricas">
+            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid" (click)="crearProyecto()">
+              <a class="btn btn-primary btn-xl">
                 Siguiente
               </a></button>
           </div>

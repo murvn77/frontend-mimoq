@@ -5,12 +5,11 @@
         </div>
         <div class="align-items-stretch justify-content-center mb-5">
             <div class="form-group mb-md-0 text-center form-conent">
-                <strong class="d-inline-block mb-2 text-primary-emphasis">Atributos</strong>
+                <strong class="d-inline-block mb-2 text-primary-emphasis letras">Atributos</strong>
                 <div class="col-md-6" *ngFor="let atributo of atributos">
-                    <div
-                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                            <a class="icon-link icon-link-hover mb-0" (click)="setCurrentAtributo(atributo)">
+                            <a class="icon-link-hover mb-0" (click)="setCurrentAtributo(atributo)">
                                 {{atributo.nombre}}
                             </a>
                             <div class="list-group-item d-flex" *ngIf="currentAtributo === atributo">
