@@ -15,6 +15,7 @@ export class ExperimentoComponent {
   
   experimentoForm = new FormGroup({
     duracion: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
     replicas: new FormControl('', [Validators.required]),
   });
 

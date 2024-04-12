@@ -19,7 +19,7 @@ export class ProyectoService {
     return this.httpClient.get<Proyecto[]>(this.urlBackend); //of convierte a Observable
   }
   findById(id: number): Observable<Proyecto> {
-    return this.httpClient.get(this.urlBackend + `/${id}`);
+    return this.httpClient.get(this.urlBackend + `${id}`);
   }
   public create(proyecto: any): Observable<Proyecto>{
     return this.httpClient.post<Proyecto>(this.urlBackend, proyecto, this.httpOptions);
