@@ -2,6 +2,8 @@ section#contact {
     background-color: #E1DFDF;
     background-repeat: no-repeat;
     background-position: center;
+    min-height: calc(100vh - 120px);
+    align-content: center;
   }
   section#contact .section-heading {
     color: #0081C6;
