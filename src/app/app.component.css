@@ -23,3 +23,24 @@
         width: 100%;
     }
 }
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el navbar esté sobre el contenido */
+  }
+  
+  #content {
+    margin-top: 60px; /* Ajusta según la altura del navbar */
+
+    min-height: calc(100vh - 120px); /* 100% del alto de la ventana menos la altura del navbar y del footer */
+  }
+  
+  #footer {
+    position: relative;
+    width: 100%;
+    margin-top: auto;
+  }
+  
