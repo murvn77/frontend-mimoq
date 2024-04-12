@@ -16,12 +16,12 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="section-label" for="inputName4">No. Pods</label>
+              <label class="section-label" for="inputName4">Duracion</label>
               <input type="number" formControlName="duracion" class="form-control" placeholder="Cantidad de pods"
                 id="inputName4" min="1" required />
 
               <div class="invalid-feedback">
-                No. pods requeridos
+                Duracion requerida
               </div>
             </div>
           </div>
@@ -31,31 +31,32 @@
               <input type="number" formControlName="cant_pods" placeholder="Cantidad de pods" id="inputDescription4"
                 class="form-control" min="1" required />
               <div class="invalid-feedback">
-                Cantidad de pods
+                Cantidad de pods requerida
               </div>
             </div>
           </div>
-          
+          <div formArrayName="replicasMicro">
             <table class="proyecto-list table table-striped">
               <thead>
                   <tr>
                       <th class="text_table" scope="col">Nombre</th>
                       <th class="text_table" scope="col">Replicas</th>
+                      <!-- <th class="text_table" scope="col">Aumentar</th> -->
                   </tr>
               </thead>
               <tbody>
-                <div formArrayName="replicasMicro">
                   @for (microservicio of replicasMicro.controls; track $index) {
                       <tr>   
                       <td>{{microservicio.get('nombre')?.value || ''}}</td>
-                      <td><input type="number" formControlName="cantidad" placeholder="Cantidad de réplicas"
-                        id="inputReplicasMicro" class="form-control" min="1" required /></td>
+                      <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
+                        id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
+                      <td class="text-center"> {{microservicio.get('cantidad')?.value || ''}}</td>
+                      <button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
                   </tr>
               }
-            </div>
               </tbody>   
           </table>
-          
+        </div>
           <div class="text-center form-conent">
             <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid">
               <a class="btn btn-primary btn-xl">
