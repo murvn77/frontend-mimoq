@@ -43,7 +43,7 @@ export const routes: Routes = [
     {
         path: 'proyectos',
         title: 'Proyectos',
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -70,19 +70,19 @@ export const routes: Routes = [
         path: 'experimento',
         title: 'Experimento',
         component: ExperimentoComponent,
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
     },
     {
         path: 'despliegues',
         title: 'Despliegues',
         component: DesplieguesComponent,
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
     },
     {
         path: 'metricas',
         title: 'Metricas',
         component: MetricasComponent,
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
     },
     {
         path: 'usuario',
