@@ -1,10 +1,12 @@
+import { Metrica } from "../metrica/metrica";
 export class Atributo {
     public id?:number | null;
     public nombre?: string | null;
-    public sub_atributos?: String[];
+    public metricas?: Metrica[] | null;
+    
 
-    constructor(nombre?: string | null, sub_atributos?: String[]) {
+    constructor(nombre?: string | null, metricas?: Metrica[] | null) {
         this.nombre = nombre;
-        this.sub_atributos = sub_atributos;
+        this.metricas = metricas;
     }
 }
