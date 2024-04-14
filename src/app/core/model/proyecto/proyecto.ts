@@ -5,22 +5,22 @@ export class Proyecto {
     public id_proyecto?: number | null;
     public nombre?: String | null;
     public descripcion?: String | null;
+    public nombres_microservicios?: string[] | null;
     public tipo_repositorio?: String | null;
     public url_repositorio?: String | null;
     public urls_repositorios?: String[] | null;
-    public nombres_microservicios?: String[] | null;
     public despliegues?: Despliegue[] | null;
     public docker_compose?: boolean | null;
     public dockerfile?: boolean | null;
     public fk_usuario?: number | null;
 
     constructor(
-        nombre?: String | null,
-        descripcion?: String | null,
+        nombre: String | null,
+        descripcion: String | null,
+        nombres_microservicios: string[] | null,
         tipo_repositorio?: String | null,
         url_repositorio?: String | null,
         urls_repositorios?: String[] | null,
-        nombres_microservicios?: String[] | null,
         despliegues?: Despliegue[] | null,
         docker_compose?: boolean | null,
         dockerfile?: boolean | null,

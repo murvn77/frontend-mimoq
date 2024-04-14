@@ -38,7 +38,7 @@ export const routes: Routes = [
         path: 'dashboard',
         title: 'Dashboard',
         component: DashboardComponent,
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
     },
     {
         path: 'proyectos',

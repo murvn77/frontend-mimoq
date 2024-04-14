@@ -17,17 +17,17 @@ export class UsuarioService {
   private urlBackend: string  = 'http://localhost:3000/api' 
 
   public findAll(): Observable<Usuario[]> {
-    return this.httpClient.get<Usuario[]>(this.urlBackend + `/read`);
+    return this.httpClient.get<Usuario[]>(this.urlBackend + `/usuario`);
   }
-  public findById(id: number): Observable<Usuario> {
-    return this.httpClient.get(this.urlBackend + `/read/${id}`); 
+  public findById(id: number): Observable<any> {
+    return this.httpClient.get(this.urlBackend + `/usuario/${id}`); 
   }
 
   public create(usuario: any): Observable<Usuario>{
     return this.httpClient.post<Usuario>(this.urlBackend + `/usuario`, usuario, this.httpOptions);
   }
 
-  public delete(id: number): Observable<Usuario>{
+  public delete(id: number): Observable<any>{
     return this.httpClient.delete(this.urlBackend + `/delete/${id}`);
   }
 

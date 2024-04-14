@@ -1,43 +1,73 @@
 <section class="page-section" id="contact">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="section-heading">Configurar Despliegue</h2>
-      </div>
-      <form [formGroup]="despliegueForm" id="contactForm" class="row g-3 needs-validation" novalidate>
-        <div class="row align-items-stretch justify-content-center mb-5">
-          <div class="col-md-7 center">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="section-label" for="inputName4">No. Pods</label>
-                <input type="number" formControlName="duracion" class="form-control" placeholder="Cantidad de pods" id="inputName4" min = "1"
-                  required />
-                
-                <div class="invalid-feedback">
-                  No. pods requeridos
-                </div>
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading">Configurar Despliegue</h2>
+    </div>
+    <form [formGroup]="despliegueForm" id="contactForm" class="row g-3 needs-validation" novalidate>
+      <div class="row align-items-stretch justify-content-center mb-5">
+        <div class="col-md-7 center">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="section-label" for="inputName4">Nombre</label>
+              <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" id="inputName4"
+                required />
+              <div class="invalid-feedback">
+                Nombre requerido
               </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="inputDescription4" class="section-label">No. Réplicas</label>
-                    <input type="number" formControlName="description" placeholder="Cantidad de réplicas" id="inputDescription4"
-                      class="form-control" min = "1" required/>
-                    <div class="invalid-feedback">
-                      Cantidad de réplicas requeridas
-                    </div>
-                  </div>
-            </div>  
+            <div class="form-group">
+              <label class="section-label" for="inputName4">Duracion</label>
+              <input type="number" formControlName="duracion" class="form-control" placeholder="Cantidad de pods"
+                id="inputName4" min="1" required />
 
-            <div class="text-center form-conent">
-              <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid">
-                <a class="btn btn-primary btn-xl" >
-                  Siguiente
-                </a></button>
+              <div class="invalid-feedback">
+                Duracion requerida
+              </div>
             </div>
-
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputDescription4" class="section-label">No. Pods</label>
+              <input type="number" formControlName="cant_pods" placeholder="Cantidad de pods" id="inputDescription4"
+                class="form-control" min="1" required />
+              <div class="invalid-feedback">
+                Cantidad de pods requerida
+              </div>
+            </div>
+          </div>
+          <div formArrayName="replicasMicro">
+            <table class="proyecto-list table table-striped">
+              <thead>
+                  <tr>
+                      <th class="text_table" scope="col">Nombre</th>
+                      <th class="text_table" scope="col">Replicas</th>
+                      <!-- <th class="text_table" scope="col">Aumentar</th> -->
+                  </tr>
+              </thead>
+              <tbody>
+                  @for (microservicio of replicasMicro.controls; track $index) {
+                      <tr>   
+                      <td>{{microservicio.get('nombre')?.value || ''}}</td>
+                      <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
+                        id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
+                      <td class="text-center"> {{microservicio.get('cantidad')?.value || ''}}</td>
+                      <button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                  </tr>
+              }
+              </tbody>   
+          </table>
         </div>
-      </form>
-    </div>
-    <script src="../../../../assets/js/checkout_pages.js"></script>
-  </section>
+          <div class="text-center form-conent">
+            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid">
+              <a class="btn btn-primary btn-xl">
+                Siguiente
+              </a></button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+    <p>RadioButton: {{despliegueForm.value.replicasMicro}}</p>
+  </div>
+  <script src="../../../../assets/js/checkout_pages.js"></script>
+</section>

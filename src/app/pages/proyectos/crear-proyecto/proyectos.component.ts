@@ -5,6 +5,8 @@ import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 import { Proyecto } from '../../../core/model/proyecto/proyecto';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../services/auth/auth.service';
+import { Usuario } from '../../../core/model/usuario/usuario';
 
 @Component({
   selector: 'app-proyectos',
@@ -23,34 +25,37 @@ export class ProyectosComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     repositorio: new FormControl('', [Validators.required]),
-    selectedAllMicroservices: new FormControl('', [Validators.required]),
+    selectedAllMicroservices: new FormControl(false, [Validators.required]),
     urlsRepositorios: new FormArray([]),
     haveDockerfiles: new FormControl(false, [Validators.required]),
     // nameAplication: new FormControl('', [Validators.required, Validators.pattern(this.noTildesPattern)])
   });
   constructor(private router:Router,
-    private proyectoService: ProyectoService, 
+    private proyectoService: ProyectoService,
+    private authService: AuthService 
   ){}
-  crearProyecto(): void {
+  async crearProyecto(): Promise<void> {
     const nuevoProyecto = this.proyectoForm.value;
+    const usuario: Usuario = await this.authService.getUsuario();
+    console.log('Usuario en sesión: ' + usuario.id_usuario);  
     if (this.proyectoForm.valid) {
       const data: Proyecto = {
         nombre: nuevoProyecto.name || '',
         descripcion: nuevoProyecto.description || '',
-        tipo_repositorio: nuevoProyecto.selectedAllMicroservices || '',
+        // tipo_repositorio: nuevoProyecto.selectedAllMicroservices || '',
         url_repositorio: nuevoProyecto.repositorio || '',
-        // docker_compose: nuevoProyecto.selectedAllMicroservices || false,
+        docker_compose: nuevoProyecto.selectedAllMicroservices || false,
         dockerfile: nuevoProyecto.haveDockerfiles || false,
-        fk_usuario: 2 || 0
+        fk_usuario: usuario.id_usuario || 0
       }
       this.proyectoService.create(data).subscribe({
         next: (res: any) => {
-          console.log('Usuario creado', res);
-          Swal.fire('Cer', 'Proyecto creado', 'success');
-          this.router.navigateByUrl(ROUTES_APP.LOGIN);
+          console.log('Proyecto creado', res);
+          Swal.fire('Creado', 'Proyecto creado correctamente', 'success');
+          this.router.navigateByUrl(ROUTES_APP.DESPLIEGUES);
         }, error: (error: any) => {
-          console.error('Error creando usuario', error);
-          Swal.fire('Error', 'Ocurrió un error al registrar usuario', 'error');
+          console.error('Error creando proyecto', error);
+          Swal.fire('Error', 'Ocurrió un error al crear el proyecto', 'error');
         }
       });
     }
