@@ -7,11 +7,12 @@ import { PrincipalComponent } from './pages/principal/principal.component';
 import { ListProyectosComponent } from './pages/proyectos/list-proyectos/list-proyectos.component';
 import { ProyectosComponent } from './pages/proyectos/crear-proyecto/proyectos.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
-import { DesplieguesComponent } from './pages/despliegues/despliegues.component';
+import { DesplieguesComponent } from './pages/despliegues/crear-despliegue/despliegues.component';
 import { MetricasComponent } from './pages/metricas/metricas.component';
 import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
 import { ExperimentoComponent } from './pages/experimento/experimento.component'
 import {EditProyectoComponent} from './pages/proyectos/edit-proyecto/edit-proyecto.component'
+import { ListDesplieguesComponent } from './pages/despliegues/list-despliegues/list-despliegues.component';
 
 export const routes: Routes = [
     {
@@ -75,8 +76,28 @@ export const routes: Routes = [
     {
         path: 'despliegues',
         title: 'Despliegues',
-        component: DesplieguesComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children:[
+            {
+                path: '',
+                component: ListDesplieguesComponent
+            },
+            {
+                path: 'crearDespliegue',
+                title: 'Crear Despliegue',
+                component: DesplieguesComponent
+            },
+            // {
+            //     path: 'verProyecto/:id',
+            //     title: 'VerProyecto',
+            //     component: VerProyectoComponent
+            // },
+            // {
+            //     path: 'editProyecto/:id',
+            //     title: 'EditProyecto',
+            //     component: EditProyectoComponent
+            // }
+        ]
     },
     {
         path: 'metricas',

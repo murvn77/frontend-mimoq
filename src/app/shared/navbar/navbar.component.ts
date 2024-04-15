@@ -30,4 +30,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl(ROUTES_APP.LOGIN);
     console.log(`NAVBAR - LOGIN: ${this.authService.isLoggedIn}`);
   }
+
+  get ROUTES_APP(){
+    return ROUTES_APP;
+  }
 }

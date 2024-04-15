@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Despliegue } from '../../core/model/despliegue/despliegue';
+import { Despliegue } from '../../core/interfaces/despliegue';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,14 @@ export class DespliegueService {
       "Content-Type": "application/json"
     })
   };
-  private urlBackend: string  = 'http://localhost:3000/api/proyecto/'
+  private urlBackend: string  = 'http://localhost:3000/api/despliegue/'
   constructor(private httpClient: HttpClient) { }
 
   findAll(): Observable<Despliegue[]> {
     return this.httpClient.get<Despliegue[]>(this.urlBackend);
   }
-  findById(id: number): Observable<any> {
-    return this.httpClient.get(this.urlBackend + `${id}`);
+  findById(id: number): Observable<Despliegue> {
+    return this.httpClient.get<Despliegue>(this.urlBackend + `${id}`);
   }
   public create(proyecto: any): Observable<Despliegue>{
     return this.httpClient.post<Despliegue>(this.urlBackend, proyecto, this.httpOptions);

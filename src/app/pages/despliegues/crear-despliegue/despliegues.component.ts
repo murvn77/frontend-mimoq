@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProyectoService } from '../../services/proyecto/proyecto.service';
+import { Router, RouterLink } from '@angular/router';
+import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 
 @Component({
   selector: 'app-despliegues',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [RouterLink,ReactiveFormsModule],
   templateUrl: './despliegues.component.html',
   styleUrl: './despliegues.component.css'
 })
@@ -36,7 +36,7 @@ export class DesplieguesComponent implements OnInit {
       this.cargarMicroservicios();
       // Tu lógica después del tiempo de espera
       console.log('La espera ha terminado');
-    }, 5000);
+    }, 2000);
 
   }
   get replicasMicro() {
@@ -46,7 +46,7 @@ export class DesplieguesComponent implements OnInit {
   //   return this.despliegueForm.get('replicas');
   // }
   obtenerMicroservicios() {
-    this.proyectoService.findById(2).subscribe(proyecto => {
+    this.proyectoService.findById(1).subscribe(proyecto => {
       this.microservicios = proyecto.nombres_microservicios || [];
       // console.log('Microservicios', this.microservicios);
     });
@@ -61,18 +61,29 @@ export class DesplieguesComponent implements OnInit {
     });
   }
   increment(index: any) {
-    if(index != this.indexAnt){
-      this.indexAnt = index;
-      this.nuevovalor = 1;
-    }
     const formGroup = this.replicasMicro.at(index);
     console.log('valores', formGroup);
-    this.nuevovalor = this.nuevovalor+1;
+    this.nuevovalor = formGroup.get('cantidad')?.value;
+    this.nuevovalor = this.nuevovalor + 1;
     console.log('nuevo', this.nuevovalor);
     formGroup.get('cantidad')?.setValue(this.nuevovalor);
     console.log('nuevos', formGroup);
     this.replicasMicro.removeAt(index); // Eliminar el FormGroup antiguo
     this.replicasMicro.insert(index, formGroup);
+  }
+  decrement(index: any) {
+    const formGroup = this.replicasMicro.at(index);
+    console.log('valores', formGroup);
+    this.nuevovalor = formGroup.get('cantidad')?.value;
+    console.log('valores', formGroup);
+    if (this.nuevovalor > 1) {
+      this.nuevovalor = this.nuevovalor - 1;
+      console.log('nuevo', this.nuevovalor);
+      formGroup.get('cantidad')?.setValue(this.nuevovalor);
+      console.log('nuevos', formGroup);
+      this.replicasMicro.removeAt(index); // Eliminar el FormGroup antiguo
+      this.replicasMicro.insert(index, formGroup);
+    }
   }
   // addItem() {
   //   this.microservicios.forEach((microservicio) => {

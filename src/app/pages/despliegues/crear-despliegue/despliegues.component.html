@@ -41,7 +41,7 @@
                   <tr>
                       <th class="text_table" scope="col">Nombre</th>
                       <th class="text_table" scope="col">Replicas</th>
-                      <!-- <th class="text_table" scope="col">Aumentar</th> -->
+                      <th class="text_table" scope="col"></th>
                   </tr>
               </thead>
               <tbody>
@@ -51,7 +51,8 @@
                       <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
                         id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
                       <td class="text-center"> {{microservicio.get('cantidad')?.value || ''}}</td>
-                      <button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                      <td><button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                      <button type="button" class="btn btn-outline-primary" (click)="decrement($index)">-</button></td>
                   </tr>
               }
               </tbody>   

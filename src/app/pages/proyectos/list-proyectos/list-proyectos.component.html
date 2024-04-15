@@ -19,13 +19,13 @@
                         </thead>
                         <tbody>
                             @for (proyecto of proyectos | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
-                                <tr>   
+                                <tr class="text_table">   
                                 <td>{{proyecto.nombre}}</td>
                                 <td>{{proyecto.descripcion}}</td>
-                                @if(proyecto.tipo_repositorio == 'Multiple'){ 
+                                @if(proyecto.docker_compose){ 
                                      <td>{{proyecto.url_repositorio}}</td>
-                                }@else if(proyecto.tipo_repositorio == 'individual'){
-                                    <td>
+                                }@else if(!proyecto.docker_compose){
+                                    <td class="text_table">
                                         @for (url of proyecto.urls_repositorios; track $index){
                                             <ul>
                                                  <li>{{url}}</li>
@@ -56,7 +56,7 @@
                         <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                     </div>
                     <div class="text-center form-conent">
-                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit" routerLink="crearProyecto">Crear proyecto</button>
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit" [routerLink]="ROUTES_APP.CREAR_PROYECTO">Crear proyecto</button>
                     </div>
                 </div>
             </div>

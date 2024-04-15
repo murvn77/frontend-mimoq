@@ -42,17 +42,16 @@ export class ProyectosComponent {
       const data: Proyecto = {
         nombre: nuevoProyecto.name || '',
         descripcion: nuevoProyecto.description || '',
-        // tipo_repositorio: nuevoProyecto.selectedAllMicroservices || '',
         url_repositorio: nuevoProyecto.repositorio || '',
         docker_compose: nuevoProyecto.selectedAllMicroservices || false,
         dockerfile: nuevoProyecto.haveDockerfiles || false,
-        fk_usuario: usuario.id_usuario || 0
+        usuario: 1
       }
       this.proyectoService.create(data).subscribe({
         next: (res: any) => {
           console.log('Proyecto creado', res);
           Swal.fire('Creado', 'Proyecto creado correctamente', 'success');
-          this.router.navigateByUrl(ROUTES_APP.DESPLIEGUES);
+          this.router.navigateByUrl(ROUTES_APP.CREAR_DESPLIEGUE);
         }, error: (error: any) => {
           console.error('Error creando proyecto', error);
           Swal.fire('Error', 'Ocurrió un error al crear el proyecto', 'error');

@@ -30,7 +30,7 @@
                 {{ proyectoActual.descripcion }}
               </li>
 
-              @if(proyectoActual.tipo_repositorio == 'Multiple'){
+              @if(proyectoActual.docker_compose){
 
               <li>
                 <strong class="d-inline-block mb-2 text-primary-emphasis letra"
@@ -42,7 +42,7 @@
                 proyectoActual.url_repositorio
               }}</a>
 
-              }@else if(proyectoActual.tipo_repositorio == 'individual'){
+              }@else if(!proyectoActual.docker_compose){
 
               <strong class="d-inline-block mb-2 text-primary-emphasis letra"
                 >URL Repositorios:
@@ -85,7 +85,6 @@
                 >Despliegues:</strong
               >
             </li>
-
           <ul>
             <!-- <li>
           
@@ -148,7 +147,6 @@
               <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
           </div>
             <div class="text-center form-conent">
-              
           </div>
           </ul>
           }

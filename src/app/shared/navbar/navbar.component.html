@@ -10,13 +10,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto py-4 py-lg-0">
           <li class="nav-item">
-            <a class="nav-link" routerLink="proyectos">Proyectos</a>
+            <a class="nav-link" [routerLink]="ROUTES_APP.PROYECTOS">Proyectos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="despliegues">Despliegues</a>
+            <a class="nav-link" [routerLink]="ROUTES_APP.DESPLIEGUES">Despliegues</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="metricas">Métricas</a>
+            <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
           @if(!isLoggedIn) {
             <div class="login-button form-conent">

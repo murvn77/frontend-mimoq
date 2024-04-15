@@ -6,6 +6,6 @@ export class Despliegue {
         public replicas: string[],
         public cant_pods: number,
         public namespace: string,
-        public fk_proyecto: number
+        public proyecto: number
     ) { }
 }

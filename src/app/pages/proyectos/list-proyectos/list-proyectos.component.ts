@@ -83,6 +83,11 @@ eliminarProyecto(id:number): void{
         },
         error: (error: any) => {
           console.log(error);
+          Swal.fire({
+            title: "¡Error!",
+            text: `Este proyecto no pudo ser eliminado: ${error.error.statusCode} ${error.error.message}`,
+            icon: "error"
+          });
         }});
     }
   });
