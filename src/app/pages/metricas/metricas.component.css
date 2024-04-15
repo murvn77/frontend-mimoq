@@ -212,13 +212,15 @@ section#contact {
 .left-aligned {
   text-align: left;
   list-style-type: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .icon-link {
   cursor: pointer;
 }
 
-.row.g-0.border.rounded.overflow-hidden.flex-md-row.mb-4.shadow-sm.h-md-250.position-relative {
+.atributo_div {
   background-color: white;
 }
 
@@ -228,4 +230,27 @@ section#contact {
 
 .icon-link-hover {
   text-decoration: none;
+}
+
+.nombre {
+  font-weight: bold;
+}
+
+.descripcion {
+  text-align: justify;
+}
+
+.formula {
+  font-weight: bold;
+  text-align: center;
+}
+
+.metrica_div {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.principal_div_atri{
+  flex: 0 0 auto;
+  width: 70%;
 }

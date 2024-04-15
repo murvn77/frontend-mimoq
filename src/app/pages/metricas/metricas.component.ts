@@ -21,7 +21,7 @@ export class MetricasComponent {
   ];
 
   atributos: Atributo[] = [
-    new Atributo('Desempeño', this.metricas),
+    new Atributo('Comportamiento Temporal', this.metricas),
     new Atributo('Utilización de Recursos', this.metricas),
     new Atributo('Elasticidad', this.metricas),
   ];
@@ -36,3 +36,4 @@ export class MetricasComponent {
     this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);
     }
 }
+

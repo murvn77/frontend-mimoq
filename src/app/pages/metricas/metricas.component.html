@@ -3,32 +3,38 @@
         <div class="text-center">
             <h2 class="section-heading">Métricas</h2>
         </div>
-        <div class="align-items-stretch justify-content-center mb-5">
-            <div class="form-group mb-md-0 text-center form-conent">
-                <strong class="d-inline-block mb-2 text-primary-emphasis letras">Desempeño</strong>
-                <div class="col-md-6">
-                    @for(atributo of atributos; track $index){
-                    <div
-                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                            <a class="icon-link-hover mb-0" (click)="setCurrentAtributo(atributo)">
-                                {{atributo.nombre}}
-                            </a>
-                            <div class="list-group-item d-flex" *ngIf="currentAtributo === atributo">
-                                <ul class="left-aligned">
-                                    @for(sub_atributo of atributo.metricas; track $index)
-                                    {
-                                    <li>
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        {{sub_atributo.nombre}}
-                                    </li>
+        <div class="form-group mb-md-0 text-center form-conent">
+            <h3 class="section-heading">Desempeño</h3>
+            <div class="principal_div_atri">
+                @for(atributo of atributos; track $index){
+                <div class="g-0 rounded mb-4 shadow-sm atributo_div">
+                    <div class="col p-4 flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary-emphasis letras" (click)="setCurrentAtributo(atributo)">
+                            {{atributo.nombre}}
+                        </strong>
+                        <div *ngIf="currentAtributo === atributo">
+                            <ul class="left-aligned">
+                                @for(sub_atributo of atributo.metricas; track $index)
+                                {
+                                    <div class="metrica_div">
+                                        <li class="nombre">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                            {{sub_atributo.nombre}}
+                                        </li>
+                                        <li class="descripcion">
+                                            {{sub_atributo.descripcion}}
+                                        </li>
+                                        <li class="formula">
+                                            {{sub_atributo.formula}}
+                                        </li>
+                                    </div>
+                                    
                                 }
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
                     </div>
-                    }
                 </div>
+                }
             </div>
         </div>
     </div>
