@@ -30,7 +30,7 @@ export class ListProyectosComponent implements OnInit{
   //   new Proyecto('Proyecto 10', 'Descripción del proyecto 10', 'https://www.google.com'),
   //   new Proyecto('Proyecto 11', 'Descripción del proyecto 11', 'https://www.google.com'),
   // ];
-  p: number = 1;
+  p: number = 1; //variable paginacion
   proyectos: Proyecto[] = [];
 
   constructor(private router: Router, 

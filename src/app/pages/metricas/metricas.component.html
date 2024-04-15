@@ -3,35 +3,38 @@
         <div class="text-center">
             <h2 class="section-heading">Métricas</h2>
         </div>
+        
         <div class="form-group mb-md-0 text-center form-conent">
             <h3 class="section-heading">Desempeño</h3>
             <div class="principal_div_atri">
                 @for(atributo of atributos; track $index){
                 <div class="g-0 rounded mb-4 shadow-sm atributo_div">
                     <div class="col p-4 flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary-emphasis letras" (click)="setCurrentAtributo(atributo)">
+                        <strong class="mb-2 text-primary-emphasis letras" (click)="setCurrentAtributo(atributo)">
                             {{atributo.nombre}}
                         </strong>
-                        <div *ngIf="currentAtributo === atributo">
-                            <ul class="left-aligned">
-                                @for(sub_atributo of atributo.metricas; track $index)
-                                {
-                                    <div class="metrica_div">
-                                        <li class="nombre">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            {{sub_atributo.nombre}}
-                                        </li>
-                                        <li class="descripcion">
-                                            {{sub_atributo.descripcion}}
-                                        </li>
-                                        <li class="formula">
-                                            {{sub_atributo.formula}}
-                                        </li>
-                                    </div>
-                                    
-                                }
-                            </ul>
-                        </div>
+
+                        <ul class="left-aligned">
+                            @for(sub_atributo of (atributo.metricas ? atributo.metricas : []) | paginate:{itemsPerPage: 2, currentPage: p}; track $index)
+                            {
+                                <div class="metrica_div">
+                                    <li class="nombre">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        {{sub_atributo.nombre}}
+                                    </li>
+                                    <li class="descripcion">
+                                        {{sub_atributo.descripcion}}
+                                    </li>
+                                    <li class="formula">
+                                        {{sub_atributo.formula}}
+                                    </li>
+                                </div>
+                            }
+                            <div class="text-center form-conent">
+                                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                            </div>
+                        </ul>
+
                     </div>
                 </div>
                 }

@@ -4,15 +4,17 @@ import {Metrica} from '../../core/model/metrica/metrica';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ROUTES_APP } from '../../core/enum/routes.enum';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-metricas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgxPaginationModule],
   templateUrl: './metricas.component.html',
   styleUrl: './metricas.component.css'
 })
 export class MetricasComponent {
+  p: number = 1; //variable paginacion
   // lista quemada de atributos
   metricas: Metrica[] = [
     new Metrica('Comportamiento Temporal', 'CT = (Tf - Ti) / (N - 1)', 'CT es el tiempo promedio que tarda un sistema en responder a una solicitud de servicio. Tf es el tiempo de finalización de la última solicitud de servicio, Ti es el tiempo de inicio de la primera solicitud de servicio y N es el número total de solicitudes de servicio.'),
