@@ -14,7 +14,7 @@ export class ProyectoService {
       "Content-Type": "application/json"
     })
   };
-  private urlBackend: string = 'http://localhost:4000/api/proyecto/'
+  private urlBackend: string = 'http://localhost:3000/api/proyecto/'
   constructor(private httpClient: HttpClient) { }
 
   get refresh() {

@@ -16,7 +16,7 @@ import { ModalComponent } from "../modal/modal.component";
 })
 
 export class LoginComponent {
-  urlBackend: string  = 'http://localhost:4000/api';
+  urlBackend: string  = 'http://localhost:3000/api';
   loginObj: Login = {} as Login;
 
   constructor(private authService: AuthService, private router: Router) {
