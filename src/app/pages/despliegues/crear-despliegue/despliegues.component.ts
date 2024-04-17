@@ -1,38 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProyectoService } from '../../../services/proyecto/proyecto.service';
+import { DespliegueService } from '../../../services/despliegue/despliegue.service';
+import { Despliegue } from '../../../core/model/despliegue/despliegue';
+import Swal from 'sweetalert2';
+import { ROUTES_APP } from '../../../core/enum/routes.enum';
 
 @Component({
   selector: 'app-despliegues',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './despliegues.component.html',
   styleUrl: './despliegues.component.css'
 })
 export class DesplieguesComponent implements OnInit {
+  id_proyecto: number = 0;
   p: number = 1;
   microservicios: string[] = [];
   replicas: number = 1;
+  listaReplicas: number[] = [];
   nuevovalor = this.replicas;
   indexAnt = 0;
   despliegueForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
-    replicasMicro: new FormArray([]),
-    duracion: new FormControl('', [Validators.required]),
+    // duracion: new FormControl('', [Validators.required]),
     // replicas: new FormControl(1, [Validators.required]),
-    cant_pods: new FormControl('', [Validators.required]),
-    namespace: new FormControl('', [Validators.required])
+    cant_pods: new FormControl(1, [Validators.required]),
+    namespace: new FormControl('', [Validators.required]),
+    replicasMicro: new FormArray([])
   });
 
   constructor(private router: Router,
-    private proyectoService: ProyectoService
+    private proyectoService: ProyectoService,
+    private despliegueService: DespliegueService,
+    private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
-    this.obtenerMicroservicios();
+    this.getProyecto(this.route.snapshot.paramMap.get('id_proyecto'));
+    // this.obtenerMicroservicios();
 
     setTimeout(() => {
-      console.log('Microservicios', this.microservicios)
+      // console.log('Microservicios', this.microservicios)
       this.cargarMicroservicios();
       // Tu lógica después del tiempo de espera
       console.log('La espera ha terminado');
@@ -45,8 +54,24 @@ export class DesplieguesComponent implements OnInit {
   // get replicas() {
   //   return this.despliegueForm.get('replicas');
   // }
+  getProyecto(id: any): void{
+    this.id_proyecto = id;
+    console.log('ID Proyecto', this.id_proyecto);
+    this.proyectoService.findById(id).subscribe({
+      next: (proyecto: any) => {
+        this.microservicios = proyecto.nombres_microservicios || [];
+        console.log(this.microservicios);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
   obtenerMicroservicios() {
-    this.proyectoService.findById(1).subscribe(proyecto => {
+    
+    this.id_proyecto = this.proyectoService.getProyecto()?.id_proyecto || 0;
+    console.log('ID Proyecto', this.id_proyecto);
+    this.proyectoService.findById(this.id_proyecto).subscribe(proyecto => {
       this.microservicios = proyecto.nombres_microservicios || [];
       // console.log('Microservicios', this.microservicios);
     });
@@ -85,13 +110,63 @@ export class DesplieguesComponent implements OnInit {
       this.replicasMicro.insert(index, formGroup);
     }
   }
-  // addItem() {
-  //   this.microservicios.forEach((microservicio) => {
-  //     const item = new FormGroup({
-  //       nombre: new FormControl(microservicio, [Validators.required]),
-  //       cantidad: new FormControl(0, [Validators.required]) // Campo para la cantidad de réplicas
-  //     });
-  //     this.replicasMicro.push(item);
-  //   });
-  // }
+  crearDespliegue() {
+    console.log(this.despliegueForm.value);
+    if (this.despliegueForm.valid) {
+      const nuevoDespliegue = this.despliegueForm.value;
+      const formArray = this.despliegueForm.get('replicasMicro') as FormArray;
+      formArray.controls.forEach(element => {
+        const cantidadControl = element?.get('cantidad');
+        console.log('cantidadControl', cantidadControl);
+        const cantidadValue = cantidadControl?.value; // Valor de la cantidad
+        this.listaReplicas.push(cantidadValue);
+      });
+      const data: Despliegue = {
+        nombre: nuevoDespliegue.nombre || '',
+        replicas: this.listaReplicas,
+        cant_pods: Number(nuevoDespliegue.cant_pods) || 1,
+        namespace: nuevoDespliegue.namespace || 'default',
+        fk_proyecto: this.id_proyecto
+      }
+      this.despliegueService.createMultiple(data).subscribe({
+        next: (res: any) => {
+          console.log('Despliegue creado', res);
+          // Swal.fire('Creado', 'Despliegue creado correctamente', 'success');
+          this.proyectoService.setProyecto(res);
+          Swal.fire({
+            title: "Despliegue creado",
+            text: "¿Deseas iniciar un experimento con este despliegue?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, experimentar",
+            cancelButtonText: "No, ver despliegues"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigateByUrl('/experimento');
+              // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+            }else{
+              this.router.navigateByUrl('/despliegues');
+            }
+          });
+          
+        }, error: (error: any) => {
+          console.error('Error creando el despliegue', error);
+          Swal.fire('Error', 'Ocurrió un error al crear el despliegue', 'error');
+        }
+        // console.log(despliegue);
+        // this.router.navigateByUrl('/despliegues');
+      });
+    }
+    // addItem() {
+    //   this.microservicios.forEach((microservicio) => {
+    //     const item = new FormGroup({
+    //       nombre: new FormControl(microservicio, [Validators.required]),
+    //       cantidad: new FormControl(0, [Validators.required]) // Campo para la cantidad de réplicas
+    //     });
+    //     this.replicasMicro.push(item);
+    //   });
+    // }
+  }
 }

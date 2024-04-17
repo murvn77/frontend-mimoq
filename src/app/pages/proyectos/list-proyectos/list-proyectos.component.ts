@@ -6,6 +6,7 @@ import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-proyectos',
@@ -32,6 +33,7 @@ export class ListProyectosComponent implements OnInit{
   // ];
   p: number = 1;
   proyectos: Proyecto[] = [];
+  suscription : Subscription = new Subscription;
 
   constructor(private router: Router, 
     private proyectoService: ProyectoService, 
@@ -42,6 +44,13 @@ export class ListProyectosComponent implements OnInit{
       console.log('Proyectos',proyectos);
       this.proyectos = proyectos;
     });
+
+    this.suscription = this.proyectoService.refresh.subscribe(() =>{
+      this.proyectoService.findAll().subscribe(proyectos => {
+        console.log('Proyectos',proyectos);
+        this.proyectos = proyectos;
+      });
+    })
   }
 get ROUTES_APP(){
   return ROUTES_APP
@@ -66,7 +75,7 @@ eliminarProyecto(id:number): void{
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     cancelButtonText: "Cancelar",
-    confirmButtonText: "Si, eliminar!"
+    confirmButtonText: "Si, eliminar"
   }).then((result) => {
     if (result.isConfirmed) {
       this.proyectoService.delete(id).subscribe({
@@ -76,7 +85,7 @@ eliminarProyecto(id:number): void{
             text: "Su proyecto ha sido eliminado.",
             icon: "success"
           });
-          this.router.navigateByUrl(ROUTES_APP.VER_PROYECTO);
+          this.router.navigate([ROUTES_APP.PROYECTOS]);
           // this.proyectos = this.proyectos.filter((proy) => {
           //   return proy.id_proyecto!== id;
           // });

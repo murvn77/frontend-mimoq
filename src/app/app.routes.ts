@@ -10,9 +10,10 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { DesplieguesComponent } from './pages/despliegues/crear-despliegue/despliegues.component';
 import { MetricasComponent } from './pages/metricas/metricas.component';
 import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
-import { ExperimentoComponent } from './pages/experimento/experimento.component'
+import { ExperimentoComponent } from './pages/experimento/crear-experimento/experimento.component'
 import {EditProyectoComponent} from './pages/proyectos/edit-proyecto/edit-proyecto.component'
 import { ListDesplieguesComponent } from './pages/despliegues/list-despliegues/list-despliegues.component';
+import { ModalComponent } from './pages/modal/modal.component';
 
 export const routes: Routes = [
     {
@@ -83,7 +84,7 @@ export const routes: Routes = [
                 component: ListDesplieguesComponent
             },
             {
-                path: 'crearDespliegue',
+                path: 'crearDespliegue/:id_proyecto',
                 title: 'Crear Despliegue',
                 component: DesplieguesComponent
             },
@@ -110,6 +111,12 @@ export const routes: Routes = [
         title: 'Info usuario',
         component: UsuarioComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'modal',
+        title: 'Info modal',
+        component: ModalComponent,
+        // canActivate: [authGuard]
     },
     {
         path: '**', redirectTo: '', pathMatch: 'full'

@@ -4,6 +4,6 @@ export interface Despliegue {
     cant_replicas: number;
     cant_pods: number;
     namespace: string,
-    label_despliegue_k8s: string;
+    imagen: string;
     puerto: number
 }

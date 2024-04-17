@@ -1,0 +1,37 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+    <a>¿Olvidaste tu contraseña?</a></button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Recuperar contraseña</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="contrasenaForm" id="contactForm" class="row g-3 needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="recipient-email" class="col-form-label">Correo registrado</label>
+            <input type="text" formControlName="email" class="form-control" id="recipient-email">
+            <div class="invalid-feedback" data-sb-feedback="email:required">El correo es requerido.</div>
+            <div class="invalid-feedback" data-sb-feedback="email:email">El correo no es válido.</div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-document" class="col-form-label">No. de documento</label>
+            <input type="text" formControlName="documento" class="form-control" id="recipient-document">
+            <div class="invalid-feedback" data-sb-feedback="document:required">El numero de documento es requerido.</div>
+            <div class="invalid-feedback" data-sb-feedback="document:required">El nombre es requerido.</div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-password" class="col-form-label">Nueva contraseña</label>
+            <input type="password" formControlName="nuevaContrasena" class="form-control" id="recipient-password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="cambiarContrasena()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

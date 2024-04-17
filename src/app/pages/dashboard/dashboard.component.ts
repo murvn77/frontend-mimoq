@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { TooltipDirective } from '../../core/directives/tooltip.directive';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [TooltipDirective],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

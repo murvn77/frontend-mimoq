@@ -1,7 +1,7 @@
 export enum ROUTES_APP {
-    CREAR_PROYECTO = 'proyectos/crearProyecto',
+    CREAR_PROYECTO = 'crearProyecto',
     DASHBOARD = 'dashboard',
-    DESPLIEGUES = 'despliegues',
+    DESPLIEGUES = 'despliegues/',
     HOME = '',
     LOGIN = 'login',
     METRICAS = 'metricas',

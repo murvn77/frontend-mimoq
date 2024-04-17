@@ -21,6 +21,7 @@ export class ProyectosComponent {
     {label: 'Si', value: true},
     {label: 'No', value: false}
   ]
+  proyecto: number = 0;
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -45,13 +46,30 @@ export class ProyectosComponent {
         url_repositorio: nuevoProyecto.repositorio || '',
         docker_compose: nuevoProyecto.selectedAllMicroservices || false,
         dockerfile: nuevoProyecto.haveDockerfiles || false,
-        usuario: 1
+        fk_usuario: 1
       }
       this.proyectoService.create(data).subscribe({
         next: (res: any) => {
           console.log('Proyecto creado', res);
-          Swal.fire('Creado', 'Proyecto creado correctamente', 'success');
-          this.router.navigateByUrl(ROUTES_APP.CREAR_DESPLIEGUE);
+          // Swal.fire('Creado', 'Proyecto creado correctamente', 'success');
+          this.proyectoService.setProyecto(res);
+          Swal.fire({
+            title: "Proyecto creado",
+            text: "¿Deseas desplegar el proyecto?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, desplegar",
+            cancelButtonText: "No, ver proyectos"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+            }else{
+              this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
+            }
+          });
+          
         }, error: (error: any) => {
           console.error('Error creando proyecto', error);
           Swal.fire('Error', 'Ocurrió un error al crear el proyecto', 'error');

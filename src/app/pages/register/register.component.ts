@@ -14,7 +14,7 @@ import { ROUTES_APP } from '../../core/enum/routes.enum';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  urlBackend: string  = 'http://localhost:3000/api';
+  urlBackend: string  = 'http://localhost:4000/api';
   registroExitoso = false;
   usuarioForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),

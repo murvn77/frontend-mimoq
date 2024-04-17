@@ -1,33 +1,65 @@
 <section class="page-section" id="contact">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading">Métricas</h2>
+            <h2 class="section-heading">Métricas <i class="fa fa-info-circle" appTooltip></i></h2>
         </div>
         <div class="align-items-stretch justify-content-center mb-5">
             <div class="form-group mb-md-0 text-center form-conent">
                 <strong class="d-inline-block mb-2 text-primary-emphasis letras">Atributos</strong>
-                <div class="col-md-6" *ngFor="let atributo of atributos">
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static">
-                            <a class="icon-link-hover mb-0" (click)="setCurrentAtributo(atributo)">
-                                {{atributo.nombre}}
-                            </a>
-                            <div class="list-group-item d-flex" *ngIf="currentAtributo === atributo">
-                                <ul class="left-aligned">
-                                    <li *ngFor="let sub_atributo of atributo.sub_atributos">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        {{sub_atributo}}
-                                    </li>
-                                </ul>
+                
+                <div class="col-md-6">
+                    <div class="accordion" id="accordionExample">
+                @for (atributo of atributos; track $index){
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapse' + $index"  aria-expanded="true" [attr.aria-controls]="'collapse' + $index" >
+                                    <strong>{{atributo.nombre}}</strong><i class="fa fa-info-circle" appTooltip></i>
+                                </button>
+                            </h2>
+                            <!-- <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body text-start">
+                                    {{atributo.descripcion}}
+                                </div>
+                            </div> -->
+                            <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <ul class="left-aligned">
+                                <li *ngFor="let sub_atributo of atributo.sub_atributos">
+                                    <input class="form-check-input" type="checkbox" value="" data-bs-toggle="tooltip" data-bs-title="Default tooltip">
+                                    {{sub_atributo}}
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                }   
+            </div>             
+        </div>
+                    <!-- <div class="col-md-6" *ngFor="let atributo of atributos"> -->
+                        <!-- <div class="col-md-6">
+                        @for (atributo of atributos; track $index){
+                        <div
+                            class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <a class="icon-link-hover mb-0" (click)="setCurrentAtributo(atributo)">
+                                    {{atributo.nombre}}
+                                </a>
+                                <div class="list-group-item d-flex" *ngIf="currentAtributo === atributo">
+                                    <ul class="left-aligned">
+                                        <li *ngFor="let sub_atributo of atributo.sub_atributos">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                            {{sub_atributo}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                }
+                </div> -->
+            </div>
             </div>
         </div>
-    </div>
-    <div class="text-center justify-content-between">
-        <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
-        <button type="submit" class="btn btn-primary btn-xl">Siguiente</button>
-    </div>    
+        <div class="text-center justify-content-between">
+            <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
+            <button type="submit" class="btn btn-primary btn-xl">Siguiente</button>
+        </div>
 </section>

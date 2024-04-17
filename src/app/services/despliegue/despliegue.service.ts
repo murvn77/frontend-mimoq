@@ -13,7 +13,7 @@ export class DespliegueService {
       "Content-Type": "application/json"
     })
   };
-  private urlBackend: string  = 'http://localhost:3000/api/despliegue/'
+  private urlBackend: string  = 'http://localhost:4000/api/despliegue/'
   constructor(private httpClient: HttpClient) { }
 
   findAll(): Observable<Despliegue[]> {
@@ -22,8 +22,11 @@ export class DespliegueService {
   findById(id: number): Observable<Despliegue> {
     return this.httpClient.get<Despliegue>(this.urlBackend + `${id}`);
   }
-  public create(proyecto: any): Observable<Despliegue>{
-    return this.httpClient.post<Despliegue>(this.urlBackend, proyecto, this.httpOptions);
+  public createMultiple(proyecto: any): Observable<Despliegue>{
+    return this.httpClient.post<Despliegue>(this.urlBackend+'multiple', proyecto, this.httpOptions);
+  }
+  public createIndividual(proyecto: any): Observable<Despliegue>{
+    return this.httpClient.post<Despliegue>(this.urlBackend + 'individual', proyecto, this.httpOptions);
   }
 
   public delete(id: number): Observable<any>{

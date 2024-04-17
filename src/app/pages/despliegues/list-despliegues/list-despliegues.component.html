@@ -13,7 +13,6 @@
                                 <th class="text_table" scope="col">No. Replicas</th>
                                 <th class="text_table" scope="col">No. Pods</th>
                                 <th class="text_table" scope="col">Namespace</th>
-                                <th class="text_table" scope="col">Label k8s</th>
                                 <th class="text_table" scope="col"></th>
                             </tr>
                         </thead>
@@ -32,7 +31,6 @@
 
                                 <td>{{ despliegue.namespace }}</td>
 
-                                <td>{{ despliegue.label_despliegue_k8s }}</td>
                                 <td><button class="btn btn-primary btn-xl" id="submitButton" type="button"
                                     (click)="desplegar(despliegue.id_despliegue)">Desplegar</button></td>
                             </tr>
