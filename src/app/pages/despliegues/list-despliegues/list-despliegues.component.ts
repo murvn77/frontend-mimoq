@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DespliegueService } from '../../../services/despliegue/despliegue.service';
 import { Router, RouterLink } from '@angular/router';
-import { Despliegue } from '../../../core/interfaces/despliegue';
+import { DespliegueInterface } from '../../../core/interfaces/despliegue';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import Swal from 'sweetalert2';
 
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class ListDesplieguesComponent implements OnInit {
   p: number = 1;
-  despliegues: Despliegue[] = [];
+  despliegues: DespliegueInterface[] = [];
   constructor(private router: Router, 
     private despliegueService: DespliegueService) {}
   ngOnInit(): void {

@@ -23,9 +23,10 @@ export class DesplieguesComponent implements OnInit {
   nuevovalor = this.replicas;
   indexAnt = 0;
   despliegueForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
+    // nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9]([-a-z0-9][a-z0-9])?(\.[a-z0-9]([-a-z0-9][a-z0-9])?)*$'), Validators.max(53)]),
     // duracion: new FormControl('', [Validators.required]),
     // replicas: new FormControl(1, [Validators.required]),
+    nombre: new FormControl('', [Validators.required, Validators.max(53)]),
     cant_pods: new FormControl(1, [Validators.required]),
     namespace: new FormControl('', [Validators.required]),
     replicasMicro: new FormArray([])
@@ -112,7 +113,9 @@ export class DesplieguesComponent implements OnInit {
   }
   crearDespliegue() {
     console.log(this.despliegueForm.value);
+    console.log(this.despliegueForm.valid);
     if (this.despliegueForm.valid) {
+      console.log('Entra al if');
       const nuevoDespliegue = this.despliegueForm.value;
       const formArray = this.despliegueForm.get('replicasMicro') as FormArray;
       formArray.controls.forEach(element => {
@@ -122,7 +125,7 @@ export class DesplieguesComponent implements OnInit {
         this.listaReplicas.push(cantidadValue);
       });
       const data: Despliegue = {
-        nombre: nuevoDespliegue.nombre || '',
+        nombre_helm: nuevoDespliegue.nombre || '',
         replicas: this.listaReplicas,
         cant_pods: Number(nuevoDespliegue.cant_pods) || 1,
         namespace: nuevoDespliegue.namespace || 'default',

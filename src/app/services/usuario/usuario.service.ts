@@ -14,7 +14,7 @@ export class UsuarioService {
     })
   };
 
-  private urlBackend: string = 'http://localhost:4000/api/usuario/'
+  private urlBackend: string = 'http://localhost:3000/api/usuario/'
 
   public findAll(): Observable<Usuario[]> {
     return this.httpClient.get<Usuario[]>(this.urlBackend);

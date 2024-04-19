@@ -4,7 +4,7 @@ import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 import { Proyecto } from '../../../core/model/proyecto/proyecto';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Despliegue } from '../../../core/interfaces/despliegue';
+import { DespliegueInterface } from '../../../core/interfaces/despliegue';
 @Component({
   selector: 'app-ver-proyecto',
   standalone: true,
@@ -14,7 +14,7 @@ import { Despliegue } from '../../../core/interfaces/despliegue';
 })
 export class VerProyectoComponent implements OnInit {
   proyectoActual : Proyecto = {} as Proyecto;
-  despliegues: Despliegue[] = {} as Despliegue[];
+  despliegues: DespliegueInterface[] = {} as DespliegueInterface[];
   p: number = 1;
   constructor(private router: Router, 
     private proyectoService: ProyectoService, 

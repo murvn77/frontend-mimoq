@@ -2,7 +2,7 @@ import { Usuario } from "../usuario/usuario";
 
 export class Despliegue {
     constructor(
-        public nombre: string,
+        public nombre_helm: string,
         public replicas: number[],
         public cant_pods: number,
         public namespace: string,

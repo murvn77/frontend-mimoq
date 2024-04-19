@@ -11,6 +11,11 @@
               <label class="section-label" for="inputName4">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" id="inputName4"
                 required />
+                @if(despliegueForm.get('nombre')?.invalid && despliegueForm.get('nombre')?.touched){
+                  <div class="invalid-feedback">
+                    Por favor, ingrese un nombre de despliegue válido
+                  </div>
+                  }
               <div class="invalid-feedback">
                 Nombre requerido
               </div>
@@ -58,7 +63,8 @@
           </table>
         </div>
           <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()">
+            <button type="submit" class="btn btn-primary btn-xl" (click)="crearDespliegue()">
+              <!-- <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()"> -->
               <a class="btn btn-primary btn-xl">
                 Siguiente
               </a></button>

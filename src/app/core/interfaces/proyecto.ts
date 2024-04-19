@@ -1,6 +1,6 @@
 import { Usuario } from "../model/usuario/usuario";
 
-export interface Proyecto {
+export interface ProyectoInterface {
      id_proyecto: number;
      nombre: string;
      descripcion: string;

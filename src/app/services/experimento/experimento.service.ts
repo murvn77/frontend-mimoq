@@ -1,9 +1,46 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject, tap } from 'rxjs';
+import { Experimento } from '../../core/interfaces/experimento';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExperimentoService {
+  private _refresh = new Subject<void>();
+  private httpOptions = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json"
+    })
+  };
 
-  constructor() { }
+  private urlBackend: string = 'http://localhost:3000/api/experimento/'
+  constructor(private httpClient: HttpClient) { }
+
+  get refresh() {
+    return this._refresh;
+  }
+
+  findAll(): Observable<Experimento[]> {
+    return this.httpClient.get<Experimento[]>(this.urlBackend);
+  }
+  findById(id: number): Observable<Experimento> {
+    return this.httpClient.get<Experimento>(this.urlBackend + `${id}`);
+  }
+  public create(experimento: any): Observable<Experimento> {
+    return this.httpClient.post<Experimento>(this.urlBackend, experimento, this.httpOptions);
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete(this.urlBackend + `${id}`)
+    .pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );;;
+  }
+
+  public update(experimento: any): Observable<Experimento> {
+    return this.httpClient.put<Experimento>(this.urlBackend, experimento, this.httpOptions);
+  }
 }

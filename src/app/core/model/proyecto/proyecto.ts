@@ -1,4 +1,4 @@
-import { Despliegue } from "../../interfaces/despliegue";
+import { DespliegueInterface } from "../../interfaces/despliegue";
 import { Usuario } from "../usuario/usuario";
 
 export class Proyecto {
@@ -8,7 +8,7 @@ export class Proyecto {
     public nombres_microservicios?: string[] | null;
     public url_repositorio?: String | null;
     public urls_repositorios?: String[] | null;
-    public despliegues?: Despliegue[] | null;
+    public despliegues?: DespliegueInterface[] | null;
     public docker_compose?: boolean | null;
     public dockerfile?: boolean | null;
     public fk_usuario?: number | null;
@@ -19,7 +19,7 @@ export class Proyecto {
         nombres_microservicios: string[] | null,
         url_repositorio?: String | null,
         urls_repositorios?: String[] | null,
-        despliegues?: Despliegue[] | null,
+        despliegues?: DespliegueInterface[] | null,
         docker_compose?: boolean | null,
         dockerfile?: boolean | null,
         fk_usuario?: number | null) {
