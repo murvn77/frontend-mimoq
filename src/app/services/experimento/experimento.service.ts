@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { Experimento } from '../../core/interfaces/experimento';
+import { ExperimentoInterface } from '../../core/interfaces/experimento';
+import { Experimento } from '../../core/model/experimento/experimento';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExperimentoService {
+
+  nuevoExperimento: Experimento = {} as Experimento;
   private _refresh = new Subject<void>();
   private httpOptions = {
     headers: new HttpHeaders({
@@ -21,14 +24,14 @@ export class ExperimentoService {
     return this._refresh;
   }
 
-  findAll(): Observable<Experimento[]> {
-    return this.httpClient.get<Experimento[]>(this.urlBackend);
+  findAll(): Observable<ExperimentoInterface[]> {
+    return this.httpClient.get<ExperimentoInterface[]>(this.urlBackend);
   }
-  findById(id: number): Observable<Experimento> {
-    return this.httpClient.get<Experimento>(this.urlBackend + `${id}`);
+  findById(id: number): Observable<ExperimentoInterface> {
+    return this.httpClient.get<ExperimentoInterface>(this.urlBackend + `${id}`);
   }
-  public create(experimento: any): Observable<Experimento> {
-    return this.httpClient.post<Experimento>(this.urlBackend, experimento, this.httpOptions);
+  public create(experimento: any): Observable<ExperimentoInterface> {
+    return this.httpClient.post<ExperimentoInterface>(this.urlBackend, experimento, this.httpOptions);
   }
 
   public delete(id: number): Observable<any> {
@@ -40,7 +43,15 @@ export class ExperimentoService {
     );;;
   }
 
-  public update(experimento: any): Observable<Experimento> {
-    return this.httpClient.put<Experimento>(this.urlBackend, experimento, this.httpOptions);
+  public update(experimento: any): Observable<ExperimentoInterface> {
+    return this.httpClient.put<ExperimentoInterface>(this.urlBackend, experimento, this.httpOptions);
+  }
+
+  setExperimento(experimento: Experimento): void {
+    this.nuevoExperimento = experimento;
+  }
+  
+  getExperimento(): Experimento {
+    return this.nuevoExperimento;
   }
 }

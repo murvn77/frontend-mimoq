@@ -23,9 +23,7 @@ export class DesplieguesComponent implements OnInit {
   nuevovalor = this.replicas;
   indexAnt = 0;
   despliegueForm = new FormGroup({
-    // nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9]([-a-z0-9][a-z0-9])?(\.[a-z0-9]([-a-z0-9][a-z0-9])?)*$'), Validators.max(53)]),
-    // duracion: new FormControl('', [Validators.required]),
-    // replicas: new FormControl(1, [Validators.required]),
+    // nombre: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9]([-a-z0-9][a-z0-9])?(\.[a-z0-9]([-a-z0-9][a-z0-9])?)*$"), Validators.max(53)]),
     nombre: new FormControl('', [Validators.required, Validators.max(53)]),
     cant_pods: new FormControl(1, [Validators.required]),
     namespace: new FormControl('', [Validators.required]),
@@ -42,9 +40,7 @@ export class DesplieguesComponent implements OnInit {
     // this.obtenerMicroservicios();
 
     setTimeout(() => {
-      // console.log('Microservicios', this.microservicios)
       this.cargarMicroservicios();
-      // Tu lógica después del tiempo de espera
       console.log('La espera ha terminado');
     }, 2000);
 
@@ -72,9 +68,14 @@ export class DesplieguesComponent implements OnInit {
     
     this.id_proyecto = this.proyectoService.getProyecto()?.id_proyecto || 0;
     console.log('ID Proyecto', this.id_proyecto);
-    this.proyectoService.findById(this.id_proyecto).subscribe(proyecto => {
-      this.microservicios = proyecto.nombres_microservicios || [];
-      // console.log('Microservicios', this.microservicios);
+    this.proyectoService.findById(this.id_proyecto).subscribe({
+      next: (proyecto: any) => {
+        this.microservicios = proyecto.nombres_microservicios || [];
+        console.log(this.microservicios);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
     });
   }
   cargarMicroservicios() {
@@ -113,7 +114,6 @@ export class DesplieguesComponent implements OnInit {
   }
   crearDespliegue() {
     console.log(this.despliegueForm.value);
-    console.log(this.despliegueForm.valid);
     if (this.despliegueForm.valid) {
       console.log('Entra al if');
       const nuevoDespliegue = this.despliegueForm.value;
@@ -135,7 +135,7 @@ export class DesplieguesComponent implements OnInit {
         next: (res: any) => {
           console.log('Despliegue creado', res);
           // Swal.fire('Creado', 'Despliegue creado correctamente', 'success');
-          this.proyectoService.setProyecto(res);
+          this.despliegueService.setDespliegue(res);
           Swal.fire({
             title: "Despliegue creado",
             text: "¿Deseas iniciar un experimento con este despliegue?",

@@ -1,8 +1,6 @@
 export class Carga {
     constructor(
-        cant_usuarios: number[],
-        duracion_picos: string[],
-        con_picos: string,
-        fk_proyecto: number
+        public cant_usuarios: string[] = [],
+        public duracion_picos: string[] = []
     ) { }
 }

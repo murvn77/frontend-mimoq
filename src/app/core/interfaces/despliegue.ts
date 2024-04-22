@@ -3,7 +3,7 @@ export interface DespliegueInterface {
     nombre: string;
     cant_replicas: number;
     cant_pods: number;
-    namespace: string,
+    namespace: string;
+    puerto: number;
     nombre_helm: string;
-    puerto: number
 }

@@ -24,10 +24,13 @@
                             </div> -->
                             <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <ul class="left-aligned">
-                                <li *ngFor="let sub_atributo of atributo.sub_atributos">
-                                    <input class="form-check-input" type="checkbox" value="" data-bs-toggle="tooltip" data-bs-title="Default tooltip">
-                                    {{sub_atributo}}
-                                </li>
+                                @for(sub_atributo of atributo.sub_atributos; track $index){
+                                    <!-- <li *ngFor="let sub_atributo of atributo.sub_atributos"> -->
+                                        <li>
+                                        <input class="form-check-input" type="checkbox" value="ensyo" data-bs-toggle="tooltip" data-bs-title="Default tooltip">
+                                        {{sub_atributo}}
+                                    </li>
+                                }
                             </ul>
                         </div>
                         </div>
@@ -60,6 +63,6 @@
         </div>
         <div class="text-center justify-content-between">
             <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
-            <button type="submit" class="btn btn-primary btn-xl">Siguiente</button>
+            <button type="submit" class="btn btn-primary btn-xl" (click)="crearExperimento()">Siguiente</button>
         </div>
 </section>

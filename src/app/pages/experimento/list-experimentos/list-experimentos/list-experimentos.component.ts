@@ -5,9 +5,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ROUTES_APP } from '../../../../core/enum/routes.enum';
 import Swal from 'sweetalert2';
 import { ExperimentoService } from '../../../../services/experimento/experimento.service';
-import { Experimento } from '../../../../core/interfaces/experimento';
+import { ExperimentoInterface } from '../../../../core/interfaces/experimento';
 import { Subscription } from 'rxjs';
-import { Carga } from '../../../../core/interfaces/carga';
+import { CargaInterface } from '../../../../core/interfaces/carga';
 
 @Component({
   selector: 'app-list-experimentos',
@@ -18,8 +18,8 @@ import { Carga } from '../../../../core/interfaces/carga';
 })
 export class ListExperimentosComponent implements OnInit {
   p: number = 1;
-  experimentos: Experimento[] = [];
-  carga: Carga[] = [];
+  experimentos: ExperimentoInterface[] = [];
+  carga: CargaInterface[] = [];
   suscription : Subscription = new Subscription;
 
   constructor(private router: Router, 

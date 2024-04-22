@@ -1,5 +1,3 @@
-import { CargaInterface } from "./carga";
-
 export interface ExperimentoInterface {
     id_experimento: number;
     nombre: string;

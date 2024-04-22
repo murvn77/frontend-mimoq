@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, Subject, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Proyecto } from '../../core/model/proyecto/proyecto';
+import { ProyectoInterface } from '../../core/interfaces/proyecto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProyectoService {
-  nuevoProyecto: Proyecto = {} as Proyecto;
+  nuevoProyecto: ProyectoInterface = {} as ProyectoInterface;
   private _refresh = new Subject<void>();
   private httpOptions = {
     headers: new HttpHeaders({
@@ -49,10 +50,10 @@ export class ProyectoService {
     return this.httpClient.put<Proyecto>(this.urlBackend, proyecto, this.httpOptions);
   }
 
-  setProyecto(proyecto: Proyecto): void {
+  setProyecto(proyecto: ProyectoInterface): void {
     this.nuevoProyecto = proyecto;
   }
-  getProyecto(): Proyecto {
+  getProyecto(): ProyectoInterface {
     return this.nuevoProyecto;
   }
 }
