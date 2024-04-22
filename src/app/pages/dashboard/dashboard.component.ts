@@ -9,13 +9,18 @@ import { TooltipDirective } from '../../core/directives/tooltip.directive';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
+    // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
+    //   new bootstrap.Tooltip(tooltipTriggerEl)
+    // })
   // users:any[]=[];
   // constructor(private http: HttpClient) {
 
   // }
-  // ngOnInit(): void {
-  //   this.getAllusers();
-  // }
+  ngOnInit(): void {
+    console.log("hola dashboard");
+  }
 
   // getAllusers() {
   //   debugger;

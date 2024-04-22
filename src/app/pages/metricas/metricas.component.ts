@@ -20,7 +20,7 @@ export class MetricasComponent implements OnInit {
   // lista quemada de atributos
   atributos: Atributo[] = [
     new Atributo('Eficiencia de Rendimiento', 'Eficiencia de rendimiento se refiere al rendimiento relacionado con la cantidad de recursos utilizados.', ['Comportamiento Temporal', 'Utilización de Recursos', 'Elasticidad']),
-    new Atributo('Fiabilidad', 'La mantenibilidad se refiere a qué tan bien se puede modificar un producto o sistema para mejorar, corregir o adaptarse a los cambios en el entorno, así como a los requisitos.', ['Madurez', 'Disponibilidad', 'Tolerancia a Fallos', 'Recuperación de Fallos']),
+    new Atributo('Fiabilidad', 'La fiabilidad se refiere a qué tan bien un sistema, producto o componente realiza funciones específicas en condiciones específicas.', ['Madurez', 'Disponibilidad', 'Tolerancia a Fallos', 'Recuperación de Fallos']),
     new Atributo('Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
   ];
   metricas: MetricaInterface[] = []
