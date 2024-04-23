@@ -6,9 +6,6 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 })
 export class TooltipDirective {
 
-  // constructor() { }
-
-
   constructor(private el: ElementRef, private render: Renderer2) { }
   @Input('appTooltip') toolTipContent: string = '';
 

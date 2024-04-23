@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProyectoService } from '../../../services/proyecto/proyecto.service';
 import { Proyecto } from '../../../core/model/proyecto/proyecto';
@@ -13,6 +13,7 @@ import { DespliegueInterface } from '../../../core/interfaces/despliegue';
   styleUrl: './ver-proyecto.component.css'
 })
 export class VerProyectoComponent implements OnInit {
+  // @Input() id_proyecto: number = 0;
   proyectoActual : Proyecto = {} as Proyecto;
   despliegues: DespliegueInterface[] = {} as DespliegueInterface[];
   p: number = 1;
@@ -21,6 +22,7 @@ export class VerProyectoComponent implements OnInit {
     private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.getProyecto(this.route.snapshot.paramMap.get('id'));
+    // this.getProyecto(this.id_proyecto);
   } 
 
   getProyecto(id: any): void{
@@ -28,7 +30,7 @@ export class VerProyectoComponent implements OnInit {
       next: (proyecto: any) => {
         this.proyectoActual = proyecto;
         this.despliegues = this.proyectoActual?.despliegues || [];
-        console.log(this.proyectoActual);
+        console.log('Despliegues',this.proyectoActual);
       },
       error: (error: any) => {
         console.log(error);

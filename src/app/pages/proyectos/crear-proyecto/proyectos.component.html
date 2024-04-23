@@ -67,9 +67,9 @@
           </div>
           }
           @else if(!proyectoForm.get('selectedAllMicroservices')?.value){
-            <div class="alert alert-warning" role="alert">
-              Recuerde que cada repositorio debe tener el Dockerfile del microservicio
-            </div>
+          <div class="alert alert-warning" role="alert">
+            Recuerde que cada repositorio debe tener el Dockerfile del microservicio
+          </div>
           }
           <div class="form-group row mt-2">
             <label for="inputUrlrepo4" class="section-label">Url repositorio</label>
@@ -77,9 +77,9 @@
               <div class="d-flex align-items-center">
                 <input type="url" formControlName="repositorio" placeholder="Repositorio" id="inputUrlrepo4"
                   class="form-control me-2" />
-                  @if(!proyectoForm.get('selectedAllMicroservices')?.value){
-                    <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
-                  }
+                @if(!proyectoForm.get('selectedAllMicroservices')?.value){
+                <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
+                }
               </div>
               <div class="invalid-feedback">
                 Url requerido
@@ -92,15 +92,9 @@
               <div class="col-md-12">
                 <div class="d-flex align-items-center">
                   <div class="form-group me-2">
-                  <label class="section-label" for="inputNameAplication">Aplicación</label>
-                    <input
-                      type="text"
-                      [formControlName]="$index"
-                      class="form-control"
-                      placeholder="Nombre"
-                      id="inputNameAplication"
-                      required
-                    />
+                    <label class="section-label" for="inputNameAplication">Aplicación</label>
+                    <input type="text" [formControlName]="$index" class="form-control" placeholder="Nombre"
+                      id="inputNameAplication" required />
                     <div class="invalid-feedback">
                       Nombre requerido
                     </div>
@@ -115,12 +109,25 @@
             </div>
             }
           </div>
-          <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid" (click)="crearProyecto()">
-              <a class="btn btn-primary btn-xl">
-                Siguiente
-              </a></button>
+          @if(loading){
+            <div class="text-center form-conent">
+            <button class="btn btn-primary btn-xl" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span role="status">Cargando...</span>
+            </button>
           </div>
+          }@else {
+            <div class="text-center form-conent d-grid gap-2 d-md-block">
+              <button class="btn btn-primary" style="margin-right: 10px;" id="submitButton" type="submit" (click)="goBack()">
+                Atrás
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="!proyectoForm.valid"
+                (click)="crearProyecto()">
+                <!-- <a class="btn btn-primary btn-xl"></a> -->
+                  Siguiente
+                </button>
+            </div>
+          }
         </div>
       </div>
     </form>

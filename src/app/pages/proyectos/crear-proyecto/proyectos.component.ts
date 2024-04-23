@@ -21,6 +21,7 @@ export class ProyectosComponent {
     {label: 'Si', value: true},
     {label: 'No', value: false}
   ]
+  loading: boolean = false;
   proyecto: number = 0;
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -36,6 +37,7 @@ export class ProyectosComponent {
     private authService: AuthService 
   ){}
   async crearProyecto(): Promise<void> {
+    this.loading = true;
     const nuevoProyecto = this.proyectoForm.value;
     const usuario: Usuario = await this.authService.getUsuario();
     console.log('Usuario en sesión: ' + usuario.id_usuario);  
@@ -72,6 +74,7 @@ export class ProyectosComponent {
           
         }, error: (error: any) => {
           console.error('Error creando proyecto', error);
+          this.loading = false;
           Swal.fire('Error', 'Ocurrió un error al crear el proyecto', 'error');
         }
       });
@@ -87,6 +90,9 @@ export class ProyectosComponent {
   }
   deleteUrl(index:number) {
     this.urlsRepositorios.removeAt(index);
+  }
+  goBack(): void{
+    this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
   }
 }
 function noTildesValidator(control: FormControl) {

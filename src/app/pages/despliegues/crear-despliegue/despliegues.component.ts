@@ -172,4 +172,7 @@ export class DesplieguesComponent implements OnInit {
     //   });
     // }
   }
+  goBack(): void{
+    this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
+  }
 }

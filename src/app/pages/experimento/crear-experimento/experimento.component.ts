@@ -30,6 +30,7 @@ export class ExperimentoComponent implements OnInit {
   duracion_picos: string[] = [];
   despliegues: DespliegueInterface[] = [];
   endpoints: string[] = [];
+  status: boolean = false;
 
   experimentoForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
@@ -116,6 +117,7 @@ export class ExperimentoComponent implements OnInit {
   }
 
   crearExperimento() {
+    this.status = true;
     console.log(this.experimentoForm.value);
     // setTimeout(() => {
     //   this.crearCarga();

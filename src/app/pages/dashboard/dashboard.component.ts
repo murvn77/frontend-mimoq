@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TooltipDirective } from '../../core/directives/tooltip.directive';
+import { SpinnerComponent } from '../../components/spinner/spinner/spinner.component';
 
 @Component({
   selector: 'app-dashboard',

@@ -43,7 +43,7 @@ export const routes: Routes = [
         // canActivate: [authGuard]
     },
     {
-        path: 'proyectos',
+        path: 'proyecto',
         title: 'Proyectos',
         canActivate: [authGuard],
         children: [
@@ -52,17 +52,17 @@ export const routes: Routes = [
                 component: ListProyectosComponent
             },
             {
-                path: 'crearProyecto',
+                path: 'crear',
                 title: 'CrearProyectos',
                 component: ProyectosComponent
             },
             {
-                path: 'verProyecto/:id',
+                path: 'ver/:id',
                 title: 'VerProyecto',
                 component: VerProyectoComponent
             },
             {
-                path: 'editProyecto/:id',
+                path: 'editar/:id',
                 title: 'EditProyecto',
                 component: EditProyectoComponent
             }
@@ -84,7 +84,7 @@ export const routes: Routes = [
                 component: ListDesplieguesComponent
             },
             {
-                path: 'crearDespliegue/:id_proyecto',
+                path: 'crear/:id_proyecto',
                 title: 'Crear Despliegue',
                 component: DesplieguesComponent
             },

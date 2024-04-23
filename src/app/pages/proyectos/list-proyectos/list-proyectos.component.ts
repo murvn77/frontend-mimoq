@@ -7,11 +7,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
+import { VerProyectoComponent } from '../ver-proyecto/ver-proyecto.component';
 
 @Component({
   selector: 'app-list-proyectos',
   standalone: true,
-  imports: [RouterLink,CommonModule,NgxPaginationModule],
+  imports: [RouterLink,CommonModule,NgxPaginationModule, VerProyectoComponent],
   templateUrl: './list-proyectos.component.html',
   styleUrl: './list-proyectos.component.css'
 })
