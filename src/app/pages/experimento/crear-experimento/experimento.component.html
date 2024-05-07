@@ -62,24 +62,24 @@
                   <td>
                     <div class="input-container">
                       <input type="text" formControlName="endpoints" class="form-control input-auto-width"
-                        [placeholder]='this.endpoints[$index]' id="inputCarga" required />
+                        [placeholder]='this.endpoints[$index]' id="inputCarga" required [readonly]="!inputHabilitado" />
                     </div>
                   </td>
 
                   <td>
                     <div class="input-container">
                       <input type="text" formControlName="vus" class="form-control input-auto-width"
-                        [placeholder]='this.cant_usuarios[$index]' id="inputCarga" required />
+                        [placeholder]='this.cant_usuarios[$index]' id="inputCarga" required [readonly]="!inputHabilitado"/>
                     </div>
                   </td>
 
                   <td><input type="text" formControlName="picos" class="form-control"
-                      [placeholder]='this.duracion_picos[$index]' id="inputCarga" required />
+                      [placeholder]='this.duracion_picos[$index]' id="inputCarga" required [readonly]="!inputHabilitado"/>
                   </td>
-                  <td><button type="button" class="btn btn-outline-secondary"
-                      [disabled]="!this.experimentoForm.get('cargaForm')?.valid"
-                      (click)="modificar($index)">Editar</button>
-                  </td>
+                  <td><button type="button" class="btn btn-outline-primary"
+                    [disabled]="!inputHabilitado"
+                    (click)="incluir($index)">Añadir</button>
+                </td>
                   }@else {
                   <td>
                     <div class="input-container">

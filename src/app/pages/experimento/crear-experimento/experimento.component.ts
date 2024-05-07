@@ -24,6 +24,7 @@ export class ExperimentoComponent implements OnInit {
   nombre_despliegue: string = '';
   despliegue: DespliegueInterface = {} as DespliegueInterface;
   ids_despliegues: number[] = []
+  inputHabilitado = false;
   ids_metricas: number[] = [2,3]
   carga: CargaInterface = {} as CargaInterface;
   cant_usuarios: string[] = [];
@@ -230,6 +231,7 @@ export class ExperimentoComponent implements OnInit {
   }
 
   modificar(index: any) {
-
+    // this.inputHabilitado=true;
+    // this.cargas.at(index).setValue()
   }
 }

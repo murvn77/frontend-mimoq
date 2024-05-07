@@ -22,14 +22,14 @@ export class ProyectoService {
     return this._refresh;
   }
 
-  findAll(): Observable<Proyecto[]> {
-    return this.httpClient.get<Proyecto[]>(this.urlBackend); //of convierte a Observable
+  findAll(): Observable<ProyectoInterface[]> {
+    return this.httpClient.get<ProyectoInterface[]>(this.urlBackend); //of convierte a Observable
   }
-  findById(id: number): Observable<Proyecto> {
-    return this.httpClient.get(this.urlBackend + `${id}`);
+  findById(id: number): Observable<ProyectoInterface> {
+    return this.httpClient.get<ProyectoInterface>(this.urlBackend + `${id}`);
   }
-  public create(proyecto: any): Observable<Proyecto> {
-    return this.httpClient.post<Proyecto>(this.urlBackend, proyecto, this.httpOptions)
+  public create(proyecto: any): Observable<ProyectoInterface> {
+    return this.httpClient.post<ProyectoInterface>(this.urlBackend, proyecto, this.httpOptions)
     .pipe(
       tap(() => {
         this._refresh.next();
@@ -46,8 +46,8 @@ export class ProyectoService {
     );;
   }
 
-  public update(proyecto: any): Observable<Proyecto> {
-    return this.httpClient.put<Proyecto>(this.urlBackend, proyecto, this.httpOptions);
+  public update(proyecto: any): Observable<ProyectoInterface> {
+    return this.httpClient.put<ProyectoInterface>(this.urlBackend, proyecto, this.httpOptions);
   }
 
   setProyecto(proyecto: ProyectoInterface): void {

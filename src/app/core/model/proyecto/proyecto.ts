@@ -5,9 +5,9 @@ export class Proyecto {
     public id_proyecto?: number | null;
     public nombre?: String | null;
     public descripcion?: String | null;
-    public nombres_microservicios?: string[] | null;
     public url_repositorio?: String | null;
     public urls_repositorios?: String[] | null;
+    public nombres_microservicios?: string[] | null;
     public despliegues?: DespliegueInterface[] | null;
     public docker_compose?: boolean | null;
     public dockerfile?: boolean | null;
@@ -16,9 +16,9 @@ export class Proyecto {
     constructor(
         nombre: String | null,
         descripcion: String | null,
-        nombres_microservicios: string[] | null,
         url_repositorio?: String | null,
         urls_repositorios?: String[] | null,
+        nombres_microservicios?: string[] | null,
         despliegues?: DespliegueInterface[] | null,
         docker_compose?: boolean | null,
         dockerfile?: boolean | null,

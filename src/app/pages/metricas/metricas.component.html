@@ -12,8 +12,8 @@
                 @for (atributo of atributos; track $index){
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button" [appTooltip]="atributo.descripcion || ''" type="button" data-bs-toggle="collapse"
-                                [attr.data-bs-target]="'#collapse' + $index"  aria-expanded="true" [attr.aria-controls]="'collapse' + $index" >
+                                <button class="accordion-button collapsed" [appTooltip]="atributo.descripcion || ''" type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapse' + $index"  aria-expanded="false" [attr.aria-controls]="'collapse' + $index" >
                                     <strong>{{atributo.nombre}}</strong>
                                 </button>
                             </h2>
@@ -22,17 +22,19 @@
                                     {{atributo.descripcion}}
                                 </div>
                             </div> -->
-                            <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                            <ul class="left-aligned">
-                                @for(sub_atributo of atributo.sub_atributos; track $index){
+                            <div [id]="'collapse' + $index" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                <ul class="left-aligned">
+                                @for(sub_atributo of atributo.subatributos; track $index){
                                     <!-- <li *ngFor="let sub_atributo of atributo.sub_atributos"> -->
                                         <li>
                                         <input class="form-check-input" type="checkbox" value="ensyo" data-bs-toggle="tooltip" data-bs-title="Default tooltip">
-                                        {{sub_atributo}}
+                                        {{sub_atributo.nombre}}
                                     </li>
                                 }
                             </ul>
                         </div>
+                    </div>
                         </div>
                 }   
             </div>             

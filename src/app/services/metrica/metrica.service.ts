@@ -8,7 +8,7 @@ import { MetricaInterface } from '../../core/interfaces/metrica';
 })
 export class MetricaService {
 
-  private urlBackend: string = 'http://localhost:3000/api/metrica/'
+  private urlBackend: string = 'http://localhost:3000/api/atributo/'
 
   constructor(private httpClient: HttpClient) { }
   findAll(): Observable<MetricaInterface[]> {

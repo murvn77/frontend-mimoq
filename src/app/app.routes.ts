@@ -14,6 +14,7 @@ import { ExperimentoComponent } from './pages/experimento/crear-experimento/expe
 import {EditProyectoComponent} from './pages/proyectos/edit-proyecto/edit-proyecto.component'
 import { ListDesplieguesComponent } from './pages/despliegues/list-despliegues/list-despliegues.component';
 import { ModalComponent } from './pages/modal/modal.component';
+import { VerDespliegueComponent } from './pages/despliegues/ver-despliegue/ver-despliegue.component';
 
 export const routes: Routes = [
     {
@@ -53,17 +54,17 @@ export const routes: Routes = [
             },
             {
                 path: 'crear',
-                title: 'CrearProyectos',
+                title: 'Crear Proyectos',
                 component: ProyectosComponent
             },
             {
                 path: 'ver/:id',
-                title: 'VerProyecto',
+                title: 'Ver Proyecto',
                 component: VerProyectoComponent
             },
             {
                 path: 'editar/:id',
-                title: 'EditProyecto',
+                title: 'Editar Proyecto',
                 component: EditProyectoComponent
             }
         ]
@@ -84,15 +85,15 @@ export const routes: Routes = [
                 component: ListDesplieguesComponent
             },
             {
-                path: 'crear/:id_proyecto',
+                path: 'crear',
                 title: 'Crear Despliegue',
                 component: DesplieguesComponent
             },
-            // {
-            //     path: 'verProyecto/:id',
-            //     title: 'VerProyecto',
-            //     component: VerProyectoComponent
-            // },
+            {
+                path: 'ver/:nombre',
+                title: 'Ver Despliegue',
+                component: VerDespliegueComponent
+            },
             // {
             //     path: 'editProyecto/:id',
             //     title: 'EditProyecto',

@@ -6,6 +6,7 @@ import { DespliegueService } from '../../../services/despliegue/despliegue.servi
 import { Despliegue } from '../../../core/model/despliegue/despliegue';
 import Swal from 'sweetalert2';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
+import { ProyectoInterface } from '../../../core/interfaces/proyecto';
 
 @Component({
   selector: 'app-despliegues',
@@ -16,9 +17,11 @@ import { ROUTES_APP } from '../../../core/enum/routes.enum';
 })
 export class DesplieguesComponent implements OnInit {
   id_proyecto: number = 0;
+  proyecto: ProyectoInterface = {} as ProyectoInterface;
   p: number = 1;
   microservicios: string[] = [];
   replicas: number = 1;
+  loading: boolean = false;
   listaReplicas: number[] = [];
   nuevovalor = this.replicas;
   indexAnt = 0;
@@ -36,8 +39,8 @@ export class DesplieguesComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
-    this.getProyecto(this.route.snapshot.paramMap.get('id_proyecto'));
-    // this.obtenerMicroservicios();
+    // this.getProyecto(this.route.snapshot.paramMap.get('id_proyecto'));
+    this.obtenerMicroservicios();
 
     setTimeout(() => {
       this.cargarMicroservicios();
@@ -48,35 +51,13 @@ export class DesplieguesComponent implements OnInit {
   get replicasMicro() {
     return this.despliegueForm.get('replicasMicro') as FormArray;
   }
-  // get replicas() {
-  //   return this.despliegueForm.get('replicas');
-  // }
-  getProyecto(id: any): void{
-    this.id_proyecto = id;
-    console.log('ID Proyecto', this.id_proyecto);
-    this.proyectoService.findById(id).subscribe({
-      next: (proyecto: any) => {
-        this.microservicios = proyecto.nombres_microservicios || [];
-        console.log(this.microservicios);
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
+
   obtenerMicroservicios() {
-    
-    this.id_proyecto = this.proyectoService.getProyecto()?.id_proyecto || 0;
-    console.log('ID Proyecto', this.id_proyecto);
-    this.proyectoService.findById(this.id_proyecto).subscribe({
-      next: (proyecto: any) => {
-        this.microservicios = proyecto.nombres_microservicios || [];
-        console.log(this.microservicios);
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
+    this.proyecto = this.proyectoService?.getProyecto();
+    console.log('Proyecto', this.proyecto);
+    this.microservicios = this.proyecto.nombres_microservicios || [];
+    this.id_proyecto = this.proyecto.id_proyecto;
+    console.log(this.microservicios);
   }
   cargarMicroservicios() {
     this.microservicios.forEach((microservicio) => {
@@ -113,6 +94,7 @@ export class DesplieguesComponent implements OnInit {
     }
   }
   crearDespliegue() {
+    this.loading = true;
     console.log(this.despliegueForm.value);
     if (this.despliegueForm.valid) {
       console.log('Entra al if');
@@ -120,7 +102,6 @@ export class DesplieguesComponent implements OnInit {
       const formArray = this.despliegueForm.get('replicasMicro') as FormArray;
       formArray.controls.forEach(element => {
         const cantidadControl = element?.get('cantidad');
-        console.log('cantidadControl', cantidadControl);
         const cantidadValue = cantidadControl?.value; // Valor de la cantidad
         this.listaReplicas.push(cantidadValue);
       });
@@ -129,8 +110,9 @@ export class DesplieguesComponent implements OnInit {
         replicas: this.listaReplicas,
         cant_pods: Number(nuevoDespliegue.cant_pods) || 1,
         namespace: nuevoDespliegue.namespace || 'default',
-        fk_proyecto: this.id_proyecto
+        fk_proyecto: this.id_proyecto || 0
       }
+      console.log('Despliegue a crear', data);
       this.despliegueService.createMultiple(data).subscribe({
         next: (res: any) => {
           console.log('Despliegue creado', res);
@@ -149,13 +131,14 @@ export class DesplieguesComponent implements OnInit {
             if (result.isConfirmed) {
               this.router.navigateByUrl('/experimento');
               // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
-            }else{
+            } else {
               this.router.navigateByUrl('/despliegues');
             }
           });
-          
+
         }, error: (error: any) => {
           console.error('Error creando el despliegue', error);
+          this.loading = false;
           Swal.fire('Error', 'Ocurrió un error al crear el despliegue', 'error');
         }
         // console.log(despliegue);
@@ -172,7 +155,7 @@ export class DesplieguesComponent implements OnInit {
     //   });
     // }
   }
-  goBack(): void{
+  goBack(): void {
     this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
   }
 }

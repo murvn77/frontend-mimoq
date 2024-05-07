@@ -10,35 +10,31 @@
                         <thead>
                             <tr>
                                 <th class="text_table" scope="col">Nombre</th>
+                                <th class="text_table" scope="col">No. Replicas</th>
                                 <th class="text_table" scope="col">No. Pods</th>
                                 <th class="text_table" scope="col">Namespace</th>
-                                <th class="text_table" scope="col">Acciones</th>
+                                <th class="text_table" scope="col"></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @for (despliegue of desplieguesAgrupados | paginate:{itemsPerPage: 10, currentPage: p};
-                            track
+                            @for (despliegue of despliegues | paginate:{itemsPerPage: 10, currentPage: p}; track
                             $index){
 
                             <tr class="text_table">
 
-                                <td>{{ despliegue.nombre_helm }}</td>
+                                <td>{{ despliegue.nombre }}</td>
+
+                                <td>{{ despliegue.cant_replicas }}</td>
 
                                 <td>{{ despliegue.cant_pods }}</td>
 
                                 <td>{{ despliegue.namespace }}</td>
 
-                                <td>
-                                    <button class="btn btn-primary btn-xl" type="button"
-                                        (click)="desplegar(despliegue)">Desplegar
-                                    </button>
-                                    <button class="btn btn-outline-light" type="button"
-                                        [routerLink]="[ROUTES_APP.VER_DESPLIEGUE, despliegue.nombre_helm]">
-                                        Ver
-                                    </button>
-                                </td>
+                                <td><button class="btn btn-primary btn-xl" id="submitButton" type="button"
+                                    (click)="desplegar(despliegue)">Desplegar</button></td>
                             </tr>
+
                             }
                         </tbody>
                     </table>
@@ -50,6 +46,11 @@
                         <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
                             [routerLink]="ROUTES_APP.CREAR_DESPLIEGUE">Crear despliegue</button>
                     </div> -->
+                    <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit" (click)="goBack()">
+                          Atrás
+                        </button>
+                      </div>
                 </div>
             </div>
         </div>

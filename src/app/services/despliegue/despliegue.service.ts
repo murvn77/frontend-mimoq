@@ -24,7 +24,7 @@ export class DespliegueService {
     return this.httpClient.get<DespliegueInterface>(this.urlBackend + `${id}`);
   }
   findByNameDeployment(nombre: string): Observable<DespliegueInterface[]> {
-    return this.httpClient.get<DespliegueInterface[]>(this.urlBackend + `${nombre}`);
+    return this.httpClient.get<DespliegueInterface[]>(this.urlBackend + `nombreHelm/${nombre}`);
   }
   public createMultiple(proyecto: any): Observable<DespliegueInterface> {
     return this.httpClient.post<DespliegueInterface>(this.urlBackend + 'multiple', proyecto, this.httpOptions);

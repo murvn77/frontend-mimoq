@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ROUTES_APP } from '../../core/enum/routes.enum';
 import { TooltipDirective } from '../../core/directives/tooltip.directive';
-import { MetricaService } from '../../services/metrica/metrica.service';
-import { MetricaInterface } from '../../core/interfaces/metrica';
 import { ExperimentoService } from '../../services/experimento/experimento.service';
 import Swal from 'sweetalert2';
+import { AtributoInterface } from '../../core/interfaces/atributo';
+import { AtributoService } from '../../services/atributos/atributo.service';
+import { SubAtributoInterface } from '../../core/interfaces/sub-atributo';
 
 @Component({
   selector: 'app-metricas',
@@ -18,21 +19,22 @@ import Swal from 'sweetalert2';
 })
 export class MetricasComponent implements OnInit {
   // lista quemada de atributos
-  atributos: Atributo[] = [
-    new Atributo('Eficiencia de Rendimiento', 'Eficiencia de rendimiento se refiere al rendimiento relacionado con la cantidad de recursos utilizados.', ['Comportamiento Temporal', 'Utilización de Recursos', 'Elasticidad']),
-    new Atributo('Fiabilidad', 'La fiabilidad se refiere a qué tan bien un sistema, producto o componente realiza funciones específicas en condiciones específicas.', ['Madurez', 'Disponibilidad', 'Tolerancia a Fallos', 'Recuperación de Fallos']),
-    new Atributo('Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
-  ];
-  metricas: MetricaInterface[] = []
+  // atributos: Atributo[] = [
+  //   new Atributo(1,'Eficiencia de Rendimiento', 'Eficiencia de rendimiento se refiere al rendimiento relacionado con la cantidad de recursos utilizados.', [
+  //     new SubAtributoInterface ('Comportamiento Temporal'), 'Utilización de Recursos', 'Elasticidad']),
+  //   new Atributo(2,'Fiabilidad', 'La fiabilidad se refiere a qué tan bien un sistema, producto o componente realiza funciones específicas en condiciones específicas.', ['Madurez', 'Disponibilidad', 'Tolerancia a Fallos', 'Recuperación de Fallos']),
+  //   new Atributo(3,'Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
+  // ];
+  atributos: AtributoInterface[] = []
   constructor(private router: Router,
-    private metricaService: MetricaService,
+    private atributpService: AtributoService,
     private experimentoService: ExperimentoService
   ) { }
   ngOnInit(): void {
     console.log('hola');
-    this.metricaService.findAll().subscribe(metricas => {
-      console.log('Proyectos', metricas);
-      this.metricas = metricas;
+    this.atributpService.findAll().subscribe(atributos => {
+      console.log('Proyectos', atributos);
+      this.atributos = atributos;
     });
 
     // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

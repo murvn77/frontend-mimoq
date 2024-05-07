@@ -8,6 +8,7 @@ import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { VerProyectoComponent } from '../ver-proyecto/ver-proyecto.component';
+import { ProyectoInterface } from '../../../core/interfaces/proyecto';
 
 @Component({
   selector: 'app-list-proyectos',
@@ -32,8 +33,10 @@ export class ListProyectosComponent implements OnInit{
   //   new Proyecto('Proyecto 10', 'Descripción del proyecto 10', 'https://www.google.com'),
   //   new Proyecto('Proyecto 11', 'Descripción del proyecto 11', 'https://www.google.com'),
   // ];
+  proyectoActual: ProyectoInterface = {} as ProyectoInterface;
   p: number = 1;
-  proyectos: Proyecto[] = [];
+  mostrarInfo: boolean = false;
+  proyectos: ProyectoInterface[] = [];
   suscription : Subscription = new Subscription;
 
   constructor(private router: Router, 
@@ -61,6 +64,7 @@ get ROUTES_APP(){
 //   this.proyectoService.findById(id).subscribe({
 //     next: (proyecto: any) => {
 //       this.proyectoActual = proyecto;
+//       this.proyectoService.setProyecto(this.proyectoActual);
 //     },
 //     error: (error: any) => {
 //       console.log(error);
@@ -113,5 +117,4 @@ eliminarProyecto(id:number): void{
   //   }
   //   return id;
   // }
-
 }

@@ -1,8 +1,8 @@
-import { AtributoInterface } from "./atributo";
+import { MetricaInterface } from "./metrica";
 
 export interface SubAtributoInterface {
     id_subatributo: number;
     nombre: string;
     descripcion: string;
-    atributo: AtributoInterface;
+    metricas: MetricaInterface[];
 }
