@@ -37,7 +37,7 @@ export class ProyectosComponent implements OnInit {
       nombre: new FormControl(''),
       url: new FormControl('')
     }),
-    haveDockerfiles: new FormControl(true, [Validators.required]),
+    haveDockerfiles: new FormControl(false, [Validators.required]),
     // nameAplication: new FormControl('', [Validators.required, Validators.pattern(this.noTildesPattern)])
   });
   constructor(private router:Router,

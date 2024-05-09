@@ -22,6 +22,7 @@ export class DesplieguesComponent implements OnInit {
   microservicios: string[] = [];
   replicas: number = 1;
   loading: boolean = false;
+  esMultiple: boolean = false;
   listaReplicas: number[] = [];
   nuevovalor = this.replicas;
   indexAnt = 0;
@@ -57,6 +58,7 @@ export class DesplieguesComponent implements OnInit {
     console.log('Proyecto', this.proyecto);
     this.microservicios = this.proyecto.nombres_microservicios || [];
     this.id_proyecto = this.proyecto.id_proyecto;
+    this.esMultiple = this.proyecto?.docker_compose || false;
     console.log(this.microservicios);
   }
   cargarMicroservicios() {
@@ -113,10 +115,42 @@ export class DesplieguesComponent implements OnInit {
         fk_proyecto: this.id_proyecto || 0
       }
       console.log('Despliegue a crear', data);
+      console.log('es esMultiple',this.esMultiple);
+      if(!this.esMultiple){
+        this.despliegueService.createIndividual(data).subscribe({
+          next: (res: any) => {
+            console.log('Despliegue creado', res);
+            this.despliegueService.setDespliegue(res);
+            Swal.fire({
+              title: "Despliegue creado",
+              text: "¿Deseas iniciar un experimento con este despliegue?",
+              icon: "success",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Si, experimentar",
+              cancelButtonText: "No, ver despliegues"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.router.navigateByUrl('/experimento');
+                // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+              } else {
+                this.router.navigateByUrl('/despliegues');
+              }
+            });
+  
+          }, error: (error: any) => {
+            console.error('Error creando el despliegue', error);
+            this.loading = false;
+            Swal.fire('Error', 'Ocurrió un error al crear el despliegue', 'error');
+          }
+          // console.log(despliegue);
+          // this.router.navigateByUrl('/despliegues');
+        });
+      }else{    
       this.despliegueService.createMultiple(data).subscribe({
         next: (res: any) => {
           console.log('Despliegue creado', res);
-          // Swal.fire('Creado', 'Despliegue creado correctamente', 'success');
           this.despliegueService.setDespliegue(res);
           Swal.fire({
             title: "Despliegue creado",
@@ -144,6 +178,7 @@ export class DesplieguesComponent implements OnInit {
         // console.log(despliegue);
         // this.router.navigateByUrl('/despliegues');
       });
+    }
     }
     // addItem() {
     //   this.microservicios.forEach((microservicio) => {

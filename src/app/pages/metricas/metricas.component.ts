@@ -43,9 +43,9 @@ export class MetricasComponent implements OnInit {
     // })
   }
 
-  obtenerAtributos() {
+  // obtenerAtributos() {
 
-  }
+  // }
   currentAtributo: Atributo | null = null;
 
   crearExperimento() {

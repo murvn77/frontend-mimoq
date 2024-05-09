@@ -149,7 +149,7 @@ export class ExperimentoComponent implements OnInit {
     this.experimentoService.setExperimento(data);
     Swal.fire({
       title: "Experimento creado",
-      text: "¿Deseas seleccionar metricas para este experimento?",
+      text: "¿Deseas seleccionar métricas para este experimento?",
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

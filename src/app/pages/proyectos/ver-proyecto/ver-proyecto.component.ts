@@ -55,7 +55,7 @@ export class VerProyectoComponent implements OnInit {
   crearDespliegue(){
       console.log("verProyecto",this.proyectoActual);
       this.proyectoService.setProyecto(this.proyectoActual);
-      this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE]);
+      this.router.navigate([ROUTES_APP.DESPLIEGUES+'/'+ROUTES_APP.CREAR_DESPLIEGUE]);
   }
   goBack(): void{
     this.router.navigateByUrl(ROUTES_APP.PROYECTOS);

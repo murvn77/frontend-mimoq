@@ -10,6 +10,9 @@ export interface ProyectoInterface {
      nombres_microservicios: string[];
      docker_compose?: boolean;
      dockerfile?: boolean;
+     imagenes_deploy?: string[];
+     puertos_imagenes?: string[];
+     puertos_deploy?: string[];
      despliegues?: DespliegueInterface[];
      usuario?: Usuario;
 }
