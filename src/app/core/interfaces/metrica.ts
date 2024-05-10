@@ -3,4 +3,5 @@ export interface MetricaInterface {
     nombre: string;
     descripcion: string;
     formula: string;
+    seleccionada: boolean;
 }

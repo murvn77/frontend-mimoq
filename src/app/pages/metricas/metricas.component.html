@@ -56,9 +56,23 @@
                                                     <div class="accordion-body">
                                                         <ul class="left-aligned">
                                                             @for(metrica of sub_atributo.metricas; track $index){
+                                                            @if($index==0){
+                                                            <h5><strong>DISCO</strong></h5>
+                                                            }@else if($index==2){
+                                                            <h5><strong>RED</strong></h5>
+                                                            }@else if($index==9){
+                                                            <h5><strong>MEMORIA</strong></h5>
+                                                            }
+                                                            @else if($index==13){
+                                                            <h5><strong>CPU</strong></h5>
+                                                            }
                                                             <li>
-                                                                <label [appTooltip]="metrica.descripcion || 'prueba'">
-                                                                    <input class="form-check-input" type="checkbox">
+                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" [value]="metrica"
+                                                                        (click)="verificar(metrica)"
+                                                                        class="form-check-input"
+                                                                        id="exampleCheck{{$index}}">
                                                                     {{metrica.nombre}}
                                                                 </label>
                                                             </li>

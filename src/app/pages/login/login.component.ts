@@ -41,6 +41,7 @@ export class LoginComponent {
           this.authService.login(data.usuario);
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
+          this.router.navigated = false;
           this.router.navigateByUrl(ROUTES_APP.HOME);
         } else {
           Swal.fire('Error', data.message, 'error');

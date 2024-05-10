@@ -18,12 +18,12 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
-          @if(!isLoggedIn) {
+          @if(!this.token) {
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToLogin()">Ingresar</button>
             </div>
             }
-            @else {
+            @else{
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>

@@ -29,7 +29,7 @@ export class ProyectosComponent implements OnInit {
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    nombreRepo: new FormControl('', [Validators.required]),
+    nombreRepo: new FormControl(''),
     repositorio: new FormControl('', [Validators.required]),
     selectedAllMicroservices: new FormControl(true, [Validators.required]),
     urlsRepositorios: new FormArray([]),

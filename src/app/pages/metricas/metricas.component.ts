@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { AtributoInterface } from '../../core/interfaces/atributo';
 import { AtributoService } from '../../services/atributos/atributo.service';
 import { SubAtributoInterface } from '../../core/interfaces/sub-atributo';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { MetricaInterface } from '../../core/interfaces/metrica';
 
 @Component({
   selector: 'app-metricas',
@@ -26,6 +28,10 @@ export class MetricasComponent implements OnInit {
   //   new Atributo(3,'Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
   // ];
   atributos: AtributoInterface[] = []
+  ids_metricas: number[] = [];
+  metricaForm = new FormGroup({
+    metricas: new FormArray([])
+  });
   constructor(private router: Router,
     private atributpService: AtributoService,
     private experimentoService: ExperimentoService
@@ -36,21 +42,27 @@ export class MetricasComponent implements OnInit {
       console.log('Proyectos', atributos);
       this.atributos = atributos;
     });
-
     // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
     //   new bootstrap.Tooltip(tooltipTriggerEl)
     // })
   }
-
+  get metricas() {
+    return this.metricaForm.get('metricas') as FormArray;
+  }
+  addMetrica() {
+    this.metricas.push(new FormControl(''));
+  }
   // obtenerAtributos() {
 
   // }
-  currentAtributo: Atributo | null = null;
+  currentMetrica: MetricaInterface | null = null;
 
   crearExperimento() {
     const data = this.experimentoService.getExperimento();
     console.log('Data que llega',data);
+    data.fk_ids_metricas=this.ids_metricas;
+    console.log('Experimento', data);
     this.experimentoService.create(data).subscribe({
       next: (res: any) => {
         console.log('Experimento creado', res);
@@ -68,9 +80,15 @@ export class MetricasComponent implements OnInit {
       // this.router.navigateByUrl('/despliegues');
     });
   }
-
-  setCurrentAtributo(atributo: Atributo) {
-    this.currentAtributo = atributo;
+  verificar(metrica: MetricaInterface) {
+    this.currentMetrica = metrica;
+    let pos = this.ids_metricas.indexOf(metrica.id_metrica);
+    if( pos === -1 ){
+      this.ids_metricas.push(metrica.id_metrica);
+    }else{
+      this.ids_metricas.splice(pos, 1);
+    }
+    console.log('IDs Metricas',this.ids_metricas);
   }
   goBack() {
     this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);

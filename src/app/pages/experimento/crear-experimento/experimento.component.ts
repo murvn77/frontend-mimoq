@@ -25,7 +25,7 @@ export class ExperimentoComponent implements OnInit {
   despliegue: DespliegueInterface = {} as DespliegueInterface;
   ids_despliegues: number[] = []
   inputHabilitado = false;
-  ids_metricas: number[] = [2,3]
+  // ids_metricas: number[] = [2,3]
   carga: CargaInterface = {} as CargaInterface;
   cant_usuarios: string[] = [];
   duracion_picos: string[] = [];
@@ -142,7 +142,7 @@ export class ExperimentoComponent implements OnInit {
       cant_replicas: nuevoExperimento.replicas || 0,
       endpoints: this.endpoints,
       fk_ids_despliegues: this.ids_despliegues,
-      fk_ids_metricas: this.ids_metricas,
+      fk_ids_metricas: [],
       fk_id_carga: this.carga.id_carga
     }
     console.log('Experimento a crear',data);
