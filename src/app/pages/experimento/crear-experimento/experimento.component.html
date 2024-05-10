@@ -1,0 +1,151 @@
+<section class="page-section" id="contact">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading">Configurar Experimento</h2>
+    </div>
+    <form [formGroup]="experimentoForm" id="contactForm" class="row g-3 needs-validation" novalidate>
+      <div class="row align-items-stretch justify-content-center mb-5">
+        <div class="col-md-7 center">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="section-label" for="inputNombre4">Nombre</label>
+              <input type="text" formControlName="nombre" class="form-control"
+                placeholder="Nombre del experimento" id="inputNombre4" min="1" required />
+              <div class="invalid-feedback">
+                Duración requerida
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="section-label" for="inputDuracion4">Duración del experimento</label>
+              <input type="text" formControlName="duracion" class="form-control"
+                placeholder="Duracion. Ej: 4m" id="inputDuracion4" min="1" required />
+
+              <div class="invalid-feedback">
+                Duración requerida
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputReplicas4" class="section-label">No. Réplicas</label>
+              <input type="number" formControlName="replicas" placeholder="Cantidad de réplicas" id="inputReplicas4"
+                class="form-control" min="1" required />
+              <div class="invalid-feedback">
+                Cantidad de réplicas requeridas
+              </div>
+            </div>
+          </div>
+
+          <label for="inputDescription4" class="section-label">Elige los Microservicios del experimento </label>
+          <!-- <div formArrayName="cargas"> -->
+          <div formGroupName="cargaForm">
+            <table class="proyecto-list table table-striped">
+              <thead>
+                <tr>
+                  <th class="text_table" scope="col">Microservicio</th>
+                  <th class="text_table" scope="col">Endpoints</th>
+                  <th class="text_table" scope="col">Carga</th>
+                  <th class="text_table" scope="col">Duración</th>
+                  <th class="text_table" scope="col">Opción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (carga of cargas.controls | paginate:{itemsPerPage: 10, currentPage: p}; track
+                $index){
+                <tr class="text_table">
+                  <td>{{ carga.get('despliegue')?.value.nombre }}</td>
+                  <!-- <div formGroupName="carga"> -->
+                  <!-- <td>{{ despliegue.get('despliegue')?.value || '' }}</td> -->
+                  @if(this.endpoints[$index] != undefined){
+                  <td>
+                    <div class="input-container">
+                      <input type="text" formControlName="endpoints" class="form-control input-auto-width"
+                        [placeholder]='this.endpoints[$index]' id="inputCarga" required [readonly]="!inputHabilitado" />
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="input-container">
+                      <input type="text" formControlName="vus" class="form-control input-auto-width"
+                        [placeholder]='this.cant_usuarios[$index]' id="inputCarga" required [readonly]="!inputHabilitado"/>
+                    </div>
+                  </td>
+
+                  <td><input type="text" formControlName="picos" class="form-control"
+                      [placeholder]='this.duracion_picos[$index]' id="inputCarga" required [readonly]="!inputHabilitado"/>
+                  </td>
+                  <td><button type="button" class="btn btn-outline-primary"
+                    [disabled]="!inputHabilitado"
+                    (click)="incluir($index)">Añadir</button>
+                </td>
+                  }@else {
+                  <td>
+                    <div class="input-container">
+                      <input type="text" formControlName="endpoints" class="form-control input-auto-width"
+                        placeholder="/ejemplo1,/ejemplo2,/ejemplo3" id="inputCarga" required />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container">
+                      <input type="text" formControlName="vus" class="form-control input-auto-width"
+                        placeholder="50,34,56,700" id="inputCarga" required />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container">
+                      <input type="text" formControlName="picos" class="form-control" placeholder="10s,60s,10m,40s"
+                        id="inputCarga" required />
+                    </div>
+                  </td>
+                  <td><button type="button" class="btn btn-outline-primary"
+                      [disabled]="!this.experimentoForm.get('cargaForm')?.valid"
+                      (click)="incluir($index)">Añadir</button>
+                  </td>
+                  }
+                  <!-- <td>{{ carga.get('endpoints')?.value }}</td> -->
+
+
+                  <!-- <td><input type="text" formControlName="'despliegue.get('endpoints') || '' '" class="form-control" placeholder="Carga"
+                      id="inputNameAplication" required /></td> -->
+
+                  <!-- <td><input type="text" formControlName="despliegue.get('picos')?.setValue($index)" class="form-control" placeholder="Duración"
+                      id="inputNameAplication" required /></td> -->
+                  <!-- 
+                                <td><button class="btn btn-primary btn-xl" id="submitButton" type="button"
+                                    (click)="desplegar(despliegue.id_despliegue)">Desplegar</button></td> -->
+                  <!-- </div> -->
+                </tr>
+
+                }
+              </tbody>
+            </table>
+            <div class="text-center form-conent">
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
+            </div>
+          </div>
+          <div class="text-center form-conent">
+            <button type="submit" class="btn btn-primary btn-xl" (click)="crearExperimento()">
+              <!-- [disabled]="!experimentoForm.valid" -->
+              <a class="btn btn-primary btn-xl">
+                Siguiente
+              </a></button>
+          </div>
+          @if(status){
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+          }
+        </div>
+      </div>
+    </form>
+    <p>Endpoints: {{experimentoForm.value.cargaForm?.endpoints || 'no está'}}</p>
+    <p>Carga: {{experimentoForm.value.cargaForm?.vus || 'no está'}}</p>
+    <p>Duracion: {{experimentoForm.value.cargaForm?.picos || 'no está'}}</p>
+    <p>Carga: {{experimentoForm.value.cargaForm?.despliegue || 'no está'}}</p>
+    <p>Valid: {{experimentoForm.valid}}</p>
+  </div>
+  <script src="../../../../assets/js/checkout_pages.js"></script>
+</section>

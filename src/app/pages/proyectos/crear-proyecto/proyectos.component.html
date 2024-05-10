@@ -67,60 +67,144 @@
           </div>
           }
           @else if(!proyectoForm.get('selectedAllMicroservices')?.value){
-            <div class="alert alert-warning" role="alert">
-              Recuerde que cada repositorio debe tener el Dockerfile del microservicio
-            </div>
+          <div class="alert alert-warning" role="alert">
+            Recuerde que cada repositorio debe tener el Dockerfile del microservicio
+          </div>
           }
+
+          @if(!proyectoForm.get('selectedAllMicroservices')?.value){
+          <div class="form-group row">
+            <div class="d-flex align-items-center">
+              <div class="col-md-4">
+                <div class="form-group me-2">
+                  <label class="section-label" for="inputNameAplication">Aplicación</label>
+                  <input type="text" formControlName="nombreRepo" class="form-control" placeholder="Nombre"
+                    id="inputNameAplication" class="form-control me-2" required/>
+                  <div class="invalid-feedback">
+                    Nombre requerido
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group me-2">
+                  <label class="section-label" for="inputUrlRepo">Url repositorio</label>
+                  <input type="url" formControlName="repositorio" placeholder="Repositorio" id="inputUrlRepo"
+                    class="form-control me-2" required />
+                  <div class="invalid-feedback">
+                    Url requerida
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-primary" 
+              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+              (click)="addUrl()" [disabled]="!inputHabilitado"><i
+                  class="fa-solid fa-plus"></i></button>
+            </div>
+
+          </div>
+          }
+          @else {
           <div class="form-group row mt-2">
             <label for="inputUrlrepo4" class="section-label">Url repositorio</label>
             <div class="col-md-12">
               <div class="d-flex align-items-center">
                 <input type="url" formControlName="repositorio" placeholder="Repositorio" id="inputUrlrepo4"
                   class="form-control me-2" />
-                  @if(!proyectoForm.get('selectedAllMicroservices')?.value){
-                    <button type="button" class="btn btn-outline-primary" (click)="addUrl()">+</button>
-                  }
               </div>
               <div class="invalid-feedback">
                 Url requerido
               </div>
             </div>
           </div>
-          <div formArrayName="urlsRepositorios">
+          }
+          <div formGroupName="urlsForm">
             @for (url of urlsRepositorios.controls; track $index) {
             <div class="form-group row">
-              <div class="col-md-12">
-                <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center">
+                @if(this.urlsRepos[$index] != undefined){
+                <div class="col-md-4">
                   <div class="form-group me-2">
-                  <label class="section-label" for="inputNameAplication">Aplicación</label>
-                    <input
-                      type="text"
-                      [formControlName]="$index"
-                      class="form-control"
-                      placeholder="Nombre"
-                      id="inputNameAplication"
-                      required
-                    />
+                    <label class="section-label" for="inputNameAplication">Aplicación</label>
+                    <input type="text" formControlName="nombre" class="form-control" [placeholder]='this.nombresRepos[$index]' 
+                      id="inputNameAplication" class="form-control me-2" [readonly]="true" />
                     <div class="invalid-feedback">
                       Nombre requerido
                     </div>
                   </div>
-                  <input type="url" [formControlName]="$index" placeholder="Repositorio" id="inputUrlrepo{{$index}}"
-                    class="form-control me-2" />
-                  <!-- <div class="btn-group" role="group"> -->
-                  <button type="button" class="btn btn-outline-primary" (click)="deleteUrl($index)">-</button>
-                  <!-- </div> -->
                 </div>
+                <div class="col-md-8">
+                  <div class="form-group me-2">
+                    <label for="inputUrlrepo{{$index}}" class="section-label">Url repositorio</label>
+                    <input type="url" formControlName="url" [placeholder]='this.urlsRepos[$index]'  id="inputUrlrepo{{$index}}"
+                      class="form-control me-2" [readonly]="true"/>
+                    <div class="invalid-feedback">
+                      Url requerida
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <button type="button" class="btn btn-outline-primary me-1" 
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  (click)="addMicro()" [disabled]="true">
+                  <i class="fas fa-check"></i></button>
+                  <button type="button" class="btn btn-outline-primary ms-1"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  (click)="deleteUrl($index)"><i class="fa-solid fa-minus"></i></button>
+                </div>
+              }@else {
+                <div class="col-md-4">
+                  <div class="form-group me-2">
+                    <label class="section-label" for="inputNameAplication">Aplicación</label>
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre"
+                      id="inputNameAplication" class="form-control me-2" required />
+                    <div class="invalid-feedback">
+                      Nombre requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group me-2">
+                    <label for="inputUrlrepo{{$index}}" class="section-label">Url repositorio</label>
+                    <input type="url" formControlName="url" placeholder="Repositorio" id="inputUrlrepo{{$index}}"
+                      class="form-control me-2" required />
+                    <div class="invalid-feedback">
+                      Url requerida
+                    </div>
+                  </div>
+                  <p>{{ url.value }}</p>
+                </div>
+                <div class="d-flex align-items-center">
+                  <button type="button" class="btn btn-outline-primary me-1" 
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  (click)="addMicro()" [disabled]="!proyectoForm.get('urlsForm')?.valid">
+                  <i class="fas fa-check"></i></button>
+                  <button type="button" class="btn btn-outline-primary ms-1"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  (click)="deleteUrl($index)"><i class="fa-solid fa-minus"></i></button>
+                </div>
+              }
               </div>
             </div>
             }
           </div>
+          @if(loading){
           <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!proyectoForm.valid" (click)="crearProyecto()">
-              <a class="btn btn-primary btn-xl">
-                Siguiente
-              </a></button>
+            <button class="btn btn-primary btn-xl" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span role="status">Cargando...</span>
+            </button>
           </div>
+          }@else {
+          <div class="text-center form-conent d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" style="margin-right: 10px;" id="submitButton" type="submit"
+              (click)="goBack()">
+              Atrás
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!proyectoForm.valid" (click)="crearProyecto()">
+              Siguiente
+            </button>
+          </div>
+          }
         </div>
       </div>
     </form>

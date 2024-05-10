@@ -1,0 +1,70 @@
+<section class="page-section" id="contact">
+    <div class="text-center">
+        <h2 class="section-heading">Experimentos</h2>
+    </div>
+    <div class="align-items-stretch justify-content-center mb-5">
+        <div class="about-heading-content">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5">
+                    <table class="experimento-list table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text_table" scope="col">Nombre</th>
+                                <th class="text_table" scope="col">Descripción</th>
+                                <th class="text_table" scope="col">Url</th>
+                                <th class="text_table" scope="col"></th>
+                                <th class="text_table" scope="col">Acciones</th>
+                                <th class="text_table" scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (experimento of experimentos | paginate:{itemsPerPage: 10, currentPage: p}; track
+                            $index) {
+                            <tr class="text_table">
+                                <td>{{experimento.nombre}}</td>
+                                <td>{{experimento.duracion}}</td>
+                                <td>{{experimento.cant_replicas}}</td>
+                                <td class="text_table">
+                                    @for (url of experimento.endpoints; track $index){
+                                    <ul>
+                                        <li>{{url}}</li>
+                                    </ul>
+                                    }
+                                </td>
+                                <td>{{experimento.despliegue}}</td>
+                                <td>{{experimento.cant_replicas}}</td>
+                                <td>
+                                    <a class="btn btn-outline-dark btn-icon"
+                                        [routerLink]="[ROUTES_APP.VER_PROYECTO, experimento.id_experimento]">
+                                        Ver
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-icon"
+                                        [routerLink]="[ROUTES_APP.EDIT_PROYECTO, experimento.id_experimento]">
+                                        Editar
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-danger btn-icon"
+                                        (click)="eliminarExperimento(experimento?.id_experimento || 0)">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-center form-conent">
+                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                    <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
+                            [routerLink]="ROUTES_APP.CREAR_PROYECTO">Crear proyecto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

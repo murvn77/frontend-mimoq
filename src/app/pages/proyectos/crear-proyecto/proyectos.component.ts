@@ -15,18 +15,28 @@ import { Usuario } from '../../../core/model/usuario/usuario';
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.css'
 })
-export class ProyectosComponent {
+export class ProyectosComponent implements OnInit {
   noTildesPattern = /^[^\u00E1\u00E9\u00ED\u00F3\u00FA\u00C1\u00C9\u00CD\u00D3\u00DA\u00FC]+$/;
   options = [
     {label: 'Si', value: true},
     {label: 'No', value: false}
   ]
+  loading: boolean = false;
+  inputHabilitado = true;
+  urlsRepos: string[] = [];
+  nombresRepos: string[] = [];
+  proyecto: number = 0;
   proyectoForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    nombreRepo: new FormControl(''),
     repositorio: new FormControl('', [Validators.required]),
-    selectedAllMicroservices: new FormControl(false, [Validators.required]),
+    selectedAllMicroservices: new FormControl(true, [Validators.required]),
     urlsRepositorios: new FormArray([]),
+    urlsForm: new FormGroup({
+      nombre: new FormControl(''),
+      url: new FormControl('')
+    }),
     haveDockerfiles: new FormControl(false, [Validators.required]),
     // nameAplication: new FormControl('', [Validators.required, Validators.pattern(this.noTildesPattern)])
   });
@@ -34,28 +44,67 @@ export class ProyectosComponent {
     private proyectoService: ProyectoService,
     private authService: AuthService 
   ){}
+  ngOnInit(): void {
+    console.log("controls",this.urlsRepositorios.controls);
+    // console.log("controls2",this.urlsRepositorios.at(0).get('nombre'));
+  }
   async crearProyecto(): Promise<void> {
+    this.loading = true;
     const nuevoProyecto = this.proyectoForm.value;
     const usuario: Usuario = await this.authService.getUsuario();
     console.log('Usuario en sesión: ' + usuario.id_usuario);  
+    this.urlsRepos.push(this.proyectoForm?.get('repositorio')?.value ||'');
+    this.nombresRepos.push(this.proyectoForm?.get('nombreRepo')?.value ||'');
+    console.log('urls', this.urlsRepos);
+    console.log('nombres', this.nombresRepos);
+    let data: Proyecto ={};
     if (this.proyectoForm.valid) {
-      const data: Proyecto = {
-        nombre: nuevoProyecto.name || '',
-        descripcion: nuevoProyecto.description || '',
-        // tipo_repositorio: nuevoProyecto.selectedAllMicroservices || '',
-        url_repositorio: nuevoProyecto.repositorio || '',
-        docker_compose: nuevoProyecto.selectedAllMicroservices || false,
-        dockerfile: nuevoProyecto.haveDockerfiles || false,
-        fk_usuario: usuario.id_usuario || 0
+      if(nuevoProyecto.selectedAllMicroservices){
+          data = {
+          nombre: nuevoProyecto.name || '',
+          descripcion: nuevoProyecto.description || '',
+          url_repositorio: nuevoProyecto.repositorio || '',
+          docker_compose: nuevoProyecto.selectedAllMicroservices || false,
+          dockerfile: nuevoProyecto.haveDockerfiles || false,
+          fk_usuario: usuario.id_usuario || 0
+        }
+      }else{
+          data = {
+          nombre: nuevoProyecto.name || '',
+          descripcion: nuevoProyecto.description || '',
+          urls_repositorios: this.urlsRepos || [],
+          nombres_microservicios: this.nombresRepos || [],
+          docker_compose: nuevoProyecto.selectedAllMicroservices || false,
+          dockerfile: nuevoProyecto.haveDockerfiles || false,
+          fk_usuario: usuario.id_usuario || 0
+        }
       }
+      console.log('Proyecto a crear', data);
       this.proyectoService.create(data).subscribe({
         next: (res: any) => {
           console.log('Proyecto creado', res);
-          Swal.fire('Creado', 'Proyecto creado correctamente', 'success');
-          this.router.navigateByUrl(ROUTES_APP.DESPLIEGUES);
+          this.proyectoService.setProyecto(res);
+          Swal.fire({
+            title: "Proyecto creado correctamente",
+            text: "¿Deseas desplegar el proyecto?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, desplegar",
+            cancelButtonText: "No, ver proyectos"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate([ROUTES_APP.DESPLIEGUES+'/'+ROUTES_APP.CREAR_DESPLIEGUE]);
+            }else{
+              this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
+            }
+          });
+          
         }, error: (error: any) => {
           console.error('Error creando proyecto', error);
-          Swal.fire('Error', 'Ocurrió un error al crear el proyecto', 'error');
+          this.loading = false;
+          Swal.fire('Error', 'Ocurrió un error al crear el proyecto', error);
         }
       });
     }
@@ -67,9 +116,30 @@ export class ProyectosComponent {
 
   addUrl() {
     this.urlsRepositorios.push(new FormControl(''));
+    this.inputHabilitado=false;
+  }
+  addMicro(){
+    const nuevoMicro = this.proyectoForm.get('urlsForm') as FormGroup;
+    console.log('nuevo Micro', nuevoMicro);
+    let nombreMicro = nuevoMicro.get('nombre')?.value;
+    let urlMicro = nuevoMicro.get('url')?.value;
+    this.nombresRepos.push(nombreMicro);
+    this.urlsRepos.push(urlMicro);
+    this.inputHabilitado=true;
+    console.log('NOMBRES', this.nombresRepos);
+    console.log('URLS', this.urlsRepos);
+    this.proyectoForm.get('urlsForm')?.reset();
   }
   deleteUrl(index:number) {
     this.urlsRepositorios.removeAt(index);
+    this.nombresRepos.splice(index,1);
+    this.urlsRepos.splice(index,1);
+    console.log('NOMBRES', this.nombresRepos);
+    console.log('URLS', this.urlsRepos);
+    this.inputHabilitado=true;
+  }
+  goBack(): void{
+    this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
   }
 }
 function noTildesValidator(control: FormControl) {

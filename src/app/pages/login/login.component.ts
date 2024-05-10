@@ -5,13 +5,14 @@ import { AuthService  } from '../../services/auth/auth.service';
 import { Login } from '../../core/usuario';
 import Swal from 'sweetalert2';
 import { ROUTES_APP } from '../../core/enum/routes.enum';
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, RouterOutlet, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    imports: [FormsModule, RouterOutlet, RouterLink, ModalComponent]
 })
 
 export class LoginComponent {
@@ -36,11 +37,12 @@ export class LoginComponent {
       .then(data => {
         console.log(data);
         if (data.usuario) {
-          Swal.fire('Ingreso', 'Ingreso Exitoso', 'success');
+          Swal.fire(`Bienvenid@ ${data.usuario.nombre}`, 'Ingreso Exitoso', 'success');
           this.authService.login(data.usuario);
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
-          this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
+          this.router.navigated = false;
+          this.router.navigateByUrl(ROUTES_APP.HOME);
         } else {
           Swal.fire('Error', data.message, 'error');
         }

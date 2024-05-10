@@ -1,0 +1,57 @@
+<section class="page-section" id="contact">
+    <div class="text-center">
+        <h2 class="section-heading">Despliegues</h2>
+    </div>
+    <div class="align-items-stretch justify-content-center mb-5">
+        <div class="about-heading-content">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5">
+                    <table class="despliegue-list table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text_table" scope="col">Nombre</th>
+                                <th class="text_table" scope="col">No. Pods</th>
+                                <th class="text_table" scope="col">Namespace</th>
+                                <th class="text_table" scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (despliegue of desplieguesAgrupados | paginate:{itemsPerPage: 10, currentPage: p};
+                            track
+                            $index){
+
+                            <tr class="text_table">
+
+                                <td>{{ despliegue.nombre_helm }}</td>
+
+                                <td>{{ despliegue.cant_pods }}</td>
+
+                                <td>{{ despliegue.namespace }}</td>
+
+                                <td>
+                                    <button class="btn btn-primary btn-xl" type="button"
+                                        (click)="desplegar(despliegue)">Desplegar
+                                    </button>
+                                    <button class="btn btn-outline-light" type="button"
+                                        [routerLink]="[ROUTES_APP.VER_DESPLIEGUE, despliegue.nombre_helm]">
+                                        Ver
+                                    </button>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-center form-conent">
+                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                    <!-- <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
+                            [routerLink]="ROUTES_APP.CREAR_DESPLIEGUE">Crear despliegue</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

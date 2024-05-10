@@ -1,11 +1,10 @@
-import { Usuario } from "../usuario/usuario";
-
 export class Experimento {
     constructor(
-        public nombre: string,
-        public replicas: string[],
-        public cant_pods: number,
-        public namespace: string,
-        public fk_proyecto: number
+        public duracion: string,
+        public cant_replicas: number,
+        public endpoints: string[],
+        public fk_ids_despliegues: number[],
+        public fk_ids_metricas: number[],
+        public fk_id_carga: number,
     ) { }
 }

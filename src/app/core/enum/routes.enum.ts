@@ -1,14 +1,17 @@
 export enum ROUTES_APP {
-    CREAR_PROYECTO = 'proyectos/crearProyecto',
+    CREAR_PROYECTO = 'crear',
     DASHBOARD = 'dashboard',
     DESPLIEGUES = 'despliegues',
     HOME = '',
     LOGIN = 'login',
     METRICAS = 'metricas',
-    PROYECTOS = 'proyectos',
-    VER_PROYECTO = 'verProyecto',
-    EDIT_PROYECTO = 'editProyecto',
+    PROYECTOS = 'proyecto',
+    VER_PROYECTO = 'ver',
+    EDIT_PROYECTO = 'editar',
+    CREAR_DESPLIEGUE = 'crear',
+    VER_DESPLIEGUE = 'ver',
     REGISTRO = 'register',
     USUARIO = 'usuario',
-    EXPERIMENTO = 'experimento'
+    EXPERIMENTO = 'experimento',
+    CREAR_EXPERIMENTO = 'crearExperimento'
 }

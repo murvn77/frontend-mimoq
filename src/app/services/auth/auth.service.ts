@@ -29,6 +29,16 @@ export class AuthService {
   async getUsuario(): Promise<Usuario> {
     return this.usuarioLogin;
   }
+
+  verificarSesion(): boolean {
+    const token = localStorage.getItem('angular17token');
+    console.log("verificar",token);
+    if(token){
+      return true;
+    }else{
+      return false;
+    }
+  }
   logout() {
     // localStorage.setItem('angular17token', 'null');
     localStorage.removeItem('angular17token');
