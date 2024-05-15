@@ -26,9 +26,9 @@
                                 @if(proyecto.docker_compose){
                                 <td>{{proyecto.url_repositorio}}</td>
                                 }@else if(!proyecto.docker_compose){
-                                <td class="text_table">
+                                <td>
                                     @for (url of proyecto.urls_repositorios; track $index){
-                                    <ul>
+                                    <ul class="custom-list">
                                         <li>{{url}}</li>
                                     </ul>
                                     }

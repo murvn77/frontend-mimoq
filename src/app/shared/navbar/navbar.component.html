@@ -16,6 +16,9 @@
             <a class="nav-link" [routerLink]="ROUTES_APP.DESPLIEGUES">Despliegues</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" [routerLink]="ROUTES_APP.EXPERIMENTO">Experimentos</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
           @if(!this.token) {
@@ -28,7 +31,7 @@
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>
             }
-        </ul> 
-      </div>  
+        </ul>
+      </div>
     </div>
   </nav>

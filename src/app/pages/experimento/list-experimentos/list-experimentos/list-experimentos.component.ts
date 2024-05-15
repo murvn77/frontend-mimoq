@@ -22,7 +22,7 @@ export class ListExperimentosComponent implements OnInit {
   carga: CargaInterface[] = [];
   suscription : Subscription = new Subscription;
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private experimentoService: ExperimentoService) {}
 
   ngOnInit(): void {
@@ -43,6 +43,20 @@ export class ListExperimentosComponent implements OnInit {
     return ROUTES_APP;
   }
 
+  descargarResultados(id_experimento:number){
+    this.experimentoService.findFile(id_experimento)
+    .subscribe((data: Blob) => {
+      const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Resultados completos'; // Nombre del archivo que recibimos del servidor
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    });
+  }
   eliminarExperimento(id:number): void{
     Swal.fire({
       title: "¿Quieres eliminar este experimento?",
@@ -62,7 +76,7 @@ export class ListExperimentosComponent implements OnInit {
               text: "Su experimento ha sido eliminado.",
               icon: "success"
             });
-            this.router.navigate([ROUTES_APP.PROYECTOS]);
+            this.router.navigate([ROUTES_APP.EXPERIMENTO]);
             // this.proyectos = this.proyectos.filter((proy) => {
             //   return proy.id_proyecto!== id;
             // });

@@ -30,6 +30,11 @@ export class ExperimentoService {
   findById(id: number): Observable<ExperimentoInterface> {
     return this.httpClient.get<ExperimentoInterface>(this.urlBackend + `${id}`);
   }
+
+  findFile(id: number) {
+    return this.httpClient.get(this.urlBackend + `archivos/${id}`,{ responseType: 'blob' });
+  }
+
   public create(experimento: any): Observable<ExperimentoInterface> {
     return this.httpClient.post<ExperimentoInterface>(this.urlBackend, experimento, this.httpOptions);
   }
@@ -50,7 +55,7 @@ export class ExperimentoService {
   setExperimento(experimento: Experimento): void {
     this.nuevoExperimento = experimento;
   }
-  
+
   getExperimento(): Experimento {
     return this.nuevoExperimento;
   }
