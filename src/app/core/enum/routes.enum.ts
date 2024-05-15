@@ -13,5 +13,5 @@ export enum ROUTES_APP {
     REGISTRO = 'register',
     USUARIO = 'usuario',
     EXPERIMENTO = 'experimento',
-    CREAR_EXPERIMENTO = 'crearExperimento'
+    CREAR_EXPERIMENTO = 'experimento/crear'
 }

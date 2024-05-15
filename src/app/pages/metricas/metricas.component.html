@@ -65,8 +65,7 @@
                                                             @for(cpu of cpuMetrics; track $index){
                                                             <h5><strong>CPU</strong></h5>
                                                             <li>
-                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
-                                                                <!-- <label class="form-check-label"> -->
+
                                                                 <div class="form-check-label"
                                                                     [appTooltip]="metrica.descripcion || 'prueba'"
                                                                     for="exampleCheck1">
@@ -114,7 +113,7 @@
                                                                     {{metrica.nombre}}
                                                                 </div>
                                                             </li>
-                                                            {{metrica.nombre_prometheus}}
+                                                            <!-- {{metrica.nombre_prometheus}} -->
                                                             }
                                                             <!-- @if($index==0){
                                                             <h5><strong>DISCO</strong></h5>

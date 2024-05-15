@@ -50,7 +50,7 @@
               </thead>
               <tbody>
                   @for (microservicio of replicasMicro.controls; track $index) {
-                      <tr>   
+                      <tr>
                       <td>{{microservicio.get('nombre')?.value || ''}}</td>
                       <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
                         id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
@@ -59,7 +59,7 @@
                       <button type="button" class="btn btn-outline-primary" (click)="decrement($index)">-</button></td>
                   </tr>
               }
-              </tbody>   
+              </tbody>
           </table>
         </div>
         @if(loading){

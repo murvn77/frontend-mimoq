@@ -6,7 +6,6 @@ import { ExperimentoService } from '../../../services/experimento/experimento.se
 import { DespliegueService } from '../../../services/despliegue/despliegue.service';
 import { DespliegueInterface } from '../../../core/interfaces/despliegue';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { flush } from '@angular/core/testing';
 import { Experimento } from '../../../core/model/experimento/experimento';
 import Swal from 'sweetalert2';
 import { CargaService } from '../../../services/carga/carga.service';
@@ -65,18 +64,9 @@ export class ExperimentoComponent implements OnInit {
   }
 
   cargarDespliegues() {
-    this.nombre_despliegue = this.despliegueService.getDespliegue()?.nombre || '';
+    this.nombre_despliegue = this.despliegueService.getDespliegue()?.nombre_helm || '';
     console.log('ID id_despliegue', this.nombre_despliegue);
-    // this.despliegueService.findByNameDeployment(this.nombre_despliegue).subscribe( {
-    //   next: (despliegues: any) => {
-    //     this.despliegues = despliegues || [];
-    //     console.log('Despliegues', this.despliegues);
-    //   },
-    //   error: (error: any) => {
-    //     console.log(error);
-    //   }
-    // });
-    this.despliegueService.findAll().subscribe({
+    this.despliegueService.findByNameDeployment(this.nombre_despliegue).subscribe( {
       next: (despliegues: any) => {
         this.despliegues = despliegues || [];
         console.log('Despliegues', this.despliegues);
@@ -85,6 +75,15 @@ export class ExperimentoComponent implements OnInit {
         console.log(error);
       }
     });
+    // this.despliegueService.findAll().subscribe({
+    //   next: (despliegues: any) => {
+    //     this.despliegues = despliegues || [];
+    //     console.log('Despliegues', this.despliegues);
+    //   },
+    //   error: (error: any) => {
+    //     console.log(error);
+    //   }
+    // });
   }
 
   cargarMicroservicios() {
