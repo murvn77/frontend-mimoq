@@ -28,40 +28,57 @@ export class MetricasComponent implements OnInit {
   //   new Atributo(3,'Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
   // ];
   atributos: AtributoInterface[] = []
+  metricas: MetricaInterface[] = []
+  subatributos: SubAtributoInterface[] = []
   ids_metricas: number[] = [];
-  metricaForm = new FormGroup({
-    metricas: new FormArray([])
-  });
+  discMetrics: MetricaInterface[] = [];
+  redMetrics: MetricaInterface[] = [];
+  memoriaMetrics: MetricaInterface[] = [];
+  cpuMetrics: MetricaInterface[] = [];
+
   constructor(private router: Router,
     private atributpService: AtributoService,
     private experimentoService: ExperimentoService
   ) { }
   ngOnInit(): void {
-    console.log('hola');
     this.atributpService.findAll().subscribe(atributos => {
-      console.log('Proyectos', atributos);
+      console.log('Atributos', atributos);
       this.atributos = atributos;
+      this.atributos.forEach(atributo =>{
+        this.subatributos = atributo.subatributos;
+      });
+    });
+      this.subatributos.forEach(subatributo =>{
+        this.metricas = subatributo.metricas;
+      });
+    this.metricas.forEach(metrica => {
+      console.log('Metric', metrica);
+      switch (metrica.grupo) {
+        case "DISCO":
+          this.discMetrics.push(metrica);
+          break;
+        case "RED":
+          this.redMetrics.push(metrica);
+          break;
+        case "MEMORIA":
+          this.memoriaMetrics.push(metrica);
+          break;
+        case "CPU":
+          this.cpuMetrics.push(metrica);
+          break;
+        default:
+          break;
+      }
     });
     // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
     //   new bootstrap.Tooltip(tooltipTriggerEl)
     // })
   }
-  get metricas() {
-    return this.metricaForm.get('metricas') as FormArray;
-  }
-  addMetrica() {
-    this.metricas.push(new FormControl(''));
-  }
-  // obtenerAtributos() {
-
-  // }
-  currentMetrica: MetricaInterface | null = null;
-
   crearExperimento() {
     const data = this.experimentoService.getExperimento();
-    console.log('Data que llega',data);
-    data.fk_ids_metricas=this.ids_metricas;
+    console.log('Data que llega', data);
+    data.fk_ids_metricas = this.ids_metricas;
     console.log('Experimento', data);
     this.experimentoService.create(data).subscribe({
       next: (res: any) => {
@@ -81,14 +98,13 @@ export class MetricasComponent implements OnInit {
     });
   }
   verificar(metrica: MetricaInterface) {
-    this.currentMetrica = metrica;
     let pos = this.ids_metricas.indexOf(metrica.id_metrica);
-    if( pos === -1 ){
+    if (pos === -1) {
       this.ids_metricas.push(metrica.id_metrica);
-    }else{
+    } else {
       this.ids_metricas.splice(pos, 1);
     }
-    console.log('IDs Metricas',this.ids_metricas);
+    console.log('IDs Metricas', this.ids_metricas);
   }
   goBack() {
     this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);

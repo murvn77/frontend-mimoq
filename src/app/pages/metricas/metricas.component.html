@@ -40,9 +40,9 @@
                                                     <button class="accordion-button collapsed"
                                                         [appTooltip]="sub_atributo.descripcion || ''" type="button"
                                                         data-bs-toggle="collapse"
-                                                        [attr.data-bs-target]="'#collapseSub' + $index"
+                                                        [attr.data-bs-target]="'#collapse' + $index + $index"
                                                         aria-expanded="false"
-                                                        [attr.aria-controls]="'collapseSub' + $index">
+                                                        [attr.aria-controls]="'collapse' + $index + $index">
                                                         <strong>{{sub_atributo.nombre}}</strong>
                                                     </button>
                                                 </h2>
@@ -51,12 +51,72 @@
                                                         {{atributo.descripcion}}
                                                     </div>
                                                 </div> -->
-                                                <div [id]="'collapseSub' + $index" class="accordion-collapse collapse"
+                                                <div [id]="'collapse' + $index + $index"
+                                                    class="accordion-collapse collapse"
                                                     data-bs-parent="#accordionExampleOne">
                                                     <div class="accordion-body">
                                                         <ul class="left-aligned">
                                                             @for(metrica of sub_atributo.metricas; track $index){
-                                                            @if($index==0){
+                                                            <!-- @if($index == 0 || metrica.grupo != sub_atributo.metricas[$index - 1].grupo || $index == 0){
+                                                                    <h5><strong>{{metrica.grupo}}</strong></h5>
+                                                                } -->
+                                                            @if(sub_atributo.id_subatributo == 4){
+                                                            @if(metrica.grupo == 'CPU'){
+                                                            @for(cpu of cpuMetrics; track $index){
+                                                            <h5><strong>CPU</strong></h5>
+                                                            <li>
+                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
+                                                                <!-- <label class="form-check-label"> -->
+                                                                <div class="form-check-label"
+                                                                    [appTooltip]="metrica.descripcion || 'prueba'"
+                                                                    for="exampleCheck1">
+                                                                    <input type="checkbox" [value]="metrica"
+                                                                        (click)="verificar(metrica)"
+                                                                        class="form-check-input"
+                                                                        id="exampleCheck{{$index}}">
+                                                                    {{cpu.nombre}}
+                                                                </div>
+                                                            </li>
+                                                            }
+                                                            }@else if(metrica.grupo == 'DISCO'){
+                                                            <h5><strong>DISCO</strong></h5>
+                                                            @for(disco of discMetrics; track $index){
+                                                            <li>
+                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
+                                                                <!-- <label class="form-check-label"> -->
+                                                                <div class="form-check-label"
+                                                                    [appTooltip]="metrica.descripcion || 'prueba'"
+                                                                    for="exampleCheck1">
+                                                                    <input type="checkbox" [value]="metrica"
+                                                                        (click)="verificar(metrica)"
+                                                                        class="form-check-input"
+                                                                        id="exampleCheck{{$index}}">
+                                                                    {{disco.nombre}}
+                                                                </div>
+                                                            </li>
+                                                            }
+                                                            }@else if(metrica.grupo == 'RED'){
+
+                                                            }@else if(metrica.grupo == 'MEMORIA'){
+
+                                                            }
+                                                            }@else {
+                                                            <li>
+                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
+                                                                <!-- <label class="form-check-label"> -->
+                                                                <div class="form-check-label"
+                                                                    [appTooltip]="metrica.descripcion || 'prueba'"
+                                                                    for="exampleCheck1">
+                                                                    <input type="checkbox" [value]="metrica"
+                                                                        (click)="verificar(metrica)"
+                                                                        class="form-check-input"
+                                                                        id="exampleCheck{{$index}}">
+                                                                    {{metrica.nombre}}
+                                                                </div>
+                                                            </li>
+                                                            {{metrica.nombre_prometheus}}
+                                                            }
+                                                            <!-- @if($index==0){
                                                             <h5><strong>DISCO</strong></h5>
                                                             }@else if($index==2){
                                                             <h5><strong>RED</strong></h5>
@@ -65,17 +125,7 @@
                                                             }
                                                             @else if($index==13){
                                                             <h5><strong>CPU</strong></h5>
-                                                            }
-                                                            <li>
-                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" [value]="metrica"
-                                                                        (click)="verificar(metrica)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{metrica.nombre}}
-                                                                </label>
-                                                            </li>
+                                                            } -->
                                                             }
                                                         </ul>
                                                     </div>

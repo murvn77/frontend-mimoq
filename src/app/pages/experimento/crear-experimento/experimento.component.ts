@@ -99,7 +99,7 @@ export class ExperimentoComponent implements OnInit {
     });
   }
 
-  crearCarga(){
+  crearCarga() {
     const newCarga: Carga = {
       cant_usuarios: this.cant_usuarios,
       duracion_picos: this.duracion_picos
@@ -124,6 +124,8 @@ export class ExperimentoComponent implements OnInit {
     //   this.crearCarga();
     //   console.log('La espera ha terminado');
     // }, 2000);
+    const sumatoriaPicos = sumarTiemposPorPosicion(this.duracion_picos);
+    console.log('Sumatoria de picos', sumatoriaPicos);
     const newCarga: Carga = {
       cant_usuarios: this.cant_usuarios,
       duracion_picos: this.duracion_picos
@@ -134,65 +136,65 @@ export class ExperimentoComponent implements OnInit {
         this.carga = res;
         console.log('Carga seteada', this.carga);
         console.log('Carga crear experimento', this.carga);
-    if(this.carga){
-    console.log('Entra al if');
-    const nuevoExperimento = this.experimentoForm.value;
-    const data: Experimento = {
-      duracion: nuevoExperimento.duracion || '',
-      cant_replicas: nuevoExperimento.replicas || 0,
-      endpoints: this.endpoints,
-      fk_ids_despliegues: this.ids_despliegues,
-      fk_ids_metricas: [],
-      fk_id_carga: this.carga.id_carga
-    }
-    console.log('Experimento a crear',data);
-    this.experimentoService.setExperimento(data);
-    Swal.fire({
-      title: "Experimento creado",
-      text: "¿Deseas seleccionar métricas para este experimento?",
-      icon: "success",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "No, ver experimentos"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigateByUrl('/metricas');
-        // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
-      } else {
-        this.router.navigateByUrl('/despliegues');
-      }
-    });
-    // this.experimentoService.create(data).subscribe({
-    //   next: (res: any) => {
-    //     console.log('Experimento creado', res);
-    //     Swal.fire({
-    //       title: "Experimento creado",
-    //       text: "¿Deseas seleccionar metricas para este experimento?",
-    //       icon: "success",
-    //       showCancelButton: true,
-    //       confirmButtonColor: "#3085d6",
-    //       cancelButtonColor: "#d33",
-    //       confirmButtonText: "Si",
-    //       cancelButtonText: "No, ver experimentos"
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.router.navigateByUrl('/metricas');
-    //         // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
-    //       } else {
-    //         this.router.navigateByUrl('/despliegues');
-    //       }
-    //     });
+        if (this.carga) {
+          console.log('Entra al if');
+          const nuevoExperimento = this.experimentoForm.value;
+          const data: Experimento = {
+            duracion: nuevoExperimento.duracion || '',
+            cant_replicas: nuevoExperimento.replicas || 0,
+            endpoints: this.endpoints,
+            fk_ids_despliegues: this.ids_despliegues,
+            fk_ids_metricas: [],
+            fk_id_carga: this.carga.id_carga
+          }
+          console.log('Experimento a crear', data);
+          this.experimentoService.setExperimento(data);
+          Swal.fire({
+            title: "Experimento creado",
+            text: "¿Deseas seleccionar métricas para este experimento?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si",
+            cancelButtonText: "No, ver experimentos"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigateByUrl('/metricas');
+              // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+            } else {
+              this.router.navigateByUrl('/despliegues');
+            }
+          });
+          // this.experimentoService.create(data).subscribe({
+          //   next: (res: any) => {
+          //     console.log('Experimento creado', res);
+          //     Swal.fire({
+          //       title: "Experimento creado",
+          //       text: "¿Deseas seleccionar metricas para este experimento?",
+          //       icon: "success",
+          //       showCancelButton: true,
+          //       confirmButtonColor: "#3085d6",
+          //       cancelButtonColor: "#d33",
+          //       confirmButtonText: "Si",
+          //       cancelButtonText: "No, ver experimentos"
+          //     }).then((result) => {
+          //       if (result.isConfirmed) {
+          //         this.router.navigateByUrl('/metricas');
+          //         // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+          //       } else {
+          //         this.router.navigateByUrl('/despliegues');
+          //       }
+          //     });
 
-    //   }, error: (error: any) => {
-    //     console.error('Error creando el experimento', error);
-    //     Swal.fire('Error', 'Ocurrió un error al crear el experimento', 'error');
-    //   }
-    //   // console.log(despliegue);
-    //   // this.router.navigateByUrl('/despliegues');
-    // });
-  }
+          //   }, error: (error: any) => {
+          //     console.error('Error creando el experimento', error);
+          //     Swal.fire('Error', 'Ocurrió un error al crear el experimento', 'error');
+          //   }
+          //   // console.log(despliegue);
+          //   // this.router.navigateByUrl('/despliegues');
+          // });
+        }
       }, error: (error: any) => {
         console.error('Error creando carga', error);
       }
@@ -233,5 +235,76 @@ export class ExperimentoComponent implements OnInit {
   modificar(index: any) {
     // this.inputHabilitado=true;
     // this.cargas.at(index).setValue()
+  }
+  verificarTiempos(tiempos: number[]): boolean {
+    const duracionExperimento = convertirStringAMinutos(this.experimentoForm.get('duracion')?.value as string)
+    console.log('Duracion experimento', duracionExperimento);
+    let check: boolean = true;
+    tiempos.forEach(elemento => {
+      if (elemento > duracionExperimento) {
+        check = false;
+      }
+    });
+    console.log('Check', check);
+    return check;
+  }
+}
+
+function convertirTiempoASegundos(tiempo: string): number {
+  const unidades: { [key: string]: number } = {
+    's': 1 / 60,
+    'm': 1,
+    'h': 60,
+    'd': 1440
+  };
+
+  const regex = /(\d+)([smhd])/g;
+  let sumaSegundos = 0;
+
+  let match;
+  while ((match = regex.exec(tiempo)) !== null) {
+    const cantidad = parseInt(match[1]);
+    const unidad = match[2];
+    sumaSegundos += cantidad * unidades[unidad];
+  }
+
+  return sumaSegundos;
+}
+
+function sumarTiemposPorPosicion(tiempos: string[]): number[] {
+  const sumas: number[] = [];
+
+  tiempos.forEach(elemento => {
+    const tiempos = elemento.split(',');
+    let sumaTotalSegundos = 0;
+
+    tiempos.forEach(tiempo => {
+      sumaTotalSegundos += convertirTiempoASegundos(tiempo);
+    });
+
+    sumas.push(sumaTotalSegundos);
+  });
+
+  return sumas;
+}
+
+function convertirStringAMinutos(tiempo: string): number {
+  const unidades: { [key: string]: number } = {
+    's': 1 / 60,
+    'm': 1,
+    'h': 60,
+    'd': 1440
+  };
+
+  const regex = /(\d+)([smhd])/;
+  const match = tiempo.match(regex);
+
+  if (match) {
+    const cantidad = parseInt(match[1]);
+    const unidad = match[2];
+    return cantidad * unidades[unidad];
+  } else {
+    // Si el formato no es válido, devolvemos 0
+    return 0;
   }
 }
