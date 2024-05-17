@@ -8,7 +8,7 @@ import { DespliegueInterface } from '../../core/interfaces/despliegue';
 })
 export class DespliegueService {
 
-  nuevoDespliegue: DespliegueInterface = {} as DespliegueInterface;
+  nuevoDespliegue: DespliegueInterface[] = []
   private httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -41,11 +41,11 @@ export class DespliegueService {
     return this.httpClient.put<DespliegueInterface>(this.urlBackend, proyecto, this.httpOptions);
   }
 
-  setDespliegue(despliegue: DespliegueInterface): void {
+  setDespliegue(despliegue: DespliegueInterface[]): void {
     this.nuevoDespliegue = despliegue;
   }
 
-  getDespliegue(): DespliegueInterface {
+  getDespliegue(): DespliegueInterface[] {
     return this.nuevoDespliegue;
   }
 }

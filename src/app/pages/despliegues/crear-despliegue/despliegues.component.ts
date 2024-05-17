@@ -121,6 +121,7 @@ export class DesplieguesComponent implements OnInit {
           next: (res: any) => {
             console.log('Despliegue creado', res);
             this.despliegueService.setDespliegue(res);
+            // this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO+'/crear');
             Swal.fire({
               title: "Despliegue creado",
               text: "¿Deseas iniciar un experimento con este despliegue?",
@@ -132,13 +133,11 @@ export class DesplieguesComponent implements OnInit {
               cancelButtonText: "No, ver despliegues"
             }).then((result) => {
               if (result.isConfirmed) {
-                this.router.navigateByUrl('/experimento');
-                // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+                this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO+'/crear');
               } else {
                 this.router.navigateByUrl('/despliegues');
               }
             });
-  
           }, error: (error: any) => {
             console.error('Error creando el despliegue', error);
             this.loading = false;
@@ -147,7 +146,7 @@ export class DesplieguesComponent implements OnInit {
           // console.log(despliegue);
           // this.router.navigateByUrl('/despliegues');
         });
-      }else{    
+      }else{
       this.despliegueService.createMultiple(data).subscribe({
         next: (res: any) => {
           console.log('Despliegue creado', res);
@@ -163,7 +162,7 @@ export class DesplieguesComponent implements OnInit {
             cancelButtonText: "No, ver despliegues"
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigateByUrl('/experimento');
+              this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO+'/crear');
               // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
             } else {
               this.router.navigateByUrl('/despliegues');
