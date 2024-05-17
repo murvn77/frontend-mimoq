@@ -20,7 +20,7 @@ import { CargaInterface } from '../../../core/interfaces/carga';
 })
 export class ExperimentoComponent implements OnInit {
   p: number = 1;
-  nombre_despliegue: string = '';
+  nombre_despliegue: DespliegueInterface[] = [];
   despliegue: DespliegueInterface = {} as DespliegueInterface;
   ids_despliegues: number[] = []
   inputHabilitado = false;
@@ -52,11 +52,11 @@ export class ExperimentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarDespliegues();
-    setTimeout(() => {
-      // console.log('Microservicios', this.microservicios)
+    // setTimeout(() => {
+      console.log('Microservicios', this.despliegues)
       this.cargarMicroservicios();
       console.log('La espera ha terminado');
-    }, 6000);
+    // }, 6000);
   }
 
   get cargas() {
@@ -64,17 +64,19 @@ export class ExperimentoComponent implements OnInit {
   }
 
   cargarDespliegues() {
-    this.nombre_despliegue = this.despliegueService.getDespliegue()?.nombre_helm || '';
-    console.log('ID id_despliegue', this.nombre_despliegue);
-    this.despliegueService.findByNameDeployment(this.nombre_despliegue).subscribe( {
-      next: (despliegues: any) => {
-        this.despliegues = despliegues || [];
-        console.log('Despliegues', this.despliegues);
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
+    this.despliegues = this.despliegueService.getDespliegue();
+    console.log('Despliegues', this.despliegues);
+    // this.nombre_despliegue = this.despliegueService.getDespliegue()?[0].nombre_helm || '';
+    // console.log('ID id_despliegue', this.nombre_despliegue);
+    // this.despliegueService.findByNameDeployment(this.nombre_despliegue[0]?.nombre_helm).subscribe( {
+    //   next: (despliegues: any) => {
+    //     this.despliegues = despliegues || [];
+    //     console.log('Despliegues', this.despliegues);
+    //   },
+    //   error: (error: any) => {
+    //     console.log(error);
+    //   }
+    // });
     // this.despliegueService.findAll().subscribe({
     //   next: (despliegues: any) => {
     //     this.despliegues = despliegues || [];
@@ -98,23 +100,24 @@ export class ExperimentoComponent implements OnInit {
     });
   }
 
-  crearCarga() {
-    const newCarga: Carga = {
-      cant_usuarios: this.cant_usuarios,
-      duracion_picos: this.duracion_picos
-    }
-    this.cargaService.create(newCarga).subscribe({
-      next: (res: any) => {
-        console.log('Carga creada', res);
-        this.carga = res;
-        console.log('Carga seteada', this.carga);
-      }, error: (error: any) => {
-        console.error('Error creando carga', error);
-      }
-      // console.log(despliegue);
-      // this.router.navigateByUrl('/despliegues');
-    });
-  }
+  // crearCarga() {
+  //   const newCarga: Carga = {
+  //     cant_usuarios: this.cant_usuarios,
+  //     duracion_picos: this.duracion_picos,
+  //     duracion_total:
+  //   }
+  //   this.cargaService.create(newCarga).subscribe({
+  //     next: (res: any) => {
+  //       console.log('Carga creada', res);
+  //       this.carga = res;
+  //       console.log('Carga seteada', this.carga);
+  //     }, error: (error: any) => {
+  //       console.error('Error creando carga', error);
+  //     }
+  //     // console.log(despliegue);
+  //     // this.router.navigateByUrl('/despliegues');
+  //   });
+  // }
 
   crearExperimento() {
     this.status = true;
@@ -125,9 +128,13 @@ export class ExperimentoComponent implements OnInit {
     // }, 2000);
     const sumatoriaPicos = sumarTiemposPorPosicion(this.duracion_picos);
     console.log('Sumatoria de picos', sumatoriaPicos);
+    // if(this.verificarTiempos(sumatoriaPicos)){
+
+    // }
     const newCarga: Carga = {
       cant_usuarios: this.cant_usuarios,
-      duracion_picos: this.duracion_picos
+      duracion_picos: this.duracion_picos,
+      duracion_total: sumatoriaPicos
     }
     this.cargaService.create(newCarga).subscribe({
       next: (res: any) => {
@@ -139,6 +146,7 @@ export class ExperimentoComponent implements OnInit {
           console.log('Entra al if');
           const nuevoExperimento = this.experimentoForm.value;
           const data: Experimento = {
+            nombre: nuevoExperimento.nombre || '',
             duracion: nuevoExperimento.duracion || '',
             cant_replicas: nuevoExperimento.replicas || 0,
             endpoints: this.endpoints,
@@ -270,18 +278,18 @@ function convertirTiempoASegundos(tiempo: string): number {
   return sumaSegundos;
 }
 
-function sumarTiemposPorPosicion(tiempos: string[]): number[] {
-  const sumas: number[] = [];
+function sumarTiemposPorPosicion(tiempos: string[]): string[] {
+  const sumas: string[] = [];
 
   tiempos.forEach(elemento => {
     const tiempos = elemento.split(',');
     let sumaTotalSegundos = 0;
 
     tiempos.forEach(tiempo => {
-      sumaTotalSegundos += convertirTiempoASegundos(tiempo);
+      sumaTotalSegundos += convertirStringAMinutos(tiempo);
     });
 
-    sumas.push(sumaTotalSegundos);
+    sumas.push(`${sumaTotalSegundos}m`);
   });
 
   return sumas;
