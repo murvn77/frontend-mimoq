@@ -47,29 +47,34 @@ export class MetricasComponent implements OnInit {
       this.atributos.forEach(atributo =>{
         this.subatributos = atributo.subatributos;
       });
-    });
       this.subatributos.forEach(subatributo =>{
         this.metricas = subatributo.metricas;
       });
-    this.metricas.forEach(metrica => {
-      console.log('Metric', metrica);
-      switch (metrica.grupo) {
-        case "DISCO":
-          this.discMetrics.push(metrica);
-          break;
-        case "RED":
-          this.redMetrics.push(metrica);
-          break;
-        case "MEMORIA":
-          this.memoriaMetrics.push(metrica);
-          break;
-        case "CPU":
-          this.cpuMetrics.push(metrica);
-          break;
-        default:
-          break;
-      }
+      console.log('Atribut', this.atributos);
+      console.log('Subatribut', this.subatributos);
+      console.log('Metric', this.metricas);
+      this.metricas.forEach(metrica => {
+        console.log('Metric', metrica);
+        switch (metrica.grupo) {
+          case "DISCO":
+            this.discMetrics.push(metrica);
+            break;
+          case "RED":
+            this.redMetrics.push(metrica);
+            break;
+          case "MEMORIA":
+            this.memoriaMetrics.push(metrica);
+            break;
+          case "CPU":
+            this.cpuMetrics.push(metrica);
+            break;
+          default:
+            break;
+        }
+      });
     });
+    
+    
     // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
     //   new bootstrap.Tooltip(tooltipTriggerEl)
