@@ -136,6 +136,7 @@ export class ExperimentoComponent implements OnInit {
       duracion_picos: this.duracion_picos,
       duracion_total: sumatoriaPicos
     }
+    this.showLoading();
     this.cargaService.create(newCarga).subscribe({
       next: (res: any) => {
         console.log('Carga creada', res);
@@ -204,6 +205,7 @@ export class ExperimentoComponent implements OnInit {
         }
       }, error: (error: any) => {
         console.error('Error creando carga', error);
+        this.hideLoading();
       }
       // console.log(despliegue);
       // this.router.navigateByUrl('/despliegues');
@@ -254,6 +256,19 @@ export class ExperimentoComponent implements OnInit {
     });
     console.log('Check', check);
     return check;
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }
 
@@ -314,4 +329,5 @@ function convertirStringAMinutos(tiempo: string): number {
     // Si el formato no es válido, devolvemos 0
     return 0;
   }
+  
 }

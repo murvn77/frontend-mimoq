@@ -39,6 +39,10 @@ export class ExperimentoService {
     return this.httpClient.post<ExperimentoInterface>(this.urlBackend, experimento, this.httpOptions);
   }
 
+  public createDashboard(experimento: any): Observable<ExperimentoInterface> {
+    return this.httpClient.post<ExperimentoInterface>(this.urlBackend + `dashboard`, experimento, this.httpOptions);
+  }
+
   public delete(id: number): Observable<any> {
     return this.httpClient.delete(this.urlBackend + `${id}`)
     .pipe(

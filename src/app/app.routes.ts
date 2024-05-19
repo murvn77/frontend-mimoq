@@ -16,6 +16,7 @@ import { ModalComponent } from './pages/modal/modal.component';
 import { VerDespliegueComponent } from './pages/despliegues/ver-despliegue/ver-despliegue.component';
 import { ExperimentoComponent } from './pages/experimento/crear-experimento/experimento.component';
 import { ListExperimentosComponent } from './pages/experimento/list-experimentos/list-experimentos/list-experimentos.component';
+import { VerExperimentoComponent } from './pages/experimento/ver-experimento/ver-experimento.component';
 
 export const routes: Routes = [
     {
@@ -83,7 +84,12 @@ export const routes: Routes = [
               path: 'crear',
               title: 'Crear Experimento',
               component: ExperimentoComponent
-          }
+          },
+          {
+            path: 'ver/:id',
+            title: 'Ver Experimento',
+            component: VerExperimentoComponent
+        },
         ]
     },
     {

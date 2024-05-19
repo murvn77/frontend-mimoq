@@ -26,7 +26,7 @@ export class AuthService {
       usuario.id_usuario || 0,
     );
   }
-  async getUsuario(): Promise<Usuario> {
+  getUsuario(): Usuario {
     return this.usuarioLogin;
   }
 

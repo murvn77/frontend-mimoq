@@ -21,15 +21,14 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
-          @if(!this.token) {
-            <div class="login-button form-conent">
-              <button class="btn btn-primary btn-xl" (click)="redirectToLogin()">Ingresar</button>
-            </div>
-            }
-            @else{
+          @if(this.token) {
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>
+            }@else{
+              <div class="login-button form-conent">
+                <button class="btn btn-primary btn-xl" (click)="redirectToLogin()">Ingresar</button>
+              </div>
             }
         </ul>
       </div>

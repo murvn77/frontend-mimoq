@@ -28,8 +28,6 @@ export class MetricasComponent implements OnInit {
   //   new Atributo(3,'Seguridad', 'La seguridad se refiere a qué tan bien un producto o sistema protege la información y los datos de las vulnerabilidades de seguridad.', ['Confidencialidad', 'Integridad', 'Responsabilidad'])
   // ];
   atributos: AtributoInterface[] = []
-  metricas: MetricaInterface[] = []
-  subatributos: SubAtributoInterface[] = []
   ids_metricas: number[] = [];
   discMetrics: MetricaInterface[] = [];
   redMetrics: MetricaInterface[] = [];
@@ -44,59 +42,68 @@ export class MetricasComponent implements OnInit {
     this.atributpService.findAll().subscribe(atributos => {
       console.log('Atributos', atributos);
       this.atributos = atributos;
-      this.atributos.forEach(atributo =>{
-        this.subatributos = atributo.subatributos;
+      this.atributos.forEach(atributo => {
+        atributo.subatributos.forEach(subatributo => {
+          subatributo.metricas.forEach(metrica => {
+            console.log('Metric', metrica);
+            switch (metrica.grupo) {
+              case "DISCO":
+                this.discMetrics.push(metrica);
+                break;
+              case "RED":
+                this.redMetrics.push(metrica);
+                break;
+              case "MEMORIA":
+                this.memoriaMetrics.push(metrica);
+                break;
+              case "CPU":
+                this.cpuMetrics.push(metrica);
+                break;
+              default:
+                break;
+            }
+          });
+        });
       });
-      this.subatributos.forEach(subatributo =>{
-        this.metricas = subatributo.metricas;
-      });
-      console.log('Atribut', this.atributos);
-      console.log('Subatribut', this.subatributos);
-      console.log('Metric', this.metricas);
-      this.metricas.forEach(metrica => {
-        console.log('Metric', metrica);
-        switch (metrica.grupo) {
-          case "DISCO":
-            this.discMetrics.push(metrica);
-            break;
-          case "RED":
-            this.redMetrics.push(metrica);
-            break;
-          case "MEMORIA":
-            this.memoriaMetrics.push(metrica);
-            break;
-          case "CPU":
-            this.cpuMetrics.push(metrica);
-            break;
-          default:
-            break;
-        }
-      });
+      console.log('discMetrics', this.discMetrics);
+      console.log('redMetrics', this.redMetrics);
+      console.log('memoriaMetrics', this.memoriaMetrics);
+      console.log('cpuMetrics', this.cpuMetrics);
     });
-    
-    
-    // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
-    //   new bootstrap.Tooltip(tooltipTriggerEl)
-    // })
+  }
+  goToDashboard() {
+    this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
   }
   crearExperimento() {
     const data = this.experimentoService.getExperimento();
     console.log('Data que llega', data);
     data.fk_ids_metricas = this.ids_metricas;
     console.log('Experimento', data);
+    this.showLoading();
     this.experimentoService.create(data).subscribe({
       next: (res: any) => {
         console.log('Experimento creado', res);
         Swal.fire({
           title: "Experimento creado",
           text: "El experimento ha sido creado correctamente",
-          icon: "success"
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ir a dashboard",
+          cancelButtonText: "Lista de experimentos"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.goToDashboard()
+          }else{
+            this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
+          }
         });
-
       }, error: (error: any) => {
         console.error('Error creando el experimento', error);
-        Swal.fire('Error', 'Ocurrió un error al crear el experimento', 'error');
+        this.hideLoading();
+        Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
+        // this.hideLoading();
       }
       // console.log(despliegue);
       // this.router.navigateByUrl('/despliegues');
@@ -113,5 +120,18 @@ export class MetricasComponent implements OnInit {
   }
   goBack() {
     this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }

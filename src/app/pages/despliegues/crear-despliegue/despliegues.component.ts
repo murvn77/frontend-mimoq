@@ -115,8 +115,8 @@ export class DesplieguesComponent implements OnInit {
         fk_proyecto: this.id_proyecto || 0
       }
       console.log('Despliegue a crear', data);
-      console.log('es esMultiple',this.esMultiple);
-      if(!this.esMultiple){
+      console.log('es esMultiple', this.esMultiple);
+      if (!this.esMultiple) {
         this.despliegueService.createIndividual(data).subscribe({
           next: (res: any) => {
             console.log('Despliegue creado', res);
@@ -133,51 +133,54 @@ export class DesplieguesComponent implements OnInit {
               cancelButtonText: "No, ver despliegues"
             }).then((result) => {
               if (result.isConfirmed) {
-                this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO+'/crear');
+                this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO + '/crear');
               } else {
                 this.router.navigateByUrl('/despliegues');
               }
             });
           }, error: (error: any) => {
-            console.error('Error creando el despliegue', error);
+            console.error('Error creando el despliegue:', error);
             this.loading = false;
-            Swal.fire('Error', 'Ocurrió un error al crear el despliegue', 'error');
+            Swal.fire('Error', 'Ocurrió un error al crear el despliegue:', error);
           }
           // console.log(despliegue);
           // this.router.navigateByUrl('/despliegues');
         });
-      }else{
-      this.despliegueService.createMultiple(data).subscribe({
-        next: (res: any) => {
-          console.log('Despliegue creado', res);
-          this.despliegueService.setDespliegue(res);
-          Swal.fire({
-            title: "Despliegue creado",
-            text: "¿Deseas iniciar un experimento con este despliegue?",
-            icon: "success",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, experimentar",
-            cancelButtonText: "No, ver despliegues"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO+'/crear');
-              // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
-            } else {
-              this.router.navigateByUrl('/despliegues');
-            }
-          });
+      } else {
+        this.showLoading();
+        this.despliegueService.createMultiple(data).subscribe({
+          next: (res: any) => {
+            console.log('Despliegue creado', res);
+            if (res) {
+              this.despliegueService.setDespliegue(res);
+              Swal.fire({
+                title: "Despliegue creado",
+                text: "¿Deseas iniciar un experimento con este despliegue?",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, experimentar",
+                cancelButtonText: "No, ver despliegues"
 
-        }, error: (error: any) => {
-          console.error('Error creando el despliegue', error);
-          this.loading = false;
-          Swal.fire('Error', 'Ocurrió un error al crear el despliegue', 'error');
-        }
-        // console.log(despliegue);
-        // this.router.navigateByUrl('/despliegues');
-      });
-    }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO + '/crear');
+                  // this.router.navigate([ROUTES_APP.DESPLIEGUES+ROUTES_APP.CREAR_DESPLIEGUE,res.id_proyecto]);
+                } else {
+                  this.router.navigateByUrl('/despliegues');
+                }
+              });
+            }
+          }, error: (error: any) => {
+            console.error('Error creando el despliegue', error);
+            this.loading = false;
+            this.hideLoading();
+            Swal.fire('Error', 'Ocurrió un error al crear el despliegue:', error);
+          }
+          // this.router.navigateByUrl('/despliegues');
+        });
+      }
     }
     // addItem() {
     //   this.microservicios.forEach((microservicio) => {
@@ -188,6 +191,19 @@ export class DesplieguesComponent implements OnInit {
     //     this.replicasMicro.push(item);
     //   });
     // }
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
   goBack(): void {
     this.router.navigateByUrl(ROUTES_APP.PROYECTOS);

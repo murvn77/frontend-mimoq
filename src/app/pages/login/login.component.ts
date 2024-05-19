@@ -18,6 +18,7 @@ import { ModalComponent } from "../modal/modal.component";
 export class LoginComponent {
   urlBackend: string  = 'http://localhost:3000/api';
   loginObj: Login = {} as Login;
+  login:boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
 
@@ -41,7 +42,9 @@ export class LoginComponent {
           this.authService.login(data.usuario);
           console.log(`LOGIN - FETCH: ${this.authService.isLoggedIn}`);
           localStorage.setItem('angular17token', data.access_token);
+          this.login=true;
           this.router.navigated = false;
+          // location.reload();
           this.router.navigateByUrl(ROUTES_APP.HOME);
         } else {
           Swal.fire('Error', data.message, 'error');

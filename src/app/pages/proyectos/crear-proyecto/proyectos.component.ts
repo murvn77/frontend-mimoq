@@ -51,7 +51,7 @@ export class ProyectosComponent implements OnInit {
   async crearProyecto(): Promise<void> {
     this.loading = true;
     const nuevoProyecto = this.proyectoForm.value;
-    const usuario: Usuario = await this.authService.getUsuario();
+    const usuario: Usuario = this.authService.getUsuario();
     console.log('Usuario en sesión: ' + usuario.id_usuario);  
     this.urlsRepos.push(this.proyectoForm?.get('repositorio')?.value ||'');
     this.nombresRepos.push(this.proyectoForm?.get('nombreRepo')?.value ||'');
@@ -80,6 +80,7 @@ export class ProyectosComponent implements OnInit {
         }
       }
       console.log('Proyecto a crear', data);
+      this.showLoading();
       this.proyectoService.create(data).subscribe({
         next: (res: any) => {
           console.log('Proyecto creado', res);
@@ -104,7 +105,9 @@ export class ProyectosComponent implements OnInit {
         }, error: (error: any) => {
           console.error('Error creando proyecto', error);
           this.loading = false;
+          this.hideLoading();
           Swal.fire('Error', 'Ocurrió un error al crear el proyecto', error);
+          
         }
       });
     }
@@ -140,6 +143,19 @@ export class ProyectosComponent implements OnInit {
   }
   goBack(): void{
     this.router.navigateByUrl(ROUTES_APP.PROYECTOS);
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }
 function noTildesValidator(control: FormControl) {
