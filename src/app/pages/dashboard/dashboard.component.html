@@ -1,35 +1,26 @@
 <!-- <iframe src="http://localhost:3000/d/W5KDrdKnz/6e86b6fe-1eab-5293-a881-2592e2eb6445?orgId=1"
 width="100%" height="900" title="Dashboard" name="contents"></iframe> -->
 
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Fugiat, velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, velit.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Read more</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+<div [innerHTML]="iframeHtml"></div>
+<!-- <div><p>prueba</p></div>
+<div [innerHTML]="this.iframeString"></div> -->
+<!-- <div [innerHTML]="iframes[0][0]"></div> -->
+<!-- @for (iframeGroup of this.iframes; track $index)
+{
+  <p>{{iframeGroup}}</p>
+  <div [innerHTML]="iframeGroup"></div>
+  <div><p>prueba2</p></div>
+@for(iframe of iframeGroup; track $index){
+  <p>{{iframe}}</p>
+  <div><p>prueba3</p></div>
+<div [innerHTML]="iframe"></div>
+}
+}
+<div><p>prueba4</p></div> -->
+@for (iframeGroup of this.iframesHtml; track $index)
+{
+  <div><p>prueba {{$index}}</p></div>
+  <p>{{iframeGroup}}</p>
+  <div [innerHTML]="iframeGroup"></div>
+}

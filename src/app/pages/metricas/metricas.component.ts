@@ -29,6 +29,7 @@ export class MetricasComponent implements OnInit {
   // ];
   atributos: AtributoInterface[] = []
   ids_metricas: number[] = [];
+  iframes: string[] = [];
   discMetrics: MetricaInterface[] = [];
   redMetrics: MetricaInterface[] = [];
   memoriaMetrics: MetricaInterface[] = [];
@@ -80,9 +81,12 @@ export class MetricasComponent implements OnInit {
     data.fk_ids_metricas = this.ids_metricas;
     console.log('Experimento', data);
     this.showLoading();
-    this.experimentoService.create(data).subscribe({
+    this.experimentoService.createDashboard(data).subscribe({
       next: (res: any) => {
         console.log('Experimento creado', res);
+        this.iframes = res;
+        console.log('IFRAMES',this.iframes)
+        this.experimentoService.setIFrames(this.iframes)
         Swal.fire({
           title: "Experimento creado",
           text: "El experimento ha sido creado correctamente",

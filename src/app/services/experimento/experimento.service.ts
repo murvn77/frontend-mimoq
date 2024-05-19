@@ -10,6 +10,7 @@ import { Experimento } from '../../core/model/experimento/experimento';
 export class ExperimentoService {
 
   nuevoExperimento: Experimento = {} as Experimento;
+  iframes: string[] = [];
   private _refresh = new Subject<void>();
   private httpOptions = {
     headers: new HttpHeaders({
@@ -62,5 +63,13 @@ export class ExperimentoService {
 
   getExperimento(): Experimento {
     return this.nuevoExperimento;
+  }
+
+  setIFrames(iframes: string[]): void{
+    this.iframes = iframes;
+  }
+
+  getIFrames(): string[]{
+    return this.iframes;
   }
 }
