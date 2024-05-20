@@ -32,13 +32,17 @@ export class AuthService {
 
   verificarSesion(): boolean {
     const token = localStorage.getItem('angular17token');
-    console.log("verificar",token);
-    if(token){
+    const user = this.getUsuario();
+    if (Object.keys(user).length == 0) {
+      this.logout();
+      return false;
+    } else if (token) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
+
   logout() {
     // localStorage.setItem('angular17token', 'null');
     localStorage.removeItem('angular17token');

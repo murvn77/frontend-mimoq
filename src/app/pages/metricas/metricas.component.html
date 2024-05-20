@@ -172,6 +172,10 @@
     </div>
     <div class="text-center justify-content-between">
         <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
-        <button type="submit" class="btn btn-primary btn-xl" (click)="crearExperimento()">Siguiente</button>
+        @if(!this.seleccionMetrica){
+          <div class="text-danger">Por favor, seleccione al menos una métrica.</div>
+        }
+        <button type="submit" class="btn btn-primary btn-xl"
+         [disabled]="!this.seleccionMetrica" (click)="crearExperimento()">Siguiente</button>
     </div>
 </section>

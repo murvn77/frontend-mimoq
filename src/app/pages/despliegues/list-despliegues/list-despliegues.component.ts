@@ -16,15 +16,14 @@ import { DespliegueG } from '../../../core/interfaces/despliegue-g';
 export class ListDesplieguesComponent implements OnInit {
   p: number = 1;
   // despliegues: DespliegueInterface[] = [];
-  // desplieguesOrdenados: DespliegueInterface[] = [];
   desplieguesAgrupados: DespliegueG[] = [];
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private despliegueService: DespliegueService) {}
   ngOnInit(): void {
       this.despliegueService.findAll().subscribe(despliegues => {
         console.log('Despliegues llegan',despliegues);
         despliegues.forEach(despliegue => {
-          const despliegueTemp: DespliegueG = {} as DespliegueG; 
+          const despliegueTemp: DespliegueG = {} as DespliegueG;
           const index = this.desplieguesAgrupados.findIndex(item => item.nombre_helm === despliegue.nombre_helm);
           despliegueTemp.despliegues = [despliegue];
           if (index === -1) {

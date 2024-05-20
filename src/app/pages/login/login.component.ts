@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterOutlet, RouterLink} from '@angular/router';
-import { AuthService  } from '../../services/auth/auth.service';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 import { Login } from '../../core/usuario';
 import Swal from 'sweetalert2';
 import { ROUTES_APP } from '../../core/enum/routes.enum';
@@ -44,7 +44,6 @@ export class LoginComponent {
           localStorage.setItem('angular17token', data.access_token);
           this.login=true;
           this.router.navigated = false;
-          // location.reload();
           this.router.navigateByUrl(ROUTES_APP.HOME);
         } else {
           Swal.fire('Error', data.message, 'error');

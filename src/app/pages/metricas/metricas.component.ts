@@ -34,13 +34,14 @@ export class MetricasComponent implements OnInit {
   redMetrics: MetricaInterface[] = [];
   memoriaMetrics: MetricaInterface[] = [];
   cpuMetrics: MetricaInterface[] = [];
+  seleccionMetrica: boolean = false;
 
   constructor(private router: Router,
-    private atributpService: AtributoService,
+    private atributoService: AtributoService,
     private experimentoService: ExperimentoService
   ) { }
   ngOnInit(): void {
-    this.atributpService.findAll().subscribe(atributos => {
+    this.atributoService.findAll().subscribe(atributos => {
       console.log('Atributos', atributos);
       this.atributos = atributos;
       this.atributos.forEach(atributo => {
@@ -76,52 +77,62 @@ export class MetricasComponent implements OnInit {
     this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
   }
   crearExperimento() {
-    const data = this.experimentoService.getExperimento();
-    console.log('Data que llega', data);
-    data.fk_ids_metricas = this.ids_metricas;
-    console.log('Experimento', data);
-    this.showLoading();
-    this.experimentoService.createDashboard(data).subscribe({
-      next: (res: any) => {
-        console.log('Experimento creado', res);
-        this.iframes = res;
-        console.log('IFRAMES',this.iframes)
-        this.experimentoService.setIFrames(this.iframes)
-        Swal.fire({
-          title: "Experimento creado",
-          text: "El experimento ha sido creado correctamente",
-          icon: "success",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ir a dashboard",
-          cancelButtonText: "Lista de experimentos"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.goToDashboard()
-          }else{
-            this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
-          }
-        });
-      }, error: (error: any) => {
-        console.error('Error creando el experimento', error);
-        this.hideLoading();
-        Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
-        // this.hideLoading();
-      }
-      // console.log(despliegue);
-      // this.router.navigateByUrl('/despliegues');
-    });
+    if (this.ids_metricas.length == 0) {
+      this.seleccionMetrica = false;
+    } else {
+      this.seleccionMetrica = true;
+      const data = this.experimentoService.getExperimento();
+      console.log('Data que llega', data);
+      data.fk_ids_metricas = this.ids_metricas;
+      console.log('Experimento', data);
+      this.showLoading();
+      this.experimentoService.createDashboard(data).subscribe({
+        next: (res: any) => {
+          console.log('Experimento creado', res);
+          this.iframes = res;
+          console.log('IFRAMES', this.iframes)
+          this.experimentoService.setIFrames(this.iframes)
+          Swal.fire({
+            title: "Experimento creado",
+            text: "El experimento ha sido creado correctamente",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ir a dashboard",
+            cancelButtonText: "Lista de experimentos"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.goToDashboard()
+            } else {
+              this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
+            }
+          });
+        }, error: (error: any) => {
+          console.error('Error creando el experimento', error);
+          this.hideLoading();
+          Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
+          // this.hideLoading();
+        }
+        // console.log(despliegue);
+        // this.router.navigateByUrl('/despliegues');
+      });
+    }
   }
   verificar(metrica: MetricaInterface) {
     let pos = this.ids_metricas.indexOf(metrica.id_metrica);
     if (pos === -1) {
       this.ids_metricas.push(metrica.id_metrica);
+      this.seleccionMetrica = true;
     } else {
       this.ids_metricas.splice(pos, 1);
+      if(this.ids_metricas.length == 0){
+        this.seleccionMetrica = false;
+      }
     }
     console.log('IDs Metricas', this.ids_metricas);
   }
+
   goBack() {
     this.router.navigateByUrl(ROUTES_APP.CREAR_PROYECTO);
   }

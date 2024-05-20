@@ -26,9 +26,9 @@
                                 <td>{{experimento.nombre}}</td>
                                 <td>{{experimento.duracion}}</td>
                                 <td>{{experimento.cant_replicas}}</td>
-                                <td class="text_table">
+                                <td>
                                   @for (despliegue of experimento.despliegues; track $index){
-                                  <ul>
+                                  <ul class="custom-list">
                                       <li>{{despliegue.nombre}}</li>
                                   </ul>
                                   }

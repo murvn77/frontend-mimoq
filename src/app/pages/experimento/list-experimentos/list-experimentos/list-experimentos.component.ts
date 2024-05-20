@@ -44,6 +44,7 @@ export class ListExperimentosComponent implements OnInit {
   }
 
   descargarResultados(id_experimento:number){
+    console.log('ID_EXPERIMENTO',id_experimento);
     this.experimentoService.findFile(id_experimento)
     .subscribe((data: Blob) => {
       const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto

@@ -10,6 +10,9 @@ import { Subscription } from 'rxjs';
 import { VerProyectoComponent } from '../ver-proyecto/ver-proyecto.component';
 import { ProyectoInterface } from '../../../core/interfaces/proyecto';
 import { DespliegueInterface } from '../../../core/interfaces/despliegue';
+import { Usuario } from '../../../core/model/usuario/usuario';
+import { AuthService } from '../../../services/auth/auth.service';
+import { DespliegueService } from '../../../services/despliegue/despliegue.service';
 
 @Component({
   selector: 'app-list-proyectos',
@@ -28,18 +31,21 @@ export class ListProyectosComponent implements OnInit{
   proyectos: ProyectoInterface[] = [];
   suscription : Subscription = new Subscription;
 
-  constructor(private router: Router, 
-    private proyectoService: ProyectoService, 
+  constructor(private router: Router,
+    private proyectoService: ProyectoService,
+    private authService:AuthService,
+    private despliegueService: DespliegueService,
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.proyectoService.findAll().subscribe(proyectos => {
+    const usuario: Usuario = this.authService.getUsuario();
+    this.proyectoService.findByUser(usuario?.id_usuario || 0).subscribe(proyectos => {
       console.log('Proyectos',proyectos);
       this.proyectos = proyectos;
     });
 
     this.suscription = this.proyectoService.refresh.subscribe(() =>{
-      this.proyectoService.findAll().subscribe(proyectos => {
+      this.proyectoService.findByUser(usuario?.id_usuario || 0).subscribe(proyectos => {
         console.log('Proyectos',proyectos);
         this.proyectos = proyectos;
       });
@@ -50,15 +56,13 @@ export class ListProyectosComponent implements OnInit{
       next: (proyecto: any) => {
         this.proyectoActual = proyecto;
         this.despliegues = this.proyectoActual?.despliegues || [];
-        console.log('Despliegues',this.proyectoActual);
+        this.despliegueService.setDespliegues(this.despliegues);
+        console.log('Despliegues proyecto',this.proyectoActual);
       },
       error: (error: any) => {
         console.log(error);
       }
     });
-    // this.proyectoActual = this.proyectoService.getProyecto();
-    // console.log('Proyecto',this.proyectoActual);  
-    // this.despliegues = this.proyectoActual?.despliegues || [];
   }
 get ROUTES_APP(){
   return ROUTES_APP

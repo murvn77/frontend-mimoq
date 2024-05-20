@@ -41,6 +41,14 @@ export class DespliegueService {
     return this.httpClient.put<DespliegueInterface>(this.urlBackend, proyecto, this.httpOptions);
   }
 
+  setDespliegues(despliegue: DespliegueInterface[]): void {
+    this.nuevoDespliegue = despliegue;
+  }
+
+  getDespliegues(): DespliegueInterface[] {
+    return this.nuevoDespliegue;
+  }
+
   setDespliegue(despliegue: DespliegueInterface[]): void {
     this.nuevoDespliegue = despliegue;
   }

@@ -21,7 +21,7 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
-          @if(this.token) {
+          @if(this.isLoggedIn) {
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>

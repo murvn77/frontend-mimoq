@@ -28,8 +28,8 @@ export class ProyectoService {
   findById(id: number): Observable<ProyectoInterface> {
     return this.httpClient.get<ProyectoInterface>(this.urlBackend + `${id}`);
   }
-  findByUser(id: number): Observable<ProyectoInterface> {
-    return this.httpClient.get<ProyectoInterface>(this.urlBackend + `usuario/${id}`);
+  findByUser(id: number): Observable<ProyectoInterface[]> {
+    return this.httpClient.get<ProyectoInterface[]>(this.urlBackend + `usuario/${id}`);
   }
   public create(proyecto: any): Observable<ProyectoInterface> {
     return this.httpClient.post<ProyectoInterface>(this.urlBackend, proyecto, this.httpOptions)
