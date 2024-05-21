@@ -1,65 +1,207 @@
 <section class="page-section" id="contact">
-    <div class="text-center">
-        <h2 class="section-heading">Proyectos</h2>
-    </div>
-    <div class="align-items-stretch justify-content-center mb-5">
-        <div class="about-heading-content">
-            <div class="col-xl-9 col-lg-10 mx-auto">
-                <div class="bg-faded rounded p-5">
-                    <table class="proyecto-list table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text_table" scope="col">Nombre</th>
-                                <th class="text_table" scope="col">Descripción</th>
-                                <th class="text_table" scope="col">Url</th>
-                                <th class="text_table" scope="col"></th>
-                                <th class="text_table" scope="col">Acciones</th>
-                                <th class="text_table" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (proyecto of proyectos | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
-                                <tr>   
-                                <td>{{proyecto.nombre}}</td>
-                                <td>{{proyecto.descripcion}}</td>
-                                @if(proyecto.tipo_repositorio == 'Multiple'){ 
-                                     <td>{{proyecto.url_repositorio}}</td>
-                                }@else if(proyecto.tipo_repositorio == 'individual'){
-                                    <td>
-                                        @for (url of proyecto.urls_repositorios; track $index){
-                                            <ul>
-                                                 <li>{{url}}</li>
-                                            </ul>
-                                        }
-                                    </td>
-                                }
-                                <td>
-                                    <a class="btn btn-outline-dark btn-icon" [routerLink]="[ROUTES_APP.VER_PROYECTO, proyecto.id_proyecto]">
+  <div class="text-center">
+    <h2 class="section-heading">Proyectos</h2>
+  </div>
+  <div class="align-items-stretch justify-content-center mb-5">
+    <div class="about-heading-content">
+      <div class="col-xl-9 col-lg-10 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <table class="proyecto-list table table-striped">
+            <caption style="text-align:center">Lista de proyectos creados</caption>
+            <thead>
+              <tr>
+                <th class="text_table" scope="col">Nombre</th>
+                <th class="text_table" scope="col">Descripción</th>
+                <th class="text_table" scope="col">Url</th>
+                <th class="text_table" scope="col">Acciones</th>
+                <th class="text_table" scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (proyecto of proyectos | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
+              <tr class="text_table">
+                <td>{{proyecto.nombre}}</td>
+                <td>{{proyecto.descripcion}}</td>
+                @if(proyecto.docker_compose){
+                <td>{{proyecto.url_repositorio}}</td>
+                }@else if(!proyecto.docker_compose){
+                <td>
+                  @for (url of proyecto.urls_repositorios; track $index){
+                  <ul class="custom-list">
+                    <li>{{url}}</li>
+                  </ul>
+                  }
+                </td>
+                }
+                <td>
+                  <!-- <a class="btn btn-outline-dark btn-icon"
+                                        [routerLink]="[ROUTES_APP.VER_PROYECTO, proyecto.id_proyecto]">
                                         Ver
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-icon" [routerLink]="[ROUTES_APP.EDIT_PROYECTO, proyecto.id_proyecto]">
+                                    </a> -->
+                  <button type="button" class="btn btn-outline-dark btn-icon" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="getProyecto(proyecto.id_proyecto)">
+                    Ver
+                  </button>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Detalles del Proyecto
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="about-heading-content">
+                            <div class="col-xl-9 col-lg-10 mx-auto">
+                              <div class="bg-faded rounded p-5">
+                                <div class="contenedor" style="text-align: left;">
+                                  <p>
+                                    <strong class="d-inline-block mb-2 text-primary-emphasis letra">ID
+                                      Proyecto:</strong>
+                                    {{ proyectoActual.id_proyecto }}
+                                  </p>
+                                  <p>
+                                    <strong class="d-inline-block mb-2 text-primary-emphasis letra">Nombre:</strong>
+                                    {{ proyectoActual.nombre }}
+                                  </p>
+                                  <p>
+                                    <strong
+                                      class="d-inline-block mb-2 text-primary-emphasis letra">Descripción:</strong>
+                                    {{ proyectoActual.descripcion }}
+                                  </p>
+                                  @if(proyectoActual.docker_compose){
+                                  <p>
+                                    <strong class="d-inline-block mb-2 text-primary-emphasis letra">URL
+                                      Repositorio:
+                                    </strong>
+                                  </p>
+                                  <a href="{{ proyectoActual.url_repositorio }}" target="_blank">{{
+                                    proyectoActual.url_repositorio
+                                    }}</a>
+
+                                  }@else if(!proyectoActual.docker_compose){
+
+                                  <strong class="d-inline-block mb-2 text-primary-emphasis letra">URL
+                                    Repositorios:
+                                  </strong>
+
+                                  @for (url of proyectoActual.urls_repositorios; track
+                                  $index){
+
+                                  <ul style="text-align: left;">
+                                    <li>
+                                      <a href="{{ url }}" target="_blank">{{ url
+                                        }}</a>
+                                    </li>
+                                  </ul>
+
+                                  } }
+                                  <strong
+                                    class="d-inline-block mb-2 text-primary-emphasis letra">Microservicios:</strong>
+
+                                  <ul style="text-align: left;">
+                                    @for (microservicio of
+                                    proyectoActual.nombres_microservicios;
+                                    track $index) {
+
+                                    <li>{{ microservicio }}</li>
+
+                                    }
+                                  </ul>
+                                  @if(despliegues.length > 0){
+
+                                  <strong class="d-inline-block mb-2 text-primary-emphasis letra">Despliegues:</strong>
+
+                                  <ul>
+                                    <table class="proyecto-list table table-striped">
+                                      <caption style="text-align:center">Lista de
+                                        despliegues creados</caption>
+                                      <thead>
+                                        <tr>
+                                          <th class="text_table" scope="col">
+                                            ID</th>
+
+                                          <th class="text_table" scope="col">
+                                            Nombre</th>
+
+                                          <th class="text_table" scope="col">
+                                            Replicas</th>
+
+                                          <th class="text_table" scope="col">
+                                            Pods</th>
+
+                                          <th class="text_table" scope="col">
+                                            Namespace</th>
+                                        </tr>
+                                      </thead>
+
+                                      <tbody>
+                                        @for (despliegue of despliegues |
+                                        paginate:{itemsPerPage: 10, currentPage:
+                                        p}; track $index){
+
+                                        <tr>
+                                          <td>{{ despliegue.id_despliegue }}
+                                          </td>
+
+                                          <td>{{ despliegue.nombre }}</td>
+
+                                          <td>{{ despliegue.cant_replicas }}
+                                          </td>
+
+                                          <td>{{ despliegue.cant_pods }}</td>
+
+                                          <td>{{ despliegue.namespace }}</td>
+                                        </tr>
+                                        }
+                                      </tbody>
+                                    </table>
+                                    <div class="text-center form-conent">
+                                      <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente"></pagination-controls>
+                                    </div>
+                                  </ul>
+                                  }
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-primary me-md-2" id="submitButton" type="button"
+                            data-bs-dismiss="modal" (click)="crearDespliegue()">Crear despliegue</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <!-- <td>
+                                    <a class="btn btn-outline-primary btn-icon"
+                                        [routerLink]="[ROUTES_APP.EDIT_PROYECTO, proyecto.id_proyecto]">
                                         Editar
                                     </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-danger btn-icon" (click)="eliminarProyecto(proyecto?.id_proyecto || 0)">
-                                        Eliminar
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                        </tbody>   
-                    </table>
-                    <div class="text-center form-conent">
-                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                    </div>
-                    <div class="text-center form-conent">
-                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit" routerLink="crearProyecto">Crear proyecto</button>
-                    </div>
-                </div>
-            </div>
+                                </td> -->
+                <td>
+                  <a class="btn btn-outline-danger btn-icon" (click)="eliminarProyecto(proyecto?.id_proyecto || 0)">
+                    Eliminar
+                  </a>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+          <div class="text-center form-conent">
+            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
+          </div>
+          <div class="text-center form-conent">
+            <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
+              [routerLink]="ROUTES_APP.CREAR_PROYECTO">Crear proyecto</button>
+          </div>
         </div>
-    </div>  
+      </div>
+    </div>
+  </div>
 </section>

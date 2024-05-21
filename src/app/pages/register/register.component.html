@@ -16,14 +16,14 @@
                 <!-- Name input-->
                 <label class="section-label" for="document">Número de Documento</label>
                 <input class="form-control" formControlName="documento" id="document" type="text" placeholder="Ingrese número de documento *" data-sb-validations="required" />
-                <div class="invalid-feedback" data-sb-feedback="document:required">El nombre es requerido.</div>
+                <div class="invalid-feedback" data-sb-feedback="document:required">El número de documento es requerido.</div>
               </div>
               <div class="form-group">
                 <!-- Email address input-->
                 <label class="section-label" for="email">Email</label>
                 <input class="form-control" formControlName="email" id="email" type="email" placeholder="Ingrese el Email *" data-sb-validations="required,email" />
-                <div class="invalid-feedback" data-sb-feedback="email:required">El email es requerido.</div>
-                <div class="invalid-feedback" data-sb-feedback="email:email">El Email no es válido.</div>
+                <div class="invalid-feedback" data-sb-feedback="email:required">El correo es requerido.</div>
+                <div class="invalid-feedback" data-sb-feedback="email:email">El correo no es válido.</div>
               </div>
               <div class="form-group mb-md-0">
                 <!-- Password input-->
@@ -53,19 +53,10 @@
             <div class="text-center text-danger mb-3">Error en el registro</div>
           </div>
         }
-        
-        <!-- Submit error message-->
-        <!---->
-        <!-- This is what your users will see when there is-->
-        <!-- an error submitting the form-->
-        <!-- Submit Button-->
         <div class="text-center form-conent">
           <button class="btn btn-primary btn-xl" id="submitButton" type="submit" (click)="crearUsuario()">Registrar</button>
         </div>
     </form>
-    <p>Nombre: {{usuarioForm.value.nombre}}</p>
-    <p>Email: {{usuarioForm.value.email}}</p>
-    <p>Valid: {{usuarioForm.valid}}</p>
 </div>
 <script src="../../../../assets/js/checkout.js"></script>
 </section>

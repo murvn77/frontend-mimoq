@@ -11,17 +11,21 @@
               <label class="section-label" for="inputName4">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" id="inputName4"
                 required />
+                @if(despliegueForm.get('nombre')?.invalid && despliegueForm.get('nombre')?.touched){
+                  <div class="invalid-feedback">
+                    Por favor, ingrese un nombre de despliegue válido
+                  </div>
+                  }
               <div class="invalid-feedback">
                 Nombre requerido
               </div>
             </div>
             <div class="form-group">
-              <label class="section-label" for="inputName4">Duracion</label>
-              <input type="number" formControlName="duracion" class="form-control" placeholder="Cantidad de pods"
-                id="inputName4" min="1" required />
-
+              <label class="section-label" for="inputNamespace4">Namespace</label>
+              <input type="text" formControlName="namespace" class="form-control" placeholder="Namespace" id="inputNamespace4"
+                required />
               <div class="invalid-feedback">
-                Duracion requerida
+                Namespace requerido
               </div>
             </div>
           </div>
@@ -41,33 +45,52 @@
                   <tr>
                       <th class="text_table" scope="col">Nombre</th>
                       <th class="text_table" scope="col">Replicas</th>
-                      <!-- <th class="text_table" scope="col">Aumentar</th> -->
+                      <th class="text_table" scope="col"></th>
                   </tr>
               </thead>
               <tbody>
                   @for (microservicio of replicasMicro.controls; track $index) {
-                      <tr>   
+                      <tr>
                       <td>{{microservicio.get('nombre')?.value || ''}}</td>
                       <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
                         id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
                       <td class="text-center"> {{microservicio.get('cantidad')?.value || ''}}</td>
-                      <button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                      <td><button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                      <button type="button" class="btn btn-outline-primary" (click)="decrement($index)">-</button></td>
                   </tr>
               }
-              </tbody>   
+              </tbody>
           </table>
         </div>
+        @if(loading){
           <div class="text-center form-conent">
-            <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid">
-              <a class="btn btn-primary btn-xl">
+            <button class="btn btn-primary btn-xl" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span role="status">Cargando...</span>
+            </button>
+          </div>
+          }@else {
+          <div class="text-center form-conent d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" style="margin-right: 10px;" id="submitButton" type="submit"
+              (click)="goBack()">
+              Atrás
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()">
+              <!-- <a class="btn btn-primary btn-xl"></a> -->
+              Siguiente
+            </button>
+          </div>
+          }
+          <!-- <div class="text-center form-conent"> -->
+            <!-- <button type="submit" class="btn btn-primary btn-xl" (click)="crearDespliegue()"> -->
+              <!-- <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()"> -->
+              <!-- <a class="btn btn-primary btn-xl">
                 Siguiente
               </a></button>
-          </div>
-
+          </div> -->
         </div>
       </div>
     </form>
-    <p>RadioButton: {{despliegueForm.value.replicasMicro}}</p>
   </div>
   <script src="../../../../assets/js/checkout_pages.js"></script>
 </section>

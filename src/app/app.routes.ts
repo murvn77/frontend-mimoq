@@ -7,11 +7,16 @@ import { PrincipalComponent } from './pages/principal/principal.component';
 import { ListProyectosComponent } from './pages/proyectos/list-proyectos/list-proyectos.component';
 import { ProyectosComponent } from './pages/proyectos/crear-proyecto/proyectos.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
-import { DesplieguesComponent } from './pages/despliegues/despliegues.component';
+import { DesplieguesComponent } from './pages/despliegues/crear-despliegue/despliegues.component';
 import { MetricasComponent } from './pages/metricas/metricas.component';
 import { VerProyectoComponent } from './pages/proyectos/ver-proyecto/ver-proyecto.component';
-import { ExperimentoComponent } from './pages/experimento/experimento.component'
-import {EditProyectoComponent} from './pages/proyectos/edit-proyecto/edit-proyecto.component'
+import { EditProyectoComponent } from './pages/proyectos/edit-proyecto/edit-proyecto.component';
+import { ListDesplieguesComponent } from './pages/despliegues/list-despliegues/list-despliegues.component';
+import { ModalComponent } from './pages/modal/modal.component';
+import { VerDespliegueComponent } from './pages/despliegues/ver-despliegue/ver-despliegue.component';
+import { ExperimentoComponent } from './pages/experimento/crear-experimento/experimento.component';
+import { ListExperimentosComponent } from './pages/experimento/list-experimentos/list-experimentos/list-experimentos.component';
+import { VerExperimentoComponent } from './pages/experimento/ver-experimento/ver-experimento.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +46,7 @@ export const routes: Routes = [
         // canActivate: [authGuard]
     },
     {
-        path: 'proyectos',
+        path: 'proyecto',
         title: 'Proyectos',
         canActivate: [authGuard],
         children: [
@@ -50,18 +55,18 @@ export const routes: Routes = [
                 component: ListProyectosComponent
             },
             {
-                path: 'crearProyecto',
-                title: 'CrearProyectos',
+                path: 'crear',
+                title: 'Crear Proyectos',
                 component: ProyectosComponent
             },
             {
-                path: 'verProyecto/:id',
-                title: 'VerProyecto',
+                path: 'ver/:id',
+                title: 'Ver Proyecto',
                 component: VerProyectoComponent
             },
             {
-                path: 'editProyecto/:id',
-                title: 'EditProyecto',
+                path: 'editar/:id',
+                title: 'Editar Proyecto',
                 component: EditProyectoComponent
             }
         ]
@@ -69,14 +74,49 @@ export const routes: Routes = [
     {
         path: 'experimento',
         title: 'Experimento',
-        component: ExperimentoComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children:[
+          {
+              path: '',
+              component: ListExperimentosComponent
+          },
+          {
+              path: 'crear',
+              title: 'Crear Experimento',
+              component: ExperimentoComponent
+          },
+          {
+            path: 'ver/:id',
+            title: 'Ver Experimento',
+            component: VerExperimentoComponent
+        },
+        ]
     },
     {
         path: 'despliegues',
         title: 'Despliegues',
-        component: DesplieguesComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children:[
+            {
+                path: '',
+                component: ListDesplieguesComponent
+            },
+            {
+                path: 'crear',
+                title: 'Crear Despliegue',
+                component: DesplieguesComponent
+            },
+            {
+                path: 'ver/:nombre',
+                title: 'Ver Despliegue',
+                component: VerDespliegueComponent
+            },
+            // {
+            //     path: 'editProyecto/:id',
+            //     title: 'EditProyecto',
+            //     component: EditProyectoComponent
+            // }
+        ]
     },
     {
         path: 'metricas',
@@ -89,6 +129,12 @@ export const routes: Routes = [
         title: 'Info usuario',
         component: UsuarioComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'modal',
+        title: 'Info modal',
+        component: ModalComponent,
+        // canActivate: [authGuard]
     },
     {
         path: '**', redirectTo: '', pathMatch: 'full'

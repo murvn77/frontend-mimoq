@@ -26,9 +26,23 @@ export class AuthService {
       usuario.id_usuario || 0,
     );
   }
-  async getUsuario(): Promise<Usuario> {
+  getUsuario(): Usuario {
     return this.usuarioLogin;
   }
+
+  verificarSesion(): boolean {
+    const token = localStorage.getItem('angular17token');
+    const user = this.getUsuario();
+    if (Object.keys(user).length == 0) {
+      this.logout();
+      return false;
+    } else if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   logout() {
     // localStorage.setItem('angular17token', 'null');
     localStorage.removeItem('angular17token');

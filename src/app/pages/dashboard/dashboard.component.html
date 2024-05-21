@@ -1,6 +1,21 @@
-<p>dashboard works!</p>
-<p>Our portal uses Grafana!</p>
-
-
-<iframe src="http://localhost:3000/d/W5KDrdKnz/6e86b6fe-1eab-5293-a881-2592e2eb6445?orgId=1&from=1713114884026&to=1713118484026"
-width="800" height="800"></iframe>
+<!-- <iframe src="http://localhost:3000/d/W5KDrdKnz/6e86b6fe-1eab-5293-a881-2592e2eb6445?orgId=1"
+width="100%" height="900" title="Dashboard" name="contents"></iframe> -->
+<section class="page-section" id="contact">
+  <div class="text-center">
+    <h2 class="section-heading">Dashboard</h2>
+  </div>
+  <!-- <button type="button" class="btn btn-outline-info">Info</button> -->
+  <button class="btn btn-outline-info" id="miBoton" type="button" (click)="descargarResultados()"
+  [disabled]="!this.resultados">
+    Resultados
+  </button>
+  <div class="iframes-container">
+    @for (iframeGroup of this.iframesHtml; track $index)
+    {
+    <div class="iframe-wrapper">
+      <p class="section-label">{{this.nombres[$index]}}</p>
+      <div [innerHTML]="iframeGroup"></div>
+    </div>
+    }
+  </div>
+</section>
