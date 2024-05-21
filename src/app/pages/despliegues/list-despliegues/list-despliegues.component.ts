@@ -62,4 +62,37 @@ export class ListDesplieguesComponent implements OnInit {
       }
     });
   }
+
+  eliminarDespliegue(nombreHelm:string): void{
+    Swal.fire({
+      title: "¿Quieres eliminar este despliegue?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Si, eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.despliegueService.deleteHelm(nombreHelm).subscribe({
+          next: (proyecto: any) => {
+            Swal.fire({
+              title: "¡Eliminado!",
+              text: "Su despliegue ha sido eliminado.",
+              icon: "success"
+            });
+            this.router.navigate([ROUTES_APP.DESPLIEGUES]);
+          },
+          error: (error: any) => {
+            console.log(error);
+            Swal.fire({
+              title: "¡Error!",
+              text: `Este despliegue no pudo ser eliminado: ${error.error.statusCode} ${error.error.message}`,
+              icon: "error"
+            });
+          }});
+      }
+    });
+  }
 }

@@ -37,6 +37,10 @@ export class DespliegueService {
     return this.httpClient.delete(this.urlBackend + `${id}`);
   }
 
+  public deleteHelm(nombre: string): Observable<any> {
+    return this.httpClient.delete(this.urlBackend + `nombreHelm/${nombre}`);
+  }
+
   public update(proyecto: any): Observable<DespliegueInterface> {
     return this.httpClient.put<DespliegueInterface>(this.urlBackend, proyecto, this.httpOptions);
   }

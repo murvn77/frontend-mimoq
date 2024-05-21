@@ -29,14 +29,17 @@
 
                                 <td>{{ despliegue.namespace }}</td>
 
-                                <td>
-                                    <button class="btn btn-primary btn-xl" type="button"
+                                <td class="botones-container">
+                                    <button class="btn btn-outline-primary btn-xl" type="button"
                                         (click)="desplegar(despliegue)">Desplegar
                                     </button>
-                                    <button class="btn btn-outline-light" type="button"
+                                    <button class="btn btn-outline-dark btn-icon" type="button"
                                         [routerLink]="[ROUTES_APP.VER_DESPLIEGUE, despliegue.nombre_helm]">
                                         Ver
                                     </button>
+                                    <button class="btn btn-outline-danger btn-icon" (click)="eliminarDespliegue(despliegue?.nombre_helm || '')">
+                                        Eliminar
+                                      </button>
                                 </td>
                             </tr>
                             }
