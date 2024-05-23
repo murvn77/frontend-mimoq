@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Usuario } from '../../core/model/usuario/usuario';
+import { UsuarioInterface } from '../../core/interfaces/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
   constructor(private httpClient: HttpClient) { }
+  private _refresh = new Subject<void>();
   private httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
@@ -16,30 +18,34 @@ export class UsuarioService {
 
   private urlBackend: string = 'http://localhost:3000/api/usuario/'
 
-  public findAll(): Observable<Usuario[]> {
-    return this.httpClient.get<Usuario[]>(this.urlBackend);
-  }
-  public findById(id: number): Observable<any> {
-    return this.httpClient.get(this.urlBackend + `${id}`);
+  get refresh() {
+    return this._refresh;
   }
 
-  public create(usuario: any): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(this.urlBackend, usuario, this.httpOptions);
+  public findAll(): Observable<UsuarioInterface[]> {
+    return this.httpClient.get<UsuarioInterface[]>(this.urlBackend);
+  }
+  public findById(id: number): Observable<UsuarioInterface> {
+    return this.httpClient.get<UsuarioInterface>(this.urlBackend + `${id}`);
+  }
+
+  public create(usuario: any): Observable<UsuarioInterface> {
+    return this.httpClient.post<UsuarioInterface>(this.urlBackend, usuario, this.httpOptions);
   }
 
   public delete(id: number): Observable<any> {
     return this.httpClient.delete(this.urlBackend + `${id}`);
   }
 
-  public update(usuario: any): Observable<Usuario> {
-    return this.httpClient.put<Usuario>(this.urlBackend, usuario, this.httpOptions);
+  public update(usuario: any): Observable<UsuarioInterface> {
+    return this.httpClient.put<UsuarioInterface>(this.urlBackend, usuario, this.httpOptions);
   }
 
-  public findByEmail(email: string): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(this.urlBackend + `correo/${email}`);
+  public findByEmail(email: string): Observable<UsuarioInterface> {
+    return this.httpClient.get<UsuarioInterface>(this.urlBackend + `correo/${email}`);
   }
 
-  public ressetPassword(id: number, claveActual: string, claveNueva: string): Observable<Usuario> {
-    return this.httpClient.put<Usuario>(this.urlBackend + `${id}/${claveActual}/${claveNueva}`, this.httpOptions);
+  public ressetPassword(id: number, claveActual: string, claveNueva: string): Observable<UsuarioInterface> {
+    return this.httpClient.put<UsuarioInterface>(this.urlBackend + `${id}/${claveActual}/${claveNueva}`, this.httpOptions);
   }
 }
