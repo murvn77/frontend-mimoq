@@ -9,7 +9,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto py-4 py-lg-0">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.PROYECTOS">Proyectos</a>
           </li>
           <li class="nav-item">
@@ -21,7 +21,25 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="ROUTES_APP.USUARIOS">Usuarios</a>
+          </li> -->
           @if(this.isLoggedIn) {
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="ROUTES_APP.PROYECTOS">Proyectos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="ROUTES_APP.DESPLIEGUES">Despliegues</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="ROUTES_APP.EXPERIMENTO">Experimentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="ROUTES_APP.USUARIOS">Usuarios</a>
+            </li>
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>

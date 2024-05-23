@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario/usuario.service';
-import { Usuario } from '../../core/model/usuario/usuario';
+import { UsuarioService } from '../../../services/usuario/usuario.service';
+import { Usuario } from '../../../core/model/usuario/usuario';
 import Swal from 'sweetalert2';
-import { ROUTES_APP } from '../../core/enum/routes.enum';
+import { ROUTES_APP } from '../../../core/enum/routes.enum';
 
 @Component({
   selector: 'app-register',

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { PrincipalComponent } from './pages/principal/principal.component';
@@ -17,6 +16,8 @@ import { VerDespliegueComponent } from './pages/despliegues/ver-despliegue/ver-d
 import { ExperimentoComponent } from './pages/experimento/crear-experimento/experimento.component';
 import { ListExperimentosComponent } from './pages/experimento/list-experimentos/list-experimentos/list-experimentos.component';
 import { VerExperimentoComponent } from './pages/experimento/ver-experimento/ver-experimento.component';
+import { RegisterComponent } from './pages/usuario/registro-usuario/register.component';
+import { ListaUsuariosComponent } from './pages/usuario/lista-usuarios/lista-usuarios/lista-usuarios.component';
 
 export const routes: Routes = [
     {
@@ -33,8 +34,8 @@ export const routes: Routes = [
                 component: LoginComponent
             },
             {
-                path: 'register',
-                title: 'Register',
+                path: 'registro',
+                title: 'Registro',
                 component: RegisterComponent
             }
         ]
@@ -43,7 +44,7 @@ export const routes: Routes = [
         path: 'dashboard',
         title: 'Dashboard',
         component: DashboardComponent,
-        // canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'proyecto',
@@ -125,9 +126,9 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'usuario',
-        title: 'Info usuario',
-        component: UsuarioComponent,
+        path: 'usuarios',
+        title: 'Info usuarios',
+        component: ListaUsuariosComponent,
         canActivate: [authGuard]
     },
     {
