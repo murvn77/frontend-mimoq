@@ -77,6 +77,41 @@ export class MetricasComponent implements OnInit {
     this.router.navigateByUrl(ROUTES_APP.DASHBOARD);
   }
   crearExperimento() {
+    const data = this.experimentoService.getExperimento();
+    console.log('Experimento', data);
+    // this.showLoading();
+    this.experimentoService.create(data).subscribe({
+      next: (res: any) => {
+        console.log('Experimento creado', res);
+        // this.id_experimento = res.id_experimento;
+        // this.resultados = true;
+        // Swal.fire({
+        //   title: "Experimento creado",
+        //   text: "El experimento ha sido creado correctamente",
+        //   icon: "success",
+        //   showCancelButton: true,
+        //   confirmButtonColor: "#3085d6",
+        //   cancelButtonColor: "#d33",
+        //   confirmButtonText: "Ir a dashboard",
+        //   cancelButtonText: "Lista de experimentos"
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     this.goToDashboard()
+        //   }else{
+        //     this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
+        //   }
+        // });
+      }, error: (error: any) => {
+        console.error('Error creando el experimento', error);
+        // this.hideLoading();
+        // Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
+        // this.hideLoading();
+      }
+      // console.log(despliegue);
+      // this.router.navigateByUrl('/despliegues');
+    });
+  }
+  crearMetricas() {
     if (this.ids_metricas.length == 0) {
       this.seleccionMetrica = false;
     } else {
@@ -92,6 +127,7 @@ export class MetricasComponent implements OnInit {
           this.iframes = res;
           console.log('IFRAMES', this.iframes)
           this.experimentoService.setIFrames(this.iframes)
+          this.crearExperimento();
           Swal.fire({
             title: "Experimento creado",
             text: "El experimento ha sido creado correctamente",

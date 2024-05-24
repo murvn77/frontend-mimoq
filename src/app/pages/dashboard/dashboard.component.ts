@@ -71,16 +71,16 @@ export class DashboardComponent implements OnInit {
     }
 
     console.log('htmls reformados', this.iframesHtml)
-    this.crearExperimento();
+    this.experimentoCreado();
   }
-  crearExperimento() {
+  experimentoCreado() {
     const data = this.experimentoService.getExperimento();
     console.log('Experimento', data);
     // this.showLoading();
-    this.experimentoService.create(data).subscribe({
-      next: (res: any) => {
-        console.log('Experimento creado', res);
-        this.id_experimento = res.id_experimento;
+    // this.experimentoService.create(data).subscribe({
+    //   next: (res: any) => {
+    //     console.log('Experimento creado', res);
+        // this.id_experimento = data.id_experimento;
         this.resultados = true;
         // Swal.fire({
         //   title: "Experimento creado",
@@ -98,15 +98,15 @@ export class DashboardComponent implements OnInit {
         //     this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
         //   }
         // });
-      }, error: (error: any) => {
-        console.error('Error creando el experimento', error);
-        // this.hideLoading();
-        // Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
-        // this.hideLoading();
-      }
-      // console.log(despliegue);
-      // this.router.navigateByUrl('/despliegues');
-    });
+    //   }, error: (error: any) => {
+    //     console.error('Error creando el experimento', error);
+    //     // this.hideLoading();
+    //     // Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
+    //     // this.hideLoading();
+    //   }
+    //   // console.log(despliegue);
+    //   // this.router.navigateByUrl('/despliegues');
+    // });
   }
 
   descargarResultados(){

@@ -32,7 +32,7 @@ export class LoginComponent {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.loginObj)
     };
-
+    this.showLoading();
     fetch(`${this.urlBackend}/auth/login`, requestOptions)
       .then(response => response.json())
       .then(data => {
@@ -51,7 +51,21 @@ export class LoginComponent {
       })
       .catch(error => {
         console.error('Error:', error);
+        this.hideLoading();
         Swal.fire('Error', 'Ocurrió un error al ingresar', 'error');
       });
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }

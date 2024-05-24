@@ -34,6 +34,7 @@ export class RegisterComponent {
         contrasena: nuevoUsuario.contrasena || '',
         fk_id_rol_usuario: 2 || 0
       }
+      this.showLoading();
       this.usuarioService.create(data).subscribe({
         next: (res: any) => {
           console.log('Usuario creado', res);
@@ -41,9 +42,23 @@ export class RegisterComponent {
           this.router.navigateByUrl(ROUTES_APP.LOGIN);
         }, error: (error: any) => {
           console.error('Error creando usuario', error);
+          this.hideLoading();
           Swal.fire('Error', 'Ocurrió un error al registrar usuario', 'error');
         }
       });
     }
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }
