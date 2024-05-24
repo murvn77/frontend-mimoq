@@ -37,9 +37,11 @@
             <li class="nav-item">
               <a class="nav-link" [routerLink]="ROUTES_APP.METRICAS">Métricas</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="ROUTES_APP.USUARIOS">Usuarios</a>
-            </li>
+            <div *appPermissions>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="ROUTES_APP.USUARIOS">Usuarios</a>
+              </li>
+            </div>
             <div class="login-button form-conent">
               <button class="btn btn-primary btn-xl" (click)="redirectToPrincipal()">Salir</button>
             </div>

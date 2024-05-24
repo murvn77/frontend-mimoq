@@ -1,160 +1,255 @@
 <section class="page-section" id="contact">
     <div class="text-center">
-      <h2 class="section-heading">Usuarios</h2>
+        <h2 class="section-heading">Usuarios</h2>
     </div>
     <div class="align-items-stretch justify-content-center mb-5">
-      <div class="about-heading-content">
-        <div class="col-xl-9 col-lg-10 mx-auto">
-          <div class="bg-faded rounded p-5">
-            <table class="proyecto-list table table-striped">
-              <caption style="text-align:center">Lista de usuarios registrados</caption>
-              <thead>
-                <tr>
-                  <th class="text_table" scope="col">Nombre</th>
-                  <th class="text_table" scope="col">Documento</th>
-                  <th class="text_table" scope="col">Correo</th>
-                  <th class="text_table" scope="col">Acciones</th>
-                  <th class="text_table" scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (usuario of usuarios | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
-                <tr class="text_table">
-                  <td>{{usuario.nombre}}</td>
-                  <td>{{usuario.correo}}</td>
-                  <td>{{usuario.documento}}</td>
-                  <td>
-                    <!-- <a class="btn btn-outline-dark btn-icon"
+        <div class="about-heading-content">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5">
+                    <table class="proyecto-list table table-striped">
+                        <caption style="text-align:center">Lista de usuarios registrados</caption>
+                        <thead>
+                            <tr>
+                                <th class="text_table" scope="col">Nombre</th>
+                                <th class="text_table" scope="col">Documento</th>
+                                <th class="text_table" scope="col">Correo</th>
+                                <th class="text_table" scope="col"></th>
+                                <th class="text_table" scope="col">Acciones</th>
+                                <th class="text_table" scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (usuario of usuarios | paginate:{itemsPerPage: 10, currentPage: p}; track $index) {
+                            <tr class="text_table">
+                                <td>{{usuario.nombre}}</td>
+                                <td>{{usuario.correo}}</td>
+                                <td>{{usuario.documento}}</td>
+                                <td>
+                                    <!-- <a class="btn btn-outline-dark btn-icon"
                                           [routerLink]="[ROUTES_APP.VER_PROYECTO, proyecto.id_proyecto]">
                                           Ver
                                       </a> -->
-                    <button type="button" class="btn btn-outline-dark btn-icon" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal" (click)="getUsuario(usuario.id_usuario)">
-                      Ver
-                    </button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Detalles del Usuario
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="about-heading-content">
-                              <div class="col-xl-9 col-lg-10 mx-auto">
-                                <div class="bg-faded rounded p-5">
-                                  <div class="contenedor" style="text-align: left;">
-                                    <p>
-                                      <strong class="d-inline-block mb-2 text-primary-emphasis letra">ID
-                                        Usuario:</strong>
-                                      {{ usuarioSeleccionado.id_usuario }}
-                                    </p>
-                                    <p>
-                                      <strong class="d-inline-block mb-2 text-primary-emphasis letra">Nombre:</strong>
-                                      {{ usuarioSeleccionado.nombre }}
-                                    </p>
-                                    <p>
-                                      <strong
-                                        class="d-inline-block mb-2 text-primary-emphasis letra">Documento:</strong>
-                                      {{ usuarioSeleccionado.documento }}
-                                    </p>
-                                    <p>
-                                        <strong
-                                          class="d-inline-block mb-2 text-primary-emphasis letra">Correo:</strong>
-                                        {{ usuarioSeleccionado.correo }}
-                                      </p>
-                                    
-                                    @if(proyectosUsuario.length > 0){
-  
-                                    <strong class="d-inline-block mb-2 text-primary-emphasis letra">Proyectos creados:</strong>
-  
-                                    <ul>
-                                      <table class="proyecto-list table table-striped">
-                                        <caption style="text-align:center">Lista de
-                                          proyectos creados</caption>
-                                        <thead>
-                                          <tr>
-                                            <th class="text_table" scope="col">
-                                              ID</th>
-  
-                                            <th class="text_table" scope="col">
-                                              Nombre</th>
-  
-                                            <th class="text_table" scope="col">
-                                              Descripcion</th>
-  
-                                            <th class="text_table" scope="col">
-                                              Nombres Microservicios</th>
-                                        </thead>
-  
-                                        <tbody>
-                                          @for (proyecto of proyectosUsuario |
-                                          paginate:{itemsPerPage: 10, currentPage:
-                                          p}; track $index){
-  
-                                          <tr>
-                                            <td>{{ proyecto.id_proyecto }}
-                                            </td>
-  
-                                            <td>{{ proyecto.nombre }}</td>
-  
-                                            <td>{{ proyecto.descripcion }}
-                                            </td>
-  
-                                            <td>{{ proyecto.nombres_microservicios }}</td>
+                                    <button type="button" class="btn btn-outline-dark btn-icon" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" (click)="getUsuario(usuario.id_usuario)">
+                                        Ver
+                                    </button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detalles del Usuario
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="about-heading-content">
+                                                        <div class="col-xl-9 col-lg-10 mx-auto">
+                                                            <div class="bg-faded rounded p-5">
+                                                                <div class="contenedor" style="text-align: left;">
+                                                                    <p>
+                                                                        <strong
+                                                                            class="d-inline-block mb-2 text-primary-emphasis letra">ID
+                                                                            Usuario:</strong>
+                                                                        {{ usuarioSeleccionado.id_usuario }}
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong
+                                                                            class="d-inline-block mb-2 text-primary-emphasis letra">Nombre:</strong>
+                                                                        {{ usuarioSeleccionado.nombre }}
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong
+                                                                            class="d-inline-block mb-2 text-primary-emphasis letra">Documento:</strong>
+                                                                        {{ usuarioSeleccionado.documento }}
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong
+                                                                            class="d-inline-block mb-2 text-primary-emphasis letra">Correo:</strong>
+                                                                        {{ usuarioSeleccionado.correo }}
+                                                                    </p>
 
-                                          </tr>
-                                          }
-                                        </tbody>
-                                      </table>
-                                      <div class="text-center form-conent">
-                                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                                          nextLabel="Siguiente"></pagination-controls>
-                                      </div>
-                                    </ul>
-                                    }
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <!-- <button class="btn btn-primary me-md-2" id="submitButton" type="button"
+                                                                    @if(proyectosUsuario.length > 0){
+
+                                                                    <strong
+                                                                        class="d-inline-block mb-2 text-primary-emphasis letra">Proyectos
+                                                                        creados:</strong>
+
+                                                                    <ul>
+                                                                        <table
+                                                                            class="proyecto-list table table-striped">
+                                                                            <caption style="text-align:center">Lista de
+                                                                                proyectos creados</caption>
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text_table" scope="col">
+                                                                                        ID</th>
+
+                                                                                    <th class="text_table" scope="col">
+                                                                                        Nombre</th>
+
+                                                                                    <th class="text_table" scope="col">
+                                                                                        Descripcion</th>
+
+                                                                                    <th class="text_table" scope="col">
+                                                                                        Nombres Microservicios</th>
+                                                                            </thead>
+
+                                                                            <tbody>
+                                                                                @for (proyecto of proyectosUsuario |
+                                                                                paginate:{itemsPerPage: 10, currentPage:
+                                                                                p}; track $index){
+
+                                                                                <tr>
+                                                                                    <td>{{ proyecto.id_proyecto }}
+                                                                                    </td>
+
+                                                                                    <td>{{ proyecto.nombre }}</td>
+
+                                                                                    <td>{{ proyecto.descripcion }}
+                                                                                    </td>
+
+                                                                                    <td>{{
+                                                                                        proyecto.nombres_microservicios
+                                                                                        }}</td>
+
+                                                                                </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="text-center form-conent">
+                                                                            <pagination-controls
+                                                                                (pageChange)="p = $event"
+                                                                                previousLabel="Anterior"
+                                                                                nextLabel="Siguiente"></pagination-controls>
+                                                                        </div>
+                                                                    </ul>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <!-- <button class="btn btn-primary me-md-2" id="submitButton" type="button"
                               data-bs-dismiss="modal" (click)="crearUsuario()">Crear proyecto</button> -->
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                                      <a class="btn btn-outline-primary btn-icon"
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal" (click)="cerrarInfo()">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!-- <a class="btn btn-outline-primary btn-icon"
                                           [routerLink]="[ROUTES_APP.EDIT_PROYECTO, usuario.id_usuario]">
                                           Editar
-                                      </a>
-                                  </td>
-                  <td>
-                    <a class="btn btn-outline-danger btn-icon" (click)="eliminarUsuario(usuario?.id_usuario || 0)">
-                      Eliminar
-                    </a>
-                  </td>
-                </tr>
-                }
-              </tbody>
-            </table>
-            <div class="text-center form-conent">
-              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
-                nextLabel="Siguiente"></pagination-controls>
+                                      </a> -->
+                                    <div class="signup-link">
+                                        <a href="#" class="btn btn-outline-primary btn-icon" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap"
+                                            (click)="getUsuario(usuario.id_usuario)">Editar</a>
+                                    </div>
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel2">Editar
+                                                        Usuario</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form [formGroup]="usuarioForm" id="contactForm"
+                                                        class="row g-3 needs-validation" novalidate>
+                                                        <div class="contenedor" style="text-align: left;">
+                                                            <div class="mb-3">
+                                                                <label for="recipient-email"
+                                                                    class="d-inline-block mb-2 text-primary-emphasis letra fw-bold">Nombre
+                                                                    registrado</label>
+                                                                <input type="text" formControlName="nombre"
+                                                                    class="form-control" required
+                                                                    [value]="usuarioEditar.nombre">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="recipient-document"
+                                                                    class="d-inline-block mb-2 text-primary-emphasis letra fw-bold">No.
+                                                                    de documento</label>
+                                                                <input type="text" formControlName="documento"
+                                                                    class="form-control" id="recipient-document"
+                                                                    required [value]="usuarioEditar.documento">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="recipient-email"
+                                                                    class="d-inline-block mb-2 text-primary-emphasis letra fw-bold">Correo
+                                                                    registrado</label>
+                                                                <input type="email" formControlName="email"
+                                                                    class="form-control" id="recipient-email" required
+                                                                    [value]="usuarioEditar.correo">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="recipient-password"
+                                                                    class="d-inline-block mb-2 text-primary-emphasis letra fw-bold">Contraseña
+                                                                    </label>
+                                                                <input type="password" formControlName="contrasena" placeholder="Contraseña"
+                                                                    class="form-control" id="recipient-password">
+                                                            </div>
+                                                            <!-- <div class="mb-3"> -->
+                                                                <!-- <label for="recipient-rol"
+                                                                    class="d-inline-block mb-2 text-primary-emphasis letra fw-bold">Rol
+                                                                    registrado</label> -->
+                                                                <!-- <input type="rol" formControlName="rol"
+                                                                class="form-control" id="recipient-rol" required
+                                                                [value]="usuarioEditar.fk_id_rol_usuario"> -->
+                                                                <!-- Example single danger button -->
+                                                                <!-- <div class="dropdown">
+                                                                    <a class="btn btn-secondary dropdown-toggle" href="#" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                      Dropdown link
+                                                                    </a>
+                                                                  
+                                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                      <li><a class="dropdown-item" href="#">Action</a></li>
+                                                                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                                    </ul>
+                                                                  </div> -->
+                                                            <!-- </div> -->
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <!-- data-bs-dismiss="modal" -->
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="actualizarUsuario()">Actualizar</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-danger btn-icon"
+                                        (click)="eliminarUsuario(usuario?.id_usuario || 0)">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-center form-conent">
+                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                    <div class="text-center form-conent">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
+                            [routerLink]="ROUTES_APP.CREAR_PROYECTO">Crear proyecto</button>
+                    </div>
+                </div>
             </div>
-            <div class="text-center form-conent">
-              <button class="btn btn-primary btn-xl" id="submitButton" type="submit"
-                [routerLink]="ROUTES_APP.CREAR_PROYECTO">Crear proyecto</button>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </section>
-  
+</section>

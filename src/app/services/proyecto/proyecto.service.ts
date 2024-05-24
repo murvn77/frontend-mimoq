@@ -46,11 +46,16 @@ export class ProyectoService {
       tap(() => {
         this._refresh.next();
       })
-    );;
+    );
   }
 
   public update(proyecto: any): Observable<ProyectoInterface> {
-    return this.httpClient.put<ProyectoInterface>(this.urlBackend, proyecto, this.httpOptions);
+    return this.httpClient.put<ProyectoInterface>(this.urlBackend, proyecto, this.httpOptions)
+    .pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
   }
 
   setProyecto(proyecto: ProyectoInterface): void {

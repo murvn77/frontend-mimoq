@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Usuario } from '../../core/model/usuario/usuario';
 import { UsuarioInterface } from '../../core/interfaces/usuario';
 
@@ -30,15 +30,30 @@ export class UsuarioService {
   }
 
   public create(usuario: any): Observable<UsuarioInterface> {
-    return this.httpClient.post<UsuarioInterface>(this.urlBackend, usuario, this.httpOptions);
+    return this.httpClient.post<UsuarioInterface>(this.urlBackend, usuario, this.httpOptions)
+    .pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
   }
 
   public delete(id: number): Observable<any> {
-    return this.httpClient.delete(this.urlBackend + `${id}`);
+    return this.httpClient.delete(this.urlBackend + `${id}`)
+    .pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
   }
 
-  public update(usuario: any): Observable<UsuarioInterface> {
-    return this.httpClient.put<UsuarioInterface>(this.urlBackend, usuario, this.httpOptions);
+  public update(id: number,usuario: any): Observable<UsuarioInterface> {
+    return this.httpClient.put<UsuarioInterface>(this.urlBackend + `${id}`, usuario, this.httpOptions)
+    .pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
   }
 
   public findByEmail(email: string): Observable<UsuarioInterface> {

@@ -6,5 +6,6 @@ export interface UsuarioInterface {
     correo: string;
     documento: number;
     contrasena: string;
+    fk_id_rol_usuario?: number,
     proyectos?: ProyectoInterface[];
 }

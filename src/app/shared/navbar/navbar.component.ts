@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService  } from '../../services/auth/auth.service';
 import { ROUTES_APP } from '../../core/enum/routes.enum';
+import { PermissionsDirective } from '../../core/directives/permissions/permissions.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,PermissionsDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

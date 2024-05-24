@@ -9,50 +9,71 @@ import { ProyectoService } from '../../../../services/proyecto/proyecto.service'
 import { ROUTES_APP } from '../../../../core/enum/routes.enum';
 import { ProyectoInterface } from '../../../../core/interfaces/proyecto';
 import Swal from 'sweetalert2';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Usuario } from '../../../../core/model/usuario/usuario';
+import { RolUsuario } from '../../../../core/enum/rol-usuario';
 
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [RouterLink,NgxPaginationModule],
+  imports: [RouterLink, NgxPaginationModule, ReactiveFormsModule],
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.css'
 })
 export class ListaUsuariosComponent implements OnInit {
-  
-  usuarioSeleccionado: UsuarioInterface = {} as UsuarioInterface;;
+
+  usuarioSeleccionado: UsuarioInterface = {} as UsuarioInterface;
+  usuarioEditar: Usuario = {} as Usuario;
   p: number = 1;
   mostrarInfo: boolean = false;
   usuarios: UsuarioInterface[] = [];
   proyectosUsuario: ProyectoInterface[] = [];
-  suscription : Subscription = new Subscription;
+  suscription: Subscription = new Subscription;
+
+  usuarioForm = new FormGroup({
+    nombre: new FormControl('', [Validators.required]),
+    documento: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    contrasena: new FormControl('', [Validators.minLength(5)]),
+    rol: new FormControl(),
+  });
 
   constructor(private router: Router,
     private usuarioService: UsuarioService,
-    private authService:AuthService,
-    private proyectoService: ProyectoService,
-    private route: ActivatedRoute) {}
+    private authService: AuthService,
+    private proyectoService: ProyectoService) { }
 
   ngOnInit(): void {
+    // this.usuarioActual = this.authService.getUsuario();
+    console.log('USER',this.authService.getUsuario());
+    console.log('Initial', this.ROLES)
     this.usuarioService.findAll().subscribe(usuarios => {
-      console.log('usuarios',usuarios);
+      console.log('usuarios', usuarios);
       this.usuarios = usuarios;
     });
 
-    this.suscription = this.usuarioService.refresh.subscribe(() =>{
+    this.suscription = this.usuarioService.refresh.subscribe(() => {
       this.usuarioService.findAll().subscribe(usuarios => {
-        console.log('usuarios',usuarios);
+        console.log('usuarios', usuarios);
         this.usuarios = usuarios;
       });
     })
   }
-  getUsuario(id: any): void{
+  getUsuario(id: any): void {
     this.usuarioService.findById(id).subscribe({
       next: (usuario: any) => {
         this.usuarioSeleccionado = usuario;
-        console.log('Usuario seleccionado',this.usuarioSeleccionado);
+        this.usuarioEditar = usuario;
+        this.usuarioForm.patchValue({
+          nombre: this.usuarioEditar.nombre,
+          documento: String(this.usuarioEditar.documento),
+          email: this.usuarioEditar.correo,
+          contrasena: this.usuarioEditar.contrasena
+        });
+        console.log('Usuario seleccionado', this.usuarioSeleccionado);
         this.proyectosUsuario = this.usuarioSeleccionado?.proyectos || [];
         // this.despliegueService.setDespliegues(this.despliegues);
-        console.log('Proyectos usuario',this.proyectosUsuario);
+        console.log('Proyectos usuario', this.proyectosUsuario);
       },
       error: (error: any) => {
         console.log(error);
@@ -60,11 +81,11 @@ export class ListaUsuariosComponent implements OnInit {
     });
   }
 
-  crearUsuario(){
+  crearUsuario() {
     this.router.navigate([ROUTES_APP.REGISTRO]);
   }
 
-  eliminarUsuario(id:number): void{
+  eliminarUsuario(id: number): void {
     Swal.fire({
       title: "¿Quieres eliminar este usuario?",
       text: "¡No podrás revertir esto!",
@@ -95,11 +116,67 @@ export class ListaUsuariosComponent implements OnInit {
               text: `Este usuario no pudo ser eliminado: ${error.error.statusCode} ${error.error.message}`,
               icon: "error"
             });
-          }});
+          }
+        });
       }
     });
   }
-get ROUTES_APP(){
-  return ROUTES_APP
-}
+
+  actualizarUsuario() {
+    console.log('ENTRA A ACTUALIZAR', this.usuarioEditar.id_usuario);
+    const nuevoUsuario = this.usuarioForm.value;
+    if (this.usuarioForm.valid) {
+      console.log('FORM VALIDO', this.usuarioEditar.id_usuario);
+      const data: Usuario = {
+        nombre: nuevoUsuario.nombre || '',
+        correo: nuevoUsuario.email || '',
+        documento: Number(nuevoUsuario.documento) || 0,
+        contrasena: nuevoUsuario.contrasena || ''
+      }
+      this.showLoading();
+      this.usuarioService.update(this.usuarioEditar?.id_usuario || 0, data).subscribe({
+        next: (res: any) => {
+          console.log('Usuario actualizado', res);
+          Swal.fire('Actualizado', 'Usuario actualizado', 'success');
+          this.router.navigateByUrl(ROUTES_APP.USUARIOS);
+        }, error: (error: any) => {
+          console.error('Error actualizando usuario', error);
+          // this.loading = false;
+          this.hideLoading();
+          Swal.fire('Error', 'Ocurrió un error al actualizar usuario', 'error');
+        }
+      });
+    }
+    console.log('FORM NO VALIDO', this.usuarioForm);
+  }
+  cerrarInfo() {
+    this.usuarioSeleccionado = {} as UsuarioInterface;
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
+  }
+//   obtenerNombreRolUsuario(valor: number): string | undefined {
+//     for (const key in RolUsuario) {
+//         if (RolUsuario[key] === valor) {
+//             return key;
+//         }
+//     }
+//     return undefined; // Manejo de caso donde no se encuentra el valor
+// }
+  get ROUTES_APP() {
+    return ROUTES_APP
+  }
+  get ROLES() {
+    return RolUsuario
+  }
 }

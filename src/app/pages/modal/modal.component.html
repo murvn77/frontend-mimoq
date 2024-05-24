@@ -1,6 +1,7 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
-    <a>¿Olvidaste tu contraseña?</a></button>
-
+<div class="signup-link">
+  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">¿Olvidaste tu
+    contraseña?</a>
+</div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -19,7 +20,8 @@
           <div class="mb-3">
             <label for="recipient-document" class="col-form-label">No. de documento</label>
             <input type="text" formControlName="documento" class="form-control" id="recipient-document">
-            <div class="invalid-feedback" data-sb-feedback="document:required">El numero de documento es requerido.</div>
+            <div class="invalid-feedback" data-sb-feedback="document:required">El numero de documento es requerido.
+            </div>
             <div class="invalid-feedback" data-sb-feedback="document:required">El nombre es requerido.</div>
           </div>
           <div class="mb-3">

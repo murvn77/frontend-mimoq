@@ -24,6 +24,8 @@ export class AuthService {
       usuario.correo,
       usuario.contrasena,
       usuario.id_usuario || 0,
+      usuario.rol,
+      usuario.proyectos || [],
     );
   }
   getUsuario(): Usuario {
