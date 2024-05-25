@@ -13,11 +13,11 @@ width="100%" height="900" title="Dashboard" name="contents"></iframe> -->
     @for (iframeGroup of this.iframesHtml; track $index)
     {
     <div class="iframe-wrapper">
-      <!-- <p class="section-label">{{this.nombres[$index]}}</p> -->
-      <p class="section-label">prueba</p>
+      <p class="section-label">{{this.nombres[$index]}}</p>
+      <!-- <p class="section-label">prueba</p>
       <iframe src="http://localhost:3000/d/W5KDrdKnz/6e86b6fe-1eab-5293-a881-2592e2eb6445?orgId=1"
-width="100%" height="900" title="Dashboard" name="contents"></iframe> 
-      <!-- <div [innerHTML]="iframeGroup"></div> -->
+width="100%" height="900" title="Dashboard" name="contents"></iframe> -->
+      <div [innerHTML]="iframeGroup"></div>
     </div>
     }
   </div>
