@@ -55,10 +55,11 @@ export class DashboardComponent implements OnInit {
         // Asignar tamaños según el panelId
         let newWidth: string = '450';
         let newHeight: string = '200';
-        // if (panelID == '10') {
-          newWidth = "800"; // Nuevo ancho para panelId 22
+        console.log('ID Panel',panelID);
+        if (panelID == '2') {
+          newWidth = "800"; // Nuevo ancho para panelId 2
           newHeight = "450";
-        // }
+        }
         // Construir el nuevo iframe con los tamaños modificados
         let newIframe = iframe.replace(`width="${450}"`, `width="${newWidth}"`).replace(`height="${200}"`, `height="${newHeight}"`);
         console.log('nuevo iframe', newIframe)

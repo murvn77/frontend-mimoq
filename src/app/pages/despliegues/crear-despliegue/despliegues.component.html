@@ -11,58 +11,91 @@
               <label class="section-label" for="inputName4">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" id="inputName4"
                 required />
-                @if(despliegueForm.get('nombre')?.invalid && despliegueForm.get('nombre')?.touched){
-                  <div class="invalid-feedback">
-                    Por favor, ingrese un nombre de despliegue válido
-                  </div>
-                  }
+              @if(despliegueForm.get('nombre')?.invalid && despliegueForm.get('nombre')?.touched){
+              <div class="invalid-feedback">
+                Por favor, ingrese un nombre de despliegue válido
+              </div>
+              }
               <div class="invalid-feedback">
                 Nombre requerido
               </div>
             </div>
             <div class="form-group">
               <label class="section-label" for="inputNamespace4">Namespace</label>
-              <input type="text" formControlName="namespace" class="form-control" placeholder="Namespace" id="inputNamespace4"
-                required />
+              <input type="text" formControlName="namespace" class="form-control" placeholder="Namespace"
+                id="inputNamespace4" required />
               <div class="invalid-feedback">
                 Namespace requerido
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="inputDescription4" class="section-label">No. Pods</label>
-              <input type="number" formControlName="cant_pods" placeholder="Cantidad de pods" id="inputDescription4"
-                class="form-control" min="1" required />
-              <div class="invalid-feedback">
-                Cantidad de pods requerida
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inputDescription4" class="section-label">No. Pods</label>
+                <input type="number" formControlName="cant_pods" placeholder="Cantidad de pods" id="inputDescription4"
+                  class="form-control" min="1" required />
+                <div class="invalid-feedback">
+                  Cantidad de pods requerida
+                </div>
               </div>
             </div>
+            <div class="form-check-label" for="exampleCheck1" style="margin-bottom: 10px">
+              <strong>¿Desea incluir autoescalado? De clic 👉</strong>
+
+              <input style="margin-left: 13px" type="checkbox" class="form-check-input" formControlName="autoescalado" id="exampleCheck1">
+
+                          </div>
+            @if(despliegueForm.get('autoescalado')?.value){
+            <div class="form-group">
+              <label class="section-label" for="max_replicas">Máximo de réplicas</label>
+              <input type="number" formControlName="max_replicas" placeholder="Max replicas" id="minReplicas"
+                  class="form-control" min="1" required />
+              <div class="invalid-feedback">
+                Max réplicas es requerido
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="section-label" for="min_replicas">Minimo de réplicas</label>
+                <input type="number" formControlName="min_replicas" placeholder="Min replicas" id="minReplicas"
+                  class="form-control" min="1" required />
+              <div class="invalid-feedback">
+                Minimo réplicas es requerido
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="section-label" for="utilization_cpu">Utilización de cpu</label>
+                <input type="number" formControlName="utilization_cpu" placeholder="% uso de cpu" id="usoCpu"
+                  class="form-control" min="20" required />
+              <div class="invalid-feedback">
+                Uso de cpu es requerido
+              </div>
+            </div>
+            }
           </div>
           <div formArrayName="replicasMicro">
             <table class="proyecto-list table table-striped">
               <thead>
-                  <tr>
-                      <th class="text_table" scope="col">Nombre</th>
-                      <th class="text_table" scope="col">Replicas</th>
-                      <th class="text_table" scope="col"></th>
-                  </tr>
+                <tr>
+                  <th class="text_table" scope="col">Nombre</th>
+                  <th class="text_table" scope="col">Replicas</th>
+                  <th class="text_table" scope="col"></th>
+                </tr>
               </thead>
               <tbody>
-                  @for (microservicio of replicasMicro.controls; track $index) {
-                      <tr>
-                      <td>{{microservicio.get('nombre')?.value || ''}}</td>
-                      <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
+                @for (microservicio of replicasMicro.controls; track $index) {
+                <tr>
+                  <td>{{microservicio.get('nombre')?.value || ''}}</td>
+                  <!-- <td><input type="number" [value]="replicas" placeholder="Cantidad de réplicas"
                         id="inputReplicasMicro" class="form-control" min="1" required /></td> -->
-                      <td class="text-center"> {{microservicio.get('cantidad')?.value || ''}}</td>
-                      <td><button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
-                      <button type="button" class="btn btn-outline-primary" (click)="decrement($index)">-</button></td>
-                  </tr>
-              }
+                  <td class="text-center"> {{microservicio.get('cantidad')?.value || 0}}</td>
+                  <td><button type="button" class="btn btn-outline-primary" (click)="increment($index)">+</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="decrement($index)">-</button>
+                  </td>
+                </tr>
+                }
               </tbody>
-          </table>
-        </div>
-        @if(loading){
+            </table>
+          </div>
+          @if(loading){
           <div class="text-center form-conent">
             <button class="btn btn-primary btn-xl" type="button" disabled>
               <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -75,22 +108,24 @@
               (click)="goBack()">
               Atrás
             </button>
-            <button type="submit" class="btn btn-primary" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()">
+            <button type="submit" class="btn btn-primary" [disabled]="!despliegueForm.valid"
+              (click)="crearDespliegue()">
               <!-- <a class="btn btn-primary btn-xl"></a> -->
               Siguiente
             </button>
           </div>
           }
           <!-- <div class="text-center form-conent"> -->
-            <!-- <button type="submit" class="btn btn-primary btn-xl" (click)="crearDespliegue()"> -->
-              <!-- <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()"> -->
-              <!-- <a class="btn btn-primary btn-xl">
+          <!-- <button type="submit" class="btn btn-primary btn-xl" (click)="crearDespliegue()"> -->
+          <!-- <button type="submit" class="btn btn-primary btn-xl" [disabled]="!despliegueForm.valid" (click)="crearDespliegue()"> -->
+          <!-- <a class="btn btn-primary btn-xl">
                 Siguiente
               </a></button>
           </div> -->
         </div>
       </div>
     </form>
+    <p>{{despliegueForm.get('autoescalado')?.value}}</p>
   </div>
   <script src="../../../../assets/js/checkout_pages.js"></script>
 </section>

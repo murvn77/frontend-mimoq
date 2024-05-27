@@ -64,8 +64,13 @@ export class ExperimentoComponent implements OnInit {
   }
 
   cargarDespliegues() {
-    this.despliegues = this.despliegueService.getDespliegue();
-    console.log('Despliegues', this.despliegues);
+    this.despliegueService.getDespliegue().forEach((despliegue) => {
+      if(despliegue.cant_replicas > 0){
+        this.despliegues.push(despliegue);
+      }
+    }
+    );
+    console.log('Despliegues seleccionados', this.despliegues);
     // this.nombre_despliegue = this.despliegueService.getDespliegue()?[0].nombre_helm || '';
     // console.log('ID id_despliegue', this.nombre_despliegue);
     // this.despliegueService.findByNameDeployment(this.nombre_despliegue[0]?.nombre_helm).subscribe( {
@@ -329,5 +334,5 @@ function convertirStringAMinutos(tiempo: string): number {
     // Si el formato no es válido, devolvemos 0
     return 0;
   }
-  
+
 }

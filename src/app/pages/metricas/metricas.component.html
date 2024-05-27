@@ -1,153 +1,134 @@
 <section class="page-section" id="contact">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading">Métricas</h2>
-        </div>
-        <div class="align-items-stretch justify-content-center mb-5">
-            <div class="form-group mb-md-0 text-center form-conent">
-                <strong class="d-inline-block mb-2 text-primary-emphasis letras">Atributos</strong>
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading">Métricas</h2>
+    </div>
+    <div class="align-items-stretch justify-content-center mb-5">
+      <div class="form-group mb-md-0 text-center form-conent">
+        <strong class="d-inline-block mb-2 text-primary-emphasis letras">Atributos</strong>
 
-                <div class="col-md-6">
-                    <div class="accordion" id="accordionExample">
-                        @for (atributo of atributos; track $index){
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" [appTooltip]="atributo.descripcion || ''"
-                                    type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index"
-                                    aria-expanded="false" [attr.aria-controls]="'collapse' + $index">
-                                    <strong>{{atributo.nombre}}</strong>
-                                </button>
-                            </h2>
-                            <!-- <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="col-md-6">
+          <div class="accordion" id="accordionExample">
+            @for (atributo of atributos; track $index){
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" [appTooltip]="atributo.descripcion || ''" type="button"
+                  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false"
+                  [attr.aria-controls]="'collapse' + $index">
+                  <strong>{{atributo.nombre}}</strong>
+                </button>
+              </h2>
+              <!-- <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <div class="accordion-body text-start">
                                     {{atributo.descripcion}}
                                 </div>
                             </div> -->
-                            <div [id]="'collapse' + $index" class="accordion-collapse collapse"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <ul class="left-aligned">
-                                        <!-- @for(sub_atributo of atributo.subatributos; track $index){ -->
-                                        <!-- <li>
+              <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <ul class="left-aligned">
+                    <!-- @for(sub_atributo of atributo.subatributos; track $index){ -->
+                    <!-- <li>
                                             <input class="form-check-input" type="checkbox" value="ensyo"
                                                 data-bs-toggle="tooltip" data-bs-title="Default tooltip">
                                             {{sub_atributo.nombre}}
                                         </li> -->
-                                        <div class="accordion" id="accordionExampleOne">
-                                            @for (sub_atributo of atributo.subatributos; track $index){
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed"
-                                                        [appTooltip]="sub_atributo.descripcion || ''" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        [attr.data-bs-target]="'#collapse' + $index + $index"
-                                                        aria-expanded="false"
-                                                        [attr.aria-controls]="'collapse' + $index + $index">
-                                                        <strong>{{sub_atributo.nombre}}</strong>
-                                                    </button>
-                                                </h2>
-                                                <!-- <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion" id="accordionExampleOne">
+                      @for (sub_atributo of atributo.subatributos; track $index){
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" [appTooltip]="sub_atributo.descripcion || ''"
+                            type="button" data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapse' + $index + $index" aria-expanded="false"
+                            [attr.aria-controls]="'collapse' + $index + $index">
+                            <strong>{{sub_atributo.nombre}}</strong>
+                          </button>
+                        </h2>
+                        <!-- <div [id]="'collapse' + $index" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                                     <div class="accordion-body text-start">
                                                         {{atributo.descripcion}}
                                                     </div>
                                                 </div> -->
-                                                <div [id]="'collapse' + $index + $index"
-                                                    class="accordion-collapse collapse"
-                                                    data-bs-parent="#accordionExampleOne">
-                                                    <div class="accordion-body">
-                                                        <ul class="left-aligned">
-                                                            @if(sub_atributo.id_subatributo == 4)
-                                                            {
-                                                            <h5><strong>CPU</strong></h5>
-                                                            @for(cpu of cpuMetrics; track $index){
-                                                            <li>
-                                                                <div class="form-check-label"
-                                                                    [appTooltip]="cpu.descripcion || 'prueba'"
-                                                                    for="exampleCheck1">
-                                                                    <input type="checkbox" [value]="cpu.nombre"
-                                                                        (click)="verificar(cpu)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{cpu.nombre}}
-                                                                </div>
-                                                            </li>
-                                                            }
-                                                            <h5><strong>DISCO</strong></h5>
-                                                            @for(disco of discMetrics; track $index){
-                                                            <li>
-                                                                <div class="form-check-label"
-                                                                    [appTooltip]="disco.descripcion || 'prueba'"
-                                                                    for="exampleCheck1">
-                                                                    <input type="checkbox" [value]="disco.nombre"
-                                                                        (click)="verificar(disco)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{disco.nombre}}
-                                                                </div>
-                                                            </li>
-                                                            }
-                                                            <h5><strong>RED</strong></h5>
-                                                            @for(red of redMetrics; track $index){
-                                                            <li>
-                                                                <div class="form-check-label"
-                                                                    [appTooltip]="red.descripcion || 'prueba'"
-                                                                    for="exampleCheck1">
-                                                                    <input type="checkbox" [value]="red.nombre"
-                                                                        (click)="verificar(red)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{red.nombre}}
-                                                                </div>
-                                                            </li>
-                                                            }
-                                                            <h5><strong>MEMORIA</strong></h5>
-                                                            @for(memoria of memoriaMetrics; track $index){
-                                                            <li>
-                                                                <div class="form-check-label"
-                                                                    [appTooltip]="memoria.descripcion || 'prueba'"
-                                                                    for="exampleCheck1">
-                                                                    <input type="checkbox" [value]="memoria.nombre"
-                                                                        (click)="verificar(memoria)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{memoria.nombre}}
-                                                                </div>
-                                                            </li>
-                                                            }
-                                                            }
-                                                            @else if(sub_atributo.id_subatributo != 4){
-                                                            @for(metrica of sub_atributo.metricas; track $index){
-                                                            <li>
-                                                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
-                                                                <!-- <label class="form-check-label"> -->
-                                                                <div class="form-check-label"
-                                                                    [appTooltip]="metrica.descripcion || 'prueba'"
-                                                                    for="exampleCheck1">
-                                                                    <input type="checkbox" [value]="metrica"
-                                                                        (click)="verificar(metrica)"
-                                                                        class="form-check-input"
-                                                                        id="exampleCheck{{$index}}">
-                                                                    {{metrica.nombre}}
-                                                                </div>
-                                                            </li>
-                                                            }
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            }
-                                        </div>
-                                        <!-- } -->
-                                    </ul>
+                        <div [id]="'collapse' + $index + $index" class="accordion-collapse collapse"
+                          data-bs-parent="#accordionExampleOne">
+                          <div class="accordion-body">
+                            <ul class="left-aligned">
+                              @if(sub_atributo.id_subatributo == 4)
+                              {
+                              <h5><strong>CPU</strong></h5>
+                              @for(cpu of cpuMetrics; track $index){
+                              <li>
+                                <div class="form-check-label" [appTooltip]="cpu.descripcion || 'prueba'"
+                                  for="exampleCheck1">
+                                  <input type="checkbox" [value]="cpu.nombre" (click)="verificar(cpu)"
+                                    class="form-check-input" id="exampleCheck{{$index}}">
+                                  {{cpu.nombre}}
                                 </div>
-                            </div>
+                              </li>
+                              }
+                              <h5><strong>DISCO</strong></h5>
+                              @for(disco of discMetrics; track $index){
+                              <li>
+                                <div class="form-check-label" [appTooltip]="disco.descripcion || 'prueba'"
+                                  for="exampleCheck1">
+                                  <input type="checkbox" [value]="disco.nombre" (click)="verificar(disco)"
+                                    class="form-check-input" id="exampleCheck{{$index}}">
+                                  {{disco.nombre}}
+                                </div>
+                              </li>
+                              }
+                              <h5><strong>RED</strong></h5>
+                              @for(red of redMetrics; track $index){
+                              <li>
+                                <div class="form-check-label" [appTooltip]="red.descripcion || 'prueba'"
+                                  for="exampleCheck1">
+                                  <input type="checkbox" [value]="red.nombre" (click)="verificar(red)"
+                                    class="form-check-input" id="exampleCheck{{$index}}">
+                                  {{red.nombre}}
+                                </div>
+                              </li>
+                              }
+                              <h5><strong>MEMORIA</strong></h5>
+                              @for(memoria of memoriaMetrics; track $index){
+                              <li>
+                                <div class="form-check-label" [appTooltip]="memoria.descripcion || 'prueba'"
+                                  for="exampleCheck1">
+                                  <input type="checkbox" [value]="memoria.nombre" (click)="verificar(memoria)"
+                                    class="form-check-input" id="exampleCheck{{$index}}">
+                                  {{memoria.nombre}}
+                                </div>
+                              </li>
+                              }
+                              }
+                              @else if(sub_atributo.id_subatributo != 4){
+                              @for(metrica of sub_atributo.metricas; track $index){
+                              <li>
+                                <!-- <label class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"> -->
+                                <!-- <label class="form-check-label"> -->
+                                <div class="form-check-label" [appTooltip]="metrica.descripcion || 'prueba'"
+                                  for="exampleCheck1">
+                                  <input type="checkbox" [value]="metrica" (click)="verificar(metrica)"
+                                    class="form-check-input" id="exampleCheck{{$index}}">
+                                  {{metrica.nombre}}
+                                </div>
+                              </li>
+                              }
+                              }
+                            </ul>
+                          </div>
                         </div>
-                        }
+                      </div>
+                      }
                     </div>
+                    <!-- } -->
+                  </ul>
                 </div>
-                <!-- <div class="col-md-6" *ngFor="let atributo of atributos"> -->
-                <!-- <div class="col-md-6">
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        <!-- <div class="col-md-6" *ngFor="let atributo of atributos"> -->
+        <!-- <div class="col-md-6">
                         @for (atributo of atributos; track $index){
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -167,15 +148,15 @@
                         </div>
                 }
                 </div> -->
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="text-center justify-content-between">
-        <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
-        @if(!this.seleccionMetrica){
-          <div class="text-danger">Por favor, seleccione al menos una métrica.</div>
-        }
-        <button type="submit" class="btn btn-primary btn-xl"
-         [disabled]="!this.seleccionMetrica" (click)="crearMetricas()">Siguiente</button>
-    </div>
+  </div>
+  <div class="text-center justify-content-between">
+    <!-- <button type="submit" class="btn btn-primary btn-xl me-4" (click)="goBack()">Atrás</button> -->
+    @if(!this.seleccionMetrica){
+    <div class="text-danger">Por favor, seleccione al menos una métrica.</div>
+    }
+    <button type="submit" class="btn btn-primary btn-xl" [disabled]="!this.seleccionMetrica"
+      (click)="crearMetricas()">Siguiente</button>
+  </div>
 </section>

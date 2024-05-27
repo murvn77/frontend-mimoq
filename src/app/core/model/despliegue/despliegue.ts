@@ -4,6 +4,10 @@ export class Despliegue {
         public replicas: number[],
         public cant_pods: number,
         public namespace: string,
-        public fk_proyecto: number
+        public autoescalado: boolean,
+        public fk_proyecto: number,
+        public min_replicas?: number,
+        public max_replicas?: number,
+        public utilization_cpu?: number,
     ) { }
 }

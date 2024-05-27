@@ -31,6 +31,10 @@ export class DesplieguesComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.max(53)]),
     cant_pods: new FormControl(1, [Validators.required]),
     namespace: new FormControl('', [Validators.required]),
+    autoescalado: new FormControl(false, [Validators.required]),
+    min_replicas: new FormControl(1),   
+    max_replicas: new FormControl(1),
+    utilization_cpu: new FormControl(20,[Validators.min(20)]),
     replicasMicro: new FormArray([])
   });
 
@@ -86,7 +90,7 @@ export class DesplieguesComponent implements OnInit {
     console.log('valores', formGroup);
     this.nuevovalor = formGroup.get('cantidad')?.value;
     console.log('valores', formGroup);
-    if (this.nuevovalor > 1) {
+    if (this.nuevovalor > 0) {
       this.nuevovalor = this.nuevovalor - 1;
       console.log('nuevo', this.nuevovalor);
       formGroup.get('cantidad')?.setValue(this.nuevovalor);
@@ -112,7 +116,13 @@ export class DesplieguesComponent implements OnInit {
         replicas: this.listaReplicas,
         cant_pods: Number(nuevoDespliegue.cant_pods) || 1,
         namespace: nuevoDespliegue.namespace || 'default',
+        autoescalado: nuevoDespliegue.autoescalado || false,
         fk_proyecto: this.id_proyecto || 0
+      }
+      if (data.autoescalado) {
+        data.min_replicas = nuevoDespliegue.min_replicas || 0;
+        data.max_replicas = nuevoDespliegue.max_replicas || 0;
+        data.utilization_cpu = nuevoDespliegue.utilization_cpu || 0;
       }
       console.log('Despliegue a crear', data);
       console.log('es esMultiple', this.esMultiple);
