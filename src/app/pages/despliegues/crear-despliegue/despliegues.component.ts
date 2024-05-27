@@ -7,11 +7,12 @@ import { Despliegue } from '../../../core/model/despliegue/despliegue';
 import Swal from 'sweetalert2';
 import { ROUTES_APP } from '../../../core/enum/routes.enum';
 import { ProyectoInterface } from '../../../core/interfaces/proyecto';
+import { TooltipDirective } from '../../../core/directives/tooltip.directive';
 
 @Component({
   selector: 'app-despliegues',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TooltipDirective],
   templateUrl: './despliegues.component.html',
   styleUrl: './despliegues.component.css'
 })

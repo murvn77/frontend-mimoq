@@ -17,6 +17,12 @@ export class DashboardComponent implements OnInit {
 
   iframeHtml: SafeHtml | undefined;
   iframes: string[] = [];
+//   iframes: string[][] = [
+//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
+//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
+//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
+//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="900" height="400" title="Dashboard" name="contents"></iframe>"']
+// ];
   iframesHtml: SafeHtml[] = [];
   nombres: string[] = []
   iframeString: SafeHtml = '';
@@ -30,6 +36,7 @@ export class DashboardComponent implements OnInit {
   // constructor(private http: HttpClient) {
 
   // }
+  
   constructor(private experimentoService: ExperimentoService,
     private router: Router,
     private sanitizer: DomSanitizer
@@ -37,7 +44,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.iframes = this.experimentoService.getIFrames();
-
     console.log('IFRAMES DASHBOARD', this.iframes);
     this.iframeString = this.iframes[0][0];
     console.log('IFRAME', this.iframeString)
@@ -53,12 +59,12 @@ export class DashboardComponent implements OnInit {
         let iframe = element[j]
         let panelID = this.getPanelIdFromIframe(element[j]);
         // Asignar tamaños según el panelId
-        let newWidth: string = '450';
-        let newHeight: string = '200';
+        let newWidth: string = '500';
+        let newHeight: string = '250';
         console.log('ID Panel',panelID);
         if (panelID == '2') {
-          newWidth = "800"; // Nuevo ancho para panelId 2
-          newHeight = "450";
+          newWidth = "900"; // Nuevo ancho para panelId 2
+          newHeight = "400";
         }
         // Construir el nuevo iframe con los tamaños modificados
         let newIframe = iframe.replace(`width="${450}"`, `width="${newWidth}"`).replace(`height="${200}"`, `height="${newHeight}"`);
@@ -112,6 +118,7 @@ export class DashboardComponent implements OnInit {
 
   descargarResultados(){
     console.log('ID_EXPERIMENTO',this.id_experimento);
+    this.showLoading();
     this.experimentoService.findFile(this.id_experimento)
     .subscribe((data: Blob) => {
       const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto
@@ -123,7 +130,13 @@ export class DashboardComponent implements OnInit {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    });
+      Swal.fire({
+          title: "Resultados descargados",
+          text: "Los resultados del experimento han sido descargados, verificar su carpeta de descargas",
+          icon: "success",
+        });
+      }
+    );
   }
 
   getPanelIdFromIframe(iframe: string): string {
@@ -138,7 +151,7 @@ export class DashboardComponent implements OnInit {
 }
   showLoading() {
     Swal.fire({
-      title: 'Cargando...',
+      title: 'Descargando...',
       text: 'Por favor espera!',
       allowOutsideClick: false,
       didOpen: () => {

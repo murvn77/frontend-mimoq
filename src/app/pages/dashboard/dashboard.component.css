@@ -72,7 +72,9 @@ section#dashboard form#contactForm :-ms-input-placeholder {
 .iframes-container {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  /* flex-direction: column; */
 }
 
 .iframe-wrapper {

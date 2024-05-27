@@ -45,8 +45,15 @@
 
                           </div>
             @if(despliegueForm.get('autoescalado')?.value){
+              <div class="alert alert-warning" role="alert">
+                Los siguientes campos se aplicarán para todos los microservicios del despliegue
+              </div>
             <div class="form-group">
-              <label class="section-label" for="max_replicas">Máximo de réplicas</label>
+              <label class="section-label" for="max_replicas">Máximo de réplicas
+                <!-- <div [appTooltip]="'Cantidad máxima de réplicas durante el escalado'">
+                <i class="fa fa-info-circle"></i>
+              </div> -->
+            </label>
               <input type="number" formControlName="max_replicas" placeholder="Max replicas" id="minReplicas"
                   class="form-control" min="1" required />
               <div class="invalid-feedback">
@@ -125,7 +132,6 @@
         </div>
       </div>
     </form>
-    <p>{{despliegueForm.get('autoescalado')?.value}}</p>
   </div>
   <script src="../../../../assets/js/checkout_pages.js"></script>
 </section>
