@@ -17,26 +17,20 @@ export class DashboardComponent implements OnInit {
 
   iframeHtml: SafeHtml | undefined;
   iframes: string[] = [];
-//   iframes: string[][] = [
-//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
-//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
-//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="450" height="200" title="Dashboard" name="contents"></iframe>"'],
-//     ['"<iframe src="http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width="900" height="400" title="Dashboard" name="contents"></iframe>"']
-// ];
+  // iframes: string[][] = [
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"450\" height="200" title="Dashboard" name="contents"></iframe>"'],
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"450\" height="200" title="Dashboard" name="contents"></iframe>"'],
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"450\" height="200" title="Dashboard" name="contents"></iframe>"'],
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"450\" height="200" title="Dashboard" name="contents"></iframe>"'],
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"450\" height="200" title="Dashboard" name="contents"></iframe>"'],
+  //   ['"<iframe src=\"http://localhost:3000/d/edmxttq1jfxtsd/new-dashboard?orgId=1&from=1716763587000&to=1716785187000&viewPanel=1" width=\"900\" height="400" title="Dashboard" name="contents"></iframe>"']
+  // ];
   iframesHtml: SafeHtml[] = [];
   nombres: string[] = []
   iframeString: SafeHtml = '';
   id_experimento: number = 0;
   resultados: boolean = false;
-  // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  // const tooltipList = Array.from(tooltipTriggerList).map(tooltipTriggerEl => {
-  //   new bootstrap.Tooltip(tooltipTriggerEl)
-  // })
-  // users:any[]=[];
-  // constructor(private http: HttpClient) {
 
-  // }
-  
   constructor(private experimentoService: ExperimentoService,
     private router: Router,
     private sanitizer: DomSanitizer
@@ -61,7 +55,7 @@ export class DashboardComponent implements OnInit {
         // Asignar tamaños según el panelId
         let newWidth: string = '500';
         let newHeight: string = '250';
-        console.log('ID Panel',panelID);
+        console.log('ID Panel', panelID);
         if (panelID == '2') {
           newWidth = "900"; // Nuevo ancho para panelId 2
           newHeight = "400";
@@ -73,70 +67,50 @@ export class DashboardComponent implements OnInit {
         let nombre = this.getNameFromIframe(iframe);
         this.nombres.push(nombre);
         // this.nombres = this.nombres.filter((item, index) => this.nombres.indexOf(item) === index);
-        console.log('nombres',this.nombres)
+        console.log('nombres', this.nombres)
       }
     }
 
     console.log('htmls reformados', this.iframesHtml)
     this.experimentoCreado();
   }
+
   experimentoCreado() {
     const data = this.experimentoService.getExperimento();
-    console.log('Experimento', data);
-    // this.showLoading();
-    // this.experimentoService.create(data).subscribe({
-    //   next: (res: any) => {
-    //     console.log('Experimento creado', res);
-        // this.id_experimento = data.id_experimento;
-        this.resultados = true;
-        // Swal.fire({
-        //   title: "Experimento creado",
-        //   text: "El experimento ha sido creado correctamente",
-        //   icon: "success",
-        //   showCancelButton: true,
-        //   confirmButtonColor: "#3085d6",
-        //   cancelButtonColor: "#d33",
-        //   confirmButtonText: "Ir a dashboard",
-        //   cancelButtonText: "Lista de experimentos"
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     this.goToDashboard()
-        //   }else{
-        //     this.router.navigateByUrl(ROUTES_APP.EXPERIMENTO);
-        //   }
-        // });
-    //   }, error: (error: any) => {
-    //     console.error('Error creando el experimento', error);
-    //     // this.hideLoading();
-    //     // Swal.fire('Error', 'Ocurrió un error al crear el experimento', error);
-    //     // this.hideLoading();
-    //   }
-    //   // console.log(despliegue);
-    //   // this.router.navigateByUrl('/despliegues');
-    // });
+    console.log('Experimento dashboard', data);
+    this.id_experimento = data?.id_experimento || 0;
+    this.resultados = true;
   }
 
-  descargarResultados(){
-    console.log('ID_EXPERIMENTO',this.id_experimento);
+  descargarResultados() {
+    console.log('ID_EXPERIMENTO', this.id_experimento);
     this.showLoading();
     this.experimentoService.findFile(this.id_experimento)
-    .subscribe((data: Blob) => {
-      const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Resultados completos'; // Nombre del archivo que recibimos del servidor
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      Swal.fire({
+      .subscribe((data: Blob) => {
+        const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Resultados completos'; // Nombre del archivo que recibimos del servidor
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        Swal.fire({
           title: "Resultados descargados",
           text: "Los resultados del experimento han sido descargados, verificar su carpeta de descargas",
           icon: "success",
         });
-      }
-    );
+      },
+        (error) => {
+          console.error('Error al descargar los resultados del experimento:', error);
+          Swal.fire({
+            title: "Error",
+            text: `Hubo un error al intentar descargar los resultados del experimento:${error.status} ${error.statusText}`,
+            icon: "error",
+          });
+        }
+      );
   }
 
   getPanelIdFromIframe(iframe: string): string {
@@ -148,7 +122,7 @@ export class DashboardComponent implements OnInit {
     let match = iframe.match(/localhost:8080\/d-solo\/([^/]+)\/panelexport/);
     // El primer grupo capturado de la expresión regular es el nombre del servidor
     return match ? match[1] : '';
-}
+  }
   showLoading() {
     Swal.fire({
       title: 'Descargando...',

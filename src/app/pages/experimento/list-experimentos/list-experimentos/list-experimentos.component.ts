@@ -45,6 +45,7 @@ export class ListExperimentosComponent implements OnInit {
 
   descargarResultados(id_experimento:number){
     console.log('ID_EXPERIMENTO',id_experimento);
+    this.showLoading();
     this.experimentoService.findFile(id_experimento)
     .subscribe((data: Blob) => {
       const blob = new Blob([data], { type: 'application/zip' }); // Creamos un nuevo Blob con el tipo de archivo correcto
@@ -56,7 +57,21 @@ export class ListExperimentosComponent implements OnInit {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    });
+      Swal.fire({
+        title: "Resultados descargados",
+        text: "Los resultados del experimento han sido descargados, verificar su carpeta de descargas",
+        icon: "success",
+      });
+    },
+    (error) => {
+      console.error('Error al descargar los resultados del experimento:', error);
+      Swal.fire({
+        title: "Error",
+        text: `Hubo un error al intentar descargar los resultados del experimento:${error.status} ${error.statusText}`,
+        icon: "error",
+      });
+    }
+  );
   }
   eliminarExperimento(id:number): void{
     Swal.fire({
@@ -92,5 +107,18 @@ export class ListExperimentosComponent implements OnInit {
           }});
       }
     });
+  }
+  showLoading() {
+    Swal.fire({
+      title: 'Descargando...',
+      text: 'Por favor espera!',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+  hideLoading() {
+    Swal.close();
   }
 }

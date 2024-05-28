@@ -5,5 +5,6 @@ export interface MetricaInterface {
     descripcion: string;
     formula: string;
     grupo: string;
+    submetricas: string;
     seleccionada: boolean;
 }

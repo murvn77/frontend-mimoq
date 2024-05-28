@@ -1,4 +1,5 @@
 import { DespliegueInterface } from "./despliegue";
+import { MetricaInterface } from "./metrica";
 
 export interface ExperimentoInterface {
     id_experimento: number;
@@ -7,6 +8,7 @@ export interface ExperimentoInterface {
     cant_replicas: number;
     endpoints: string[];
     despliegues: DespliegueInterface[];
+    metricas: MetricaInterface[];
     nombres_archivos: string[];
     carga: number;
 }

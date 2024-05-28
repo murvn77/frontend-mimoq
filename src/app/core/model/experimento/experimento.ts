@@ -8,5 +8,6 @@ export class Experimento {
     public fk_ids_metricas: number[],
     public fk_id_carga: number,
     public iframes?: string[],
+    public id_experimento?: number
   ) { }
 }
