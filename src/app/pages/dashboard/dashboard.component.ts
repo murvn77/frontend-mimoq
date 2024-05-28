@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   // ];
   iframesHtml: SafeHtml[] = [];
   nombres: string[] = []
+  nombre_experimento: string = '';
   iframeString: SafeHtml = '';
   id_experimento: number = 0;
   resultados: boolean = false;
@@ -79,6 +80,7 @@ export class DashboardComponent implements OnInit {
     const data = this.experimentoService.getExperimento();
     console.log('Experimento dashboard', data);
     this.id_experimento = data?.id_experimento || 0;
+    this.nombre_experimento = data?.nombre || '';
     this.resultados = true;
   }
 
@@ -91,7 +93,7 @@ export class DashboardComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'Resultados completos'; // Nombre del archivo que recibimos del servidor
+        a.download = `Resultados-${this.nombre_experimento}`; // Nombre del archivo que recibimos del servidor
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
